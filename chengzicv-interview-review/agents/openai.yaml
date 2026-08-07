@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChengziCV Interview Review"
+  short_description: "将面试录音或逐字稿转成可追溯的证据诊断与完整面经复盘"
+  default_prompt: "使用 $chengzicv-interview-review 复盘这份面试录音或逐字稿。"

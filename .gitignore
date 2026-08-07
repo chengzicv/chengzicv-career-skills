@@ -1,0 +1,17 @@
+# Operating system metadata
+.DS_Store
+._*
+Thumbs.db
+
+# Python caches
+__pycache__/
+*.py[cod]
+
+# Local secrets and candidate materials
+.env
+.env.*
+!.env.example
+candidate-data/
+local-data/
+outputs/
+

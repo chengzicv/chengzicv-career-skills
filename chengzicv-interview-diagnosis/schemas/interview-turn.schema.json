@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["assistant_message", "action", "question_id", "next_question_id"],
+  "additionalProperties": false,
+  "properties": {
+    "assistant_message": {"type": "string", "minLength": 1},
+    "action": {"enum": ["ASK_FOLLOWUP", "NEXT_QUESTION", "FINISH_INTERVIEW", "NEED_RESUME"]},
+    "question_id": {"type": ["string", "null"], "pattern": "^q[1-6]$"},
+    "next_question_id": {"type": ["string", "null"], "pattern": "^q[1-6]$"}
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "version": "v4",
+  "policy": "场景是评分优先级假设，不是企业真实标准；记录选择理由和置信度，不计算伪精确总分",
+  "scenes": [
+    {"id":"state_owned_group","name":"国央企/大型集团","high_priority":["D1","D9","D3","D7"],"focus":"稳定性、组织适配、责任意识、规则感和稳重表达"},
+    {"id":"internet_bigtech","name":"互联网大厂","high_priority":["D2","D6","D3","D4"],"focus":"项目真实性、个人贡献、业务判断、复盘与协作"},
+    {"id":"sme_private","name":"中小企业/日常私企","high_priority":["D1","D3","D9","D2"],"focus":"能否上手、交付、稳定协作以及到岗现实性"},
+    {"id":"ai_screening","name":"企业 AI 初面","high_priority":["D2","D10","D1","D9"],"focus":"回答是否清楚、可提取、贴岗位且有证据"},
+    {"id":"civil_service_public","name":"公务员/事业单位结构化","high_priority":["D6","D5","D7","D8"],"focus":"综合分析、组织计划、人际、应变、规则和表达"}
+  ]
+}

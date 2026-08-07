@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "chengzicv-interview-diagnosis/report",
+  "type": "object",
+  "required": ["schema_version", "primary_scene", "headline_insight", "advance_verdict", "dimension_diagnoses", "strengths", "primary_risks", "evidence_cards", "next_validation_points", "retry_tasks", "disclaimer"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "v4"},
+    "primary_scene": {
+      "type": "object",
+      "required": ["scene_id", "scene_name", "confidence", "selection_reason"],
+      "additionalProperties": false,
+      "properties": {
+        "scene_id": {"enum": ["state_owned_group", "internet_bigtech", "sme_private", "ai_screening", "civil_service_public"]},
+        "scene_name": {"type": "string", "minLength": 1},
+        "confidence": {"enum": ["high", "medium", "low"]},
+        "selection_reason": {"type": "string", "minLength": 1}
+      }
+    },
+    "headline_insight": {"type": "string", "minLength": 10},
+    "advance_verdict": {
+      "type": "object",
+      "required": ["level", "reason", "evidence_refs"],
+      "additionalProperties": false,
+      "properties": {
+        "level": {"enum": ["推进", "待定", "当前不建议推进"]},
+        "reason": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true}
+      }
+    },
+    "dimension_diagnoses": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["dimension_id", "dimension_name", "score", "evidence_sufficiency", "evidence_refs", "enterprise_interpretation", "next_validation_question"],
+        "additionalProperties": false,
+        "properties": {
+          "dimension_id": {"enum": ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"]},
+          "dimension_name": {"type": "string", "minLength": 1},
+          "score": {"type": ["integer", "null"], "minimum": 1, "maximum": 5},
+          "evidence_sufficiency": {"enum": ["sufficient", "partial", "insufficient"]},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "enterprise_interpretation": {"type": "string", "minLength": 1},
+          "next_validation_question": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "strengths": {"type": "array", "minItems": 1, "maxItems": 3, "items": {"$ref": "#/$defs/finding"}},
+    "primary_risks": {"type": "array", "maxItems": 3, "items": {"$ref": "#/$defs/finding"}},
+    "evidence_cards": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["quote_id", "enterprise_interpretation", "better_version"],
+        "additionalProperties": false,
+        "properties": {
+          "quote_id": {"type": "string"},
+          "enterprise_interpretation": {"type": "string", "minLength": 1},
+          "better_version": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "next_validation_points": {"type": "array", "maxItems": 4, "items": {"type": "string", "minLength": 1}},
+    "retry_tasks": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["question", "focus_dimension_id", "estimated_minutes"],
+        "additionalProperties": false,
+        "properties": {
+          "question": {"type": "string", "minLength": 1},
+          "focus_dimension_id": {"enum": ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"]},
+          "estimated_minutes": {"type": "integer", "minimum": 1, "maximum": 5}
+        }
+      }
+    },
+    "disclaimer": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "finding": {
+      "type": "object",
+      "required": ["dimension_id", "title", "evidence_refs", "interpretation", "action"],
+      "additionalProperties": false,
+      "properties": {
+        "dimension_id": {"enum": ["D1", "D2", "D3", "D4", "D5", "D6", "D7", "D8", "D9", "D10"]},
+        "title": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string"}, "uniqueItems": true},
+        "interpretation": {"type": "string", "minLength": 1},
+        "action": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChengziCV Screening Interviewer"
+  short_description: "通过五题模拟面试采集证据并生成可追溯的企业初筛诊断报告"
+  default_prompt: "使用 $chengzicv-interview-diagnosis 根据我的简历开始企业初筛模拟面试。"

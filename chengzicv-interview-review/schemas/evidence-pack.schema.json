@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "chengzicv-interview-diagnosis/evidence-pack",
+  "type": "object",
+  "required": ["schema_version", "session_id", "questions"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "v4"},
+    "session_id": {"type": "string", "minLength": 1},
+    "questions": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": ["question_id", "question_text", "source_message_ids", "quotes", "unresolved_questions", "contradictions"],
+        "additionalProperties": false,
+        "properties": {
+          "question_id": {"type": "string", "pattern": "^q[1-6]$"},
+          "question_text": {"type": "string", "minLength": 1},
+          "source_message_ids": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+          "quotes": {
+            "type": "array",
+            "maxItems": 4,
+            "items": {
+              "type": "object",
+              "required": ["quote_id", "source_message_id", "text", "start_char", "end_char"],
+              "additionalProperties": false,
+              "properties": {
+                "quote_id": {"type": "string", "pattern": "^q[1-6]_e[1-9][0-9]*$"},
+                "source_message_id": {"type": "string", "minLength": 1},
+                "text": {"type": "string", "minLength": 1},
+                "start_char": {"type": "integer", "minimum": 0},
+                "end_char": {"type": "integer", "minimum": 1}
+              }
+            }
+          },
+          "unresolved_questions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "contradictions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["description", "evidence_refs"],
+              "additionalProperties": false,
+              "properties": {
+                "description": {"type": "string", "minLength": 1},
+                "evidence_refs": {"type": "array", "minItems": 2, "items": {"type": "string"}}
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

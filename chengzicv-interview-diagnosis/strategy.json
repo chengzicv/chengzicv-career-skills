@@ -1,0 +1,12 @@
+{
+  "strategy_id": "interview_diagnosis_v4",
+  "required_question_count": 5,
+  "optional_flex_question": 1,
+  "max_followups_per_question": 2,
+  "estimated_minutes": 12,
+  "evidence_generation": "once_after_interview",
+  "visible_dimension_min": 4,
+  "visible_dimension_max": 6,
+  "retry_task_count": 3,
+  "scene_mode_default": "auto"
+}

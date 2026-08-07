@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChengziCV Resume Mentor"
+  short_description: "通过低阻力选择式 STAR 访谈将材料改成具体可信且去 AI 味的简历"
+  default_prompt: "使用 $chengzicv-resume-mentor 根据我的材料优化简历。"

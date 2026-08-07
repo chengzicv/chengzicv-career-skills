@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["runtime_mode", "resume_text", "session_state", "messages"],
+  "additionalProperties": false,
+  "properties": {
+    "runtime_mode": {"const": "product"},
+    "resume_text": {"type": "string", "minLength": 1},
+    "jd_text": {"type": ["string", "null"]},
+    "target_role": {"type": ["string", "null"]},
+    "company_name": {"type": ["string", "null"]},
+    "company_type": {"type": ["string", "null"]},
+    "session_state": {
+      "type": "object",
+      "required": ["session_id", "status", "current_question_id", "followup_count", "completed_question_ids", "skill_version"],
+      "additionalProperties": false,
+      "properties": {
+        "session_id": {"type": "string", "minLength": 1},
+        "status": {"enum": ["not_started", "in_progress", "interview_complete", "report_complete"]},
+        "current_question_id": {"type": ["string", "null"], "pattern": "^q[1-6]$"},
+        "followup_count": {"type": "integer", "minimum": 0, "maximum": 2},
+        "completed_question_ids": {"type": "array", "items": {"type": "string", "pattern": "^q[1-6]$"}, "uniqueItems": true},
+        "onboarding_version_seen": {"type": ["string", "null"]},
+        "skill_version": {"const": "v4"}
+      }
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["message_id", "role", "content"],
+        "additionalProperties": false,
+        "properties": {
+          "message_id": {"type": "string", "minLength": 1},
+          "role": {"enum": ["user", "assistant", "system"]},
+          "content": {"type": "string"}
+        }
+      }
+    }
+  }
+}
