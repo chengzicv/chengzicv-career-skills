@@ -1,4 +1,4 @@
 interface:
   display_name: "ChengziCV Deep-Dive Interviewer"
   short_description: "根据简历和 JD 进行连续追问、深挖项目经历的专项面试训练"
-  default_prompt: "使用 $chengzicv-interview-drill 根据我的简历进行专项面试训练。"
+  default_prompt: "使用 $chengzicv-interview-practice 根据我的简历进行专项面试训练。"

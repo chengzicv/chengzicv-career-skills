@@ -10,9 +10,9 @@
 
 | 你的任务 | 使用的 Skill | 你会得到 |
 | --- | --- | --- |
-| 整理或改写简历与配套材料 | `chengzicv-resume-mentor` | 一版能投的简历；经历证据不够时，再一题题补齐 |
-| 针对项目、岗位知识或业务 Case 连续深挖 | `chengzicv-interview-drill` | 连续追问；问清后再反馈、讲解和复测 |
-| 完成一场五题左右的企业初筛模拟 | `chengzicv-interview-diagnosis` | 一场短模拟、企业视角复盘和针对性复练 |
+| 整理或改写简历与配套材料 | `chengzicv-resume` | 一版能投的简历；经历证据不够时，再一题题补齐 |
+| 针对项目、岗位知识或业务 Case 连续深挖 | `chengzicv-interview-practice` | 连续追问；问清后再反馈、讲解和复测 |
+| 完成一场五题左右的企业初筛模拟 | `chengzicv-interview-mock` | 一场短模拟、企业视角复盘和针对性复练 |
 | 复盘已经发生的真实面试 | `chengzicv-interview-review` | 逐题还原、表现诊断和下一次可以怎么答 |
 
 ## 我现在该选哪个入口？
@@ -27,14 +27,14 @@ graph LR
 
     Start["你手里有什么？"]:::material -->|"简历 / JD / 项目材料"| Goal{"现在最想解决什么？"}:::decision
     Goal -->|"先把材料改到能投"| Resume["简历优化"]:::skill
-    Goal -->|"围绕项目或岗位能力深挖"| Drill["专项面试"]:::skill
-    Goal -->|"模拟 HR / 综合初筛"| Diagnosis["初筛模拟"]:::skill
+    Goal -->|"围绕项目或岗位能力深挖"| Practice["专项面试"]:::skill
+    Goal -->|"模拟 HR / 综合初筛"| Mock["初筛模拟"]:::skill
     Start -->|"面试录音 / 逐字稿"| Review["真实面试复盘"]:::skill
 ```
 
-- 简历优化：`$chengzicv-resume-mentor`
-- 专项面试：`$chengzicv-interview-drill`
-- 初筛模拟：`$chengzicv-interview-diagnosis`
+- 简历优化：`$chengzicv-resume`
+- 专项面试：`$chengzicv-interview-practice`
+- 初筛模拟：`$chengzicv-interview-mock`
 - 真实面试复盘：`$chengzicv-interview-review`
 
 不用按固定顺序走。眼下需要什么，就从哪个入口开始。
@@ -50,11 +50,11 @@ npx -y skills add chengzicv/chengzicv-career-skills -g --all
 安装后，可以这样开始：
 
 ```text
-用 $chengzicv-resume-mentor 看这份简历和 JD。先给我一版能投的，再告诉我哪段经历最值得补证据。
+用 $chengzicv-resume 看这份简历和 JD。先给我一版能投的，再告诉我哪段经历最值得补证据。
 
-用 $chengzicv-interview-drill 根据我的简历直接开始专项面试。先考后教，一次只问一个问题。
+用 $chengzicv-interview-practice 根据我的简历直接开始专项面试。先考后教，一次只问一个问题。
 
-用 $chengzicv-interview-diagnosis 根据我的简历开始一场企业初筛模拟。
+用 $chengzicv-interview-mock 根据我的简历开始一场企业初筛模拟。
 
 用 $chengzicv-interview-review 复盘这份面试逐字稿。先告诉我表现，再把问题和回答逐题整理出来。
 ```
@@ -87,9 +87,9 @@ npx -y skills add chengzicv/chengzicv-career-skills -g --all
 
 ```text
 .
-├── chengzicv-resume-mentor/
-├── chengzicv-interview-drill/
-├── chengzicv-interview-diagnosis/
+├── chengzicv-resume/
+├── chengzicv-interview-practice/
+├── chengzicv-interview-mock/
 ├── chengzicv-interview-review/
 └── README.md
 ```

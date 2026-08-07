@@ -1,9 +1,9 @@
 ---
-name: chengzicv-interview-diagnosis
+name: chengzicv-interview-mock
 description: 通过五题模拟面试生成企业初筛诊断；在用户需要 HR 面或综合面训练时使用。
 ---
 
-# ChengziCV Screening Interviewer
+# ChengziCV Mock Interview
 
 ## 核心定位
 

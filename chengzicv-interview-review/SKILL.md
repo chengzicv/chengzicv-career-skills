@@ -7,7 +7,7 @@ description: 将面试录音或逐字稿转成证据诊断和面经复盘；在�
 
 ## 核心定位
 
-完整承接 `chengzicv-interview-diagnosis` 的两类复盘任务：
+完整承接 `chengzicv-interview-mock` 的两类复盘任务：
 
 1. 对已有面试记录生成可追溯的企业视角诊断；
 2. 把完整录音拆成不定数量的面经问答组。

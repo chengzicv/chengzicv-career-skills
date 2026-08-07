@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "chengzicv-interview-diagnosis/evidence-pack",
+  "$id": "chengzicv-interview-mock/evidence-pack",
   "type": "object",
   "required": ["schema_version", "session_id", "questions"],
   "additionalProperties": false,

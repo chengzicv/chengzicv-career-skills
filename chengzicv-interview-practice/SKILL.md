@@ -1,9 +1,9 @@
 ---
-name: chengzicv-interview-drill
+name: chengzicv-interview-practice
 description: 根据简历和 JD 进行连续深挖的专项面试训练；在用户需要项目或岗位能力面试时使用。
 ---
 
-# ChengziCV Deep-Dive Interviewer
+# ChengziCV Interview Practice
 
 ## 核心职责
 
