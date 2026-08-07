@@ -100,9 +100,9 @@ https://github.com/chengzicv/chengzicv-career-skills
 
 1. **Claude Code**：选当前最新的 Claude Opus 或 Sonnet，打开 Thinking，强度选 `High` 或 `Max`。
 2. **Codex**：选当前最新的 GPT 模型，推理强度选 `High` 或 `Max`。
-3. **国内客户端**：选 DeepSeek、Kimi 或 Qwen 的最新大模型，比如 DeepSeek V4 Pro、Kimi K3、Qwen Max，并打开 Thinking 或最高思考强度。
+3. **国内客户端**：优先选 Qwen Max 或 DeepSeek Pro 的最新版本，并打开 Thinking 或最高思考强度。Kimi K3 放在其次；按我们的实际测试，Kimi 偶尔会补出材料里没有的事实，用完要多核对一次数字、结果和个人贡献。
 
-其他组合先不推荐。普通聊天模式如果不能完整安装 Skill、读取仓库里的配套文件，就算模型名字一样，也可能只执行了最外面那几句话。
+目前不推荐豆包、元宝等模型或普通聊天入口。它们如果不能完整安装 Skill、读取仓库里的配套文件，就算模型名字一样，也可能只执行了最外面那几句话。
 
 ## 它会不会替我编经历？
 
