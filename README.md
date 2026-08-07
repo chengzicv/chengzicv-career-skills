@@ -4,6 +4,34 @@
 
 每个 Skill 都可以单独使用。把手头的简历、JD、项目材料或面试记录交给对应入口，就能直接开始。
 
+## 为什么做这套 Skills？
+
+很多求职工具拿到简历就开始润色。句子是好看了，但里面哪些是你真做过的、数字怎么算的、面试官继续追问时怎么解释，往往没人管。
+
+这套 Skills 的做法慢一点，也实在一点：先看你手里的材料，再看目标岗位会关心什么。简历能先改就先改，缺信息时一次只问一件事；面试先让你自己答，答完再追问、讲解和复测；复盘时尽量回到你的原话，不凭感觉下结论。
+
+不知道可以说不知道，记不清可以跳过。它不会把参考案例里的数字塞进你的简历，也不会因为某项能力没问到，就直接说你不行。
+
+## 它是怎么做的？
+
+说白了，就是下面几步：
+
+```mermaid
+graph LR
+    classDef input fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
+    classDef process fill:#fff9c4,stroke:#f9a825,stroke-width:2px,color:#000;
+    classDef output fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
+
+    Material["拿出简历、JD 或面试记录"]:::input --> Fact["①：分清做过什么、哪里没说清"]:::process
+    Fact --> Target["②：找到最值得改或追问的地方"]:::process
+    Target --> Action["③：一次只处理一件事"]:::process
+    Action --> Result["④：改写、讲解或复盘"]:::output
+    Result --> Retest["⑤：换个问法再试一次"]:::output
+    Retest -.->|"有了新信息"| Fact
+```
+
+不是套一遍固定话术就结束。哪里没说清，就继续问哪里；学过的内容，再换个问法看看是不是真的会了。
+
 ## 这套 Skills 能帮你完成什么？
 
 四个入口各做一件事：
@@ -39,15 +67,22 @@ graph LR
 
 不用按固定顺序走。眼下需要什么，就从哪个入口开始。
 
-## 快速开始
+## 怎么安装？
 
-在支持 Agent Skills 的工具中运行：
+把下面这段话发给你正在使用的 AI Agent：
 
-```bash
-npx -y skills add chengzicv/chengzicv-career-skills -g --all
+```text
+帮我把这个仓库里的 4 个 Skills 安装到当前客户端：
+https://github.com/chengzicv/chengzicv-career-skills
+
+请全局安装。能用 skills CLI 就直接用；装好后检查 4 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
 ```
 
-安装后，可以这样开始：
+安装完成后重启客户端，再用 `$chengzicv-...` 调用。
+
+## 安装后怎么开始？
+
+不需要背复杂指令，交材料并说清当前目标即可：
 
 ```text
 用 $chengzicv-resume 看这份简历和 JD。先给我一版能投的，再告诉我哪段经历最值得补证据。
@@ -58,6 +93,16 @@ npx -y skills add chengzicv/chengzicv-career-skills -g --all
 
 用 $chengzicv-interview-review 复盘这份面试逐字稿。先告诉我表现，再把问题和回答逐题整理出来。
 ```
+
+## 推荐什么客户端和模型？
+
+这套 Skills 比较吃模型。只推荐三种用法：
+
+1. **Claude Code**：选当前最新的 Claude Opus 或 Sonnet，打开 Thinking，强度选 `High` 或 `Max`。
+2. **Codex**：选当前最新的 GPT 模型，推理强度选 `High` 或 `Max`。
+3. **国内客户端**：优先选 Qwen Max 或 DeepSeek Pro 的最新版本，并打开 Thinking 或最高思考强度。Kimi K3 放在其次；按我们的实际测试，Kimi 偶尔会补出材料里没有的事实，用完要多核对一次数字、结果和个人贡献。
+
+目前不推荐豆包、元宝等模型或普通聊天入口。它们如果不能完整安装 Skill、读取仓库里的配套文件，就算模型名字一样，也可能只执行了最外面那几句话。
 
 ## 它会不会替我编经历？
 
