@@ -85,26 +85,19 @@ graph LR
 
 ## 怎么安装？
 
-需要 Node.js 18 或更高版本。最简单的方式是用 [`skills` CLI](https://www.skills.sh/docs/cli) 一次安装四个 Skill：
+把下面这段话直接发给你正在使用的 AI Agent：
 
-```bash
-npx -y skills add chengzicv/chengzicv-career-skills -g --all
+```text
+请帮我安装这个仓库里的全部 Skills：
+https://github.com/chengzicv/chengzicv-career-skills
+
+请安装到当前客户端的全局 Skills 目录。优先使用 skills CLI，并自动识别当前客户端：
+npx -y skills add chengzicv/chengzicv-career-skills --skill '*' -g -a <当前客户端>
+
+安装后请确认 4 个 Skill 都能被识别，并告诉我如何调用它们。如果你不能直接执行命令，请给我适合当前客户端的准确安装步骤。
 ```
 
-只安装到一个客户端时，可以指定目标：
-
-```bash
-# Codex
-npx -y skills add chengzicv/chengzicv-career-skills --skill '*' -g -a codex
-
-# Claude Code
-npx -y skills add chengzicv/chengzicv-career-skills --skill '*' -g -a claude-code
-
-# WorkBuddy / CodeBuddy
-npx -y skills add chengzicv/chengzicv-career-skills --skill '*' -g -a codebuddy
-```
-
-安装完成后重启对应客户端，再用 `$chengzicv-...` 调用。如果客户端能自动识别 Skill，也可以直接说“用 ChengziCV 帮我改简历”或“根据这份简历开始专项面试”。
+安装完成后重启客户端，再用 `$chengzicv-...` 调用。
 
 ## 安装后怎么开始？
 
@@ -122,43 +115,15 @@ npx -y skills add chengzicv/chengzicv-career-skills --skill '*' -g -a codebuddy
 
 ## 推荐什么客户端和模型？
 
-**默认首选 Codex + GPT‑5.6 Sol High，或 Claude Code + Claude Sonnet 4.6。** 这类任务需要稳定读取多份材料、遵循长工作流、持续调用 Skill 引用文件，并在多轮对话中保持证据边界，客户端的 Agent 能力和模型本身同样重要。
+只推荐下面三种选择，并尽量使用高强度推理：
 
-以下是截至 **2026-08-07** 的建议；模型更新很快，请优先选择同系列中当前可用的更新型号。
+| 选择 | 推荐组合 | 设置 |
+| --- | --- | --- |
+| 1 | Claude Code + 当前最新的 Claude Opus 或 Sonnet | 开启 Thinking，选择 `High` 或 `Max` |
+| 2 | Codex + 当前最新的 GPT 旗舰模型 | 选择 `High` 或 `Max` 推理强度 |
+| 3 | 国内 Agent 客户端 + DeepSeek、Kimi 或 Qwen 的最新旗舰模型，例如 DeepSeek V4 Pro、Kimi K3、Qwen Max | 开启 Thinking，选择 `High`、`Max` 或最高思考强度 |
 
-| 推荐级别 | 客户端与模型 | 建议设置 | 适合什么情况 |
-| --- | --- | --- | --- |
-| 首选 | Codex + [GPT‑5.6 Sol](https://help.openai.com/en/articles/20001354-gpt-56-in-chatgpt/) | `High` | 多份简历材料、长面试记录、专项深挖和完整交付；质量与速度比较均衡 |
-| 首选 | Claude Code + [Claude Sonnet 4.6](https://www.anthropic.com/news/claude-sonnet-4-6) 或当前更强型号 | 开启思考 | 长上下文、连续追问和自然中文表达；Sonnet 4.6 是推荐起点 |
-| 高质量 | Claude Code + [Claude Opus 4.7](https://www.anthropic.com/claude/opus) | 开启思考 | 材料特别复杂、要求更高的判断和长程执行；通常更慢、成本更高 |
-| 平衡型 | Codex + [GPT‑5.6 Terra](https://openai.com/index/gpt-5-6/) | `High` | 希望保留 Codex 的文件与工具能力，同时降低等待时间或成本 |
-| 性价比 | WorkBuddy + [DeepSeek V4 Flash](https://api-docs.deepseek.com/news/news260424/) | Thinking，`High` | 文字版简历、常规面试练习和日常迭代；速度快、成本低 |
-| 性价比增强 | WorkBuddy + DeepSeek V4 Pro | Thinking，复杂任务用 `Max` | Flash 容易漏掉长材料细节，或需要更稳的推理时 |
-
-[WorkBuddy 支持安装 Skills](https://www.workbuddy.ai/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Skills-Market) 和[配置自定义模型](https://www.workbuddy.ai/docs/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/Model)。DeepSeek V4 Flash 和 V4 Pro 官方均支持工具调用与长上下文；但 [DeepSeek 官方 WorkBuddy 接入示例](https://api-docs.deepseek.com/quick_start/agent_integrations/workbuddy/)将它们标记为不支持图片输入，因此处理截图、作品集、复杂 PDF 或视频时，优先使用具备多模态和文件工具的客户端，或者先把材料转成可靠文本。
-
-### 怎么选最省心？
-
-- 不想折腾：选 **Codex + GPT‑5.6 Sol High**。
-- 已经在用 Claude Code：选 **Sonnet 4.6**；非常复杂的材料再换 Opus。
-- 在意成本：选 **WorkBuddy + DeepSeek V4 Flash Thinking**；出现漏读、浅尝辄止或不按流程时换 V4 Pro。
-- 简历只是小改：Terra 或 V4 Flash 通常够用。
-- 要做专项深挖、长录音复盘或多文件作品集：优先 Sol High、Sonnet 4.6 或更强模型。
-- 不要为了追求速度关闭思考模式；这套 Skills 的价值主要来自证据核验和多步判断。
-
-## 哪些使用方式不推荐？
-
-**不推荐把普通聊天窗口当成完整的 Agent Skill 运行环境。** 例如只把 `SKILL.md` 粘贴到元宝普通聊天模式，再期待它自动读取同目录的引用、脚本和规则，通常无法保证完整执行。
-
-这不是说元宝或其他通用聊天产品不能回答求职问题，而是它们的普通聊天入口未必同时具备以下条件：
-
-- 能安装并识别整个 Skill 目录，而不只是读取一段提示词；
-- 能按需读取 `references/`、`schemas/` 和其他配套文件；
-- 能稳定处理本地简历、JD、逐字稿、截图和多轮状态；
-- 能调用脚本、文件工具或网页搜索核验结果；
-- 能在长对话中持续遵守“一次一问、证据优先、先考后教”等行为约束。
-
-判断一个客户端是否适合，不看它宣传的模型名字，而看它能否完整加载 Skill、访问所需材料、调用工具并保持多轮工作流。只想临时问一个问题时，普通聊天当然可以；要跑完整简历优化或面试训练，优先使用 Codex、Claude Code 或 WorkBuddy 这类 Agent 客户端。
+其他客户端与模型组合暂不推荐。尤其不建议使用不支持完整安装 Skills、读取配套文件和持续执行多轮工作流的普通聊天模式。
 
 ## 它会不会替我编经历？
 
