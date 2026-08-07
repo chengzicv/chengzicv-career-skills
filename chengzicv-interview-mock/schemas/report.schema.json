@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "chengzicv-interview-diagnosis/report",
+  "$id": "chengzicv-interview-mock/report",
   "type": "object",
   "required": ["schema_version", "primary_scene", "headline_insight", "advance_verdict", "dimension_diagnoses", "strengths", "primary_risks", "evidence_cards", "next_validation_points", "retry_tasks", "disclaimer"],
   "additionalProperties": false,

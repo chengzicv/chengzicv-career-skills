@@ -1,9 +1,9 @@
 ---
-name: chengzicv-resume-mentor
+name: chengzicv-resume
 description: 通过选择式 STAR 访谈将材料改成具体可信的简历，并在用户提供项目截图、PPT、视频等材料时同步生成面试准备手册与可直接外发的图文作品集；在用户需要写或优化简历、成套求职材料时使用。
 ---
 
-# ChengziCV Resume Mentor
+# ChengziCV Resume
 
 把用户已有材料先整理成可投递快稿，再用固定进度、一次一题、带同岗位案例的选择式访谈补出具体数据、难点、动作和结果。目标是让多数用户只回复字母也能完成经历补强。
 
