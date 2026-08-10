@@ -1,14 +1,22 @@
-# ChengziCV Career Skills
-
-> 1 个求职导航入口与 6 个面向中文求职场景的 Agent Skills：零材料求职建档、职业方向、简历与作品集、专项面试、初筛模拟、真实面试复盘。
-
 <div align="center">
 
-[免费优化简历（无广告、无水印）→](https://chengzicv.com)
+# 橙子简历
+
+### 不只改简历，陪你把找工作这件事做对。
+
+[![访问官网](https://img.shields.io/badge/%E5%AE%98%E7%BD%91-chengzicv.com-F47B20?style=flat-square&logo=googlechrome&logoColor=white)](https://chengzicv.com)
+[![Career Skills](https://img.shields.io/badge/ChengziCV-Career%20Skills-F47B20?style=flat-square&logo=github&logoColor=white)](https://github.com/chengzicv/chengzicv-career-skills)
+[![License](https://img.shields.io/github/license/chengzicv/chengzicv-career-skills?style=flat-square&label=License)](https://github.com/chengzicv/chengzicv-career-skills/blob/main/LICENSE)
+
+[免费优化简历（无广告、无水印）→](https://chengzicv.com) · [查看开源修改方法论 →](https://github.com/chengzicv/chengzicv-career-skills)
 
 <sub>20+ 次迭代 · 500+ 份简历修改 · 100+ Offer</sub>
 
 </div>
+
+# ChengziCV Career Skills
+
+> 1 个求职导航入口与 6 个面向中文求职场景的 Agent Skills：零材料求职建档、职业方向、简历与作品集、专项面试、初筛模拟、真实面试复盘。
 
 每个 Skill 都可以单独使用。没有简历时可以先从背景、大作业、PPT、奖状和证书开始建档；已经有简历、JD、项目材料或面试记录时，交给对应入口就能直接开始。
 
@@ -123,7 +131,7 @@ https://github.com/chengzicv/chengzicv-career-skills
 
 1. **Claude Code**：选当前最新的 Claude Opus 或 Sonnet，打开 Thinking，强度选 `High` 或 `Max`。
 2. **Codex**：选当前最新的 GPT 模型，推理强度选 `High` 或 `Max`。
-3. **国内客户端**：优先选 Qwen Max 或 DeepSeek Pro 的最新版本，并打开 Thinking 或最高思考强度。Kimi K3 放在其次；按我们的实际测试，Kimi 偶尔会补出材料里没有的事实，用完要多核对一次数字、结果和个人贡献。
+3. **国内客户端**：优先使用 [WorkBuddy](https://www.workbuddy.cn/)，模型选择 DeepSeek（DS）、Qwen（通义千问）或 GLM（智谱）当前可用的最新旗舰版本，并打开 Thinking、深度思考或最高思考强度。Kimi K3 放在其次；按我们的实际测试，Kimi 偶尔会补出材料里没有的事实，用完记得多核对一下关键事实。
 
 目前不推荐豆包、元宝等模型或普通聊天入口。它们如果不能完整安装 Skill、读取仓库里的配套文件，就算模型名字一样，也可能只执行了最外面那几句话。
 
