@@ -2,11 +2,12 @@
 
 ## 结论
 
-用户运行包由 `chengzicv` 总入口和五个执行 Skill 组成。ChengziCV 之间可以路由；执行方法不依赖本机其他 Skill。
+用户运行包由 `chengzicv` 总入口和六个执行 Skill 组成。ChengziCV 之间可以路由；执行方法不依赖本机其他 Skill。
 
 | Skill | 套件内关系 | 外部运行条件 | 无条件时的回退 |
 | --- | --- | --- | --- |
-| `chengzicv` | 路由到五个子 Skill | 无 | 目标成员缺失时说明缺少哪个安装包 |
+| `chengzicv` | 路由到六个执行 Skill | 无 | 目标成员缺失时说明缺少哪个安装包 |
+| `chengzicv-profile` | 可交接到职业、简历或面试入口 | 文件持久化取决于宿主能力和用户授权 | 普通聊天交付可复制档案快照，不承诺跨会话自动记忆 |
 | `chengzicv-career` | 可交接到简历或面试入口 | 时效性事实需要联网 | 请求用户提供 JD 或材料，并降低结论范围 |
 | `chengzicv-resume` | 可交接到职业与面试入口 | 飞书自动发布可用官方 `lark-cli` | 先交付本地 Markdown 与素材目录，提供网页导入路径 |
 | `chengzicv-interview-mock` | 可交接到专项、简历或复盘 | Python 仅在运行确定性校验脚本时需要 | 校验器只使用 Python 标准库，无第三方包 |
@@ -19,6 +20,7 @@
 - 职业规划不再点名或调用非 ChengziCV 的 Offer Skill。
 - 面试模拟与复盘校验脚本不再要求额外安装 `jsonschema`。
 - 产品 Skill 中的 Evals 已移到本开发仓库，不进入普通运行时路由。
+- 零材料建档的模板与隐私规则已内聚在 `chengzicv-profile`，不依赖作者本机示范简历或 FlowUs 页面。
 
 ## 飞书的特殊性
 

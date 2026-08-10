@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChengziCV Candidate Profile"
+  short_description: "从零建立可持续补充的求职档案，并整理材料、缺口与下一步"
+  default_prompt: "使用 $chengzicv-profile 从零建立我的求职档案，并按现有材料直接开始。"

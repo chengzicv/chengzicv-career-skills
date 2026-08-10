@@ -1,6 +1,6 @@
 ---
 name: chengzicv-resume
-description: 通过选择式 STAR 访谈将材料改成具体可信的简历，并在用户提供项目截图、PPT、视频等材料时同步生成面试准备手册与可直接外发的图文作品集；在用户需要写或优化简历、成套求职材料时使用。
+description: 在用户要直接写、改或针对 JD 产出简历时，通过选择式 STAR 访谈将现有事实改成具体可信的岗位版材料；提供项目截图、PPT、视频等材料时可同步生成面试准备手册与可外发图文作品集。没有现成简历但明确要产出简历时仍可使用；若用户只想先收集零散背景、长期维护求职档案或拿快速填空底稿，转 `chengzicv-profile`，不要与建档混用。
 ---
 
 # ChengziCV Resume
@@ -9,12 +9,15 @@ description: 通过选择式 STAR 访谈将材料改成具体可信的简历，�
 
 ## 首次使用介绍与回复契约
 
-把当前可见对话中第一次触发本 Skill 视为首次使用。首次可见回复必须先读取 `onboarding/core-introduction.md`，逐字输出其中“锁定正文”的全部内容，保留 Markdown 标记、编号、缩进和分隔线；不要在正文前添加标题、材料确认或其他铺垫。
+套件路由例外：若当前可见对话已经由 `chengzicv` 总入口输出完整公共介绍，且用户没有直接调用 `$chengzicv-resume`，把总入口介绍视为本次套件级 onboarding；不要再输出本 Skill 的公共介绍，直接按现有材料开始改写或提出唯一关键问题。用户直接调用本 Skill 时仍执行下面的完整介绍契约。
+
+其他场景把当前可见对话中第一次触发本 Skill 视为首次使用。首次可见回复必须先读取 `onboarding/core-introduction.md`，逐字输出其中“锁定正文”的全部内容，保留 Markdown 标记、编号、缩进和分隔线；不要在正文前添加标题、材料确认或其他铺垫。
 
 - 已有简历、JD 或其他材料：锁定正文后立即按现有材料建立事实台账并开始实际产出，不要求用户重新概述，也不先进行长访谈。
 - 只要求优化局部内容：锁定正文后直接处理该段，必要时只追问一个会改变改写结果的事实。
 - 没有材料：只输出锁定正文并等待用户提供；正文末尾已经包含材料入口，不重复索取。
 - 用户说“没有经历”：锁定正文后读取 `references/low-resistance-onboarding.md` 的经历雷达并进入一次一题，不要求自由列举人生经历。
+- 用户没有简历且只想先收集背景、维护档案、随时暂停或拿填空底稿：说明当前任务属于 `chengzicv-profile`，不要在本 Skill 中启动长期建档。
 - 即使用户说“直接改”，本次对话首次触发时也不省略；后续回复不重复。
 - 产品 Runtime 只有在可靠注入当前版本的 `onboarding_version_seen` 时，才可对已读用户省略完整正文；Skill 自己不得猜测跨会话状态。
 
@@ -134,4 +137,4 @@ E. 我愿意补充一句
 
 ## 套件内下一步
 
-材料已能投递后，根据用户最近轮次只推荐一个入口：HR 或综合初筛用 `chengzicv-interview-mock`；项目、技术或业务深挖用 `chengzicv-interview-practice`；已有真实面试记录用 `chengzicv-interview-review`。目标仍不确定时回到 `chengzicv-career`；拿不准时使用 `chengzicv` 总入口。
+用户当前只需要持续收集背景与材料时转 `chengzicv-profile`。材料已能投递后，根据用户最近轮次只推荐一个入口：HR 或综合初筛用 `chengzicv-interview-mock`；项目、技术或业务深挖用 `chengzicv-interview-practice`；已有真实面试记录用 `chengzicv-interview-review`。目标仍不确定时回到 `chengzicv-career`；拿不准时使用 `chengzicv` 总入口。

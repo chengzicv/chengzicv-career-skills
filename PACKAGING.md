@@ -8,7 +8,7 @@
 - 首次使用的 `onboarding/`；
 - 按条件读取的 `references/`；
 - 确定性校验所需的 `scripts/`、`schemas/`、`runtime/`、`scorecards/` 与 `prompts/`；
-- 实际产物需要复制的 Assets（当前没有则不创建）。
+- 实际产物需要复制的 Assets；`chengzicv-profile` 分发候选人档案与零材料简历两份 Markdown 模板。
 
 ## 开发仓库
 

@@ -1,14 +1,14 @@
 # ChengziCV Career Skills
 
-> 1 个求职导航入口与 5 个面向中文求职场景的 Agent Skills：职业方向、简历与作品集、专项面试、初筛模拟、真实面试复盘。
+> 1 个求职导航入口与 6 个面向中文求职场景的 Agent Skills：零材料求职建档、职业方向、简历与作品集、专项面试、初筛模拟、真实面试复盘。
 
-每个 Skill 都可以单独使用。把手头的简历、JD、项目材料或面试记录交给对应入口，就能直接开始。
+每个 Skill 都可以单独使用。没有简历时可以先从背景、大作业、PPT、奖状和证书开始建档；已经有简历、JD、项目材料或面试记录时，交给对应入口就能直接开始。
 
 ## 为什么做这套 Skills？
 
 很多求职工具拿到简历就开始润色。句子是好看了，但里面哪些是你真做过的、数字怎么算的、面试官继续追问时怎么解释，往往没人管。
 
-这套 Skills 的做法慢一点，也实在一点：先看你手里的材料，再看目标岗位会关心什么。简历能先改就先改，缺信息时一次只问一件事；面试先让你自己答，答完再追问、讲解和复测；复盘时尽量回到你的原话，不凭感觉下结论。
+这套 Skills 的做法慢一点，也实在一点：没有简历时先把零散背景和材料整理成可继续补充的求职档案；有材料时先看真实做过什么，再看目标岗位会关心什么。简历能先改就先改，缺信息时一次只问一件事；面试先让你自己答，答完再追问、讲解和复测；复盘时尽量回到你的原话，不凭感觉下结论。
 
 不知道可以说不知道，记不清可以跳过。它不会把参考案例里的数字塞进你的简历，也不会因为某项能力没问到，就直接说你不行。
 
@@ -22,7 +22,7 @@ graph LR
     classDef process fill:#fff9c4,stroke:#f9a825,stroke-width:2px,color:#000;
     classDef output fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
 
-    Material["拿出简历、JD 或面试记录"]:::input --> Fact["①：分清做过什么、哪里没说清"]:::process
+    Material["拿出背景、材料、JD 或面试记录"]:::input --> Fact["①：分清做过什么、哪里没说清"]:::process
     Fact --> Target["②：找到最值得改或追问的地方"]:::process
     Target --> Action["③：一次只处理一件事"]:::process
     Action --> Result["④：改写、讲解或复盘"]:::output
@@ -34,11 +34,12 @@ graph LR
 
 ## 这套 Skills 能帮你完成什么？
 
-总入口负责判断先做什么，五个执行入口各做一件事：
+总入口负责判断先做什么，六个执行入口各做一件事：
 
 | 你的任务 | 使用的 Skill | 你会得到 |
 | --- | --- | --- |
 | 不知道该从哪一步开始，或希望按完整链路推进 | `chengzicv` | 根据材料和期限选择当前入口，并直接开始 |
+| 没有简历、材料零散，想先把背景和经历建档 | `chengzicv-profile` | 可持续补充的档案快照、材料索引、待确认项和下一步 |
 | 处理职业方向、岗位取舍、转行与现实入口 | `chengzicv-career` | 当前决定、少量方向假设和第一轮现实验证 |
 | 整理或改写简历与配套材料 | `chengzicv-resume` | 一版能投的简历；经历证据不够时，再一题题补齐 |
 | 针对项目、岗位知识或业务 Case 连续深挖 | `chengzicv-interview-practice` | 连续追问；问清后再反馈、讲解和复测 |
@@ -55,31 +56,35 @@ graph LR
     classDef decision fill:#fff,stroke:#757575,stroke-width:2px,color:#000;
     classDef skill fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
 
-    Start["你手里有什么？"]:::material -->|"简历 / JD / 项目材料"| Goal{"现在最想解决什么？"}:::decision
+    Start["你手里有什么？"]:::material -->|"什么都没有 / 零散背景材料"| Profile["零材料求职建档"]:::skill
+    Start -->|"简历 / JD / 项目材料"| Goal{"现在最想解决什么？"}:::decision
     Goal -->|"先把材料改到能投"| Resume["简历优化"]:::skill
     Goal -->|"围绕项目或岗位能力深挖"| Practice["专项面试"]:::skill
     Goal -->|"模拟 HR / 综合初筛"| Mock["初筛模拟"]:::skill
     Start -->|"面试录音 / 逐字稿"| Review["真实面试复盘"]:::skill
+    Profile -->|"方向未定"| Career["职业规划"]:::skill
+    Profile -->|"目标明确"| Resume
 ```
 
 - 求职总入口：`$chengzicv`
+- 零材料求职建档：`$chengzicv-profile`
 - 职业规划：`$chengzicv-career`
 - 简历优化：`$chengzicv-resume`
 - 专项面试：`$chengzicv-interview-practice`
 - 初筛模拟：`$chengzicv-interview-mock`
 - 真实面试复盘：`$chengzicv-interview-review`
 
-不用按固定顺序走。眼下需要什么，就从哪个入口开始。
+推荐主线是“零材料建档（可选）→ 职业方向（方向不清时）→ 简历与作品集 → 初筛或专项训练 → 真实面试复盘 → 按反馈回补”。不用按固定顺序走，眼下需要什么就从哪个入口开始。
 
 ## 怎么安装？
 
 把下面这段话发给你正在使用的 AI Agent：
 
 ```text
-帮我把这个仓库里的 6 个 Skills 安装到当前客户端：
+帮我把这个仓库里的 7 个 Skills 安装到当前客户端：
 https://github.com/chengzicv/chengzicv-career-skills
 
-请全局安装。能用 skills CLI 就直接用；装好后检查 6 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
+请全局安装。能用 skills CLI 就直接用；装好后检查 7 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
 ```
 
 安装完成后重启客户端，再用 `$chengzicv-...` 调用。
@@ -90,6 +95,8 @@ https://github.com/chengzicv/chengzicv-career-skills
 
 ```text
 用 $chengzicv 判断我现在最该先解决哪一个求职问题，并直接带我开始。
+
+用 $chengzicv-profile 从零建立我的求职档案。可以先读取我上传的大作业、PPT、奖状和证书；我说暂停时，给我一份当前档案快照。
 
 用 $chengzicv-career 帮我把当前职业困惑拆成可验证方向，并给出下一步现实验证。
 
@@ -123,7 +130,7 @@ https://github.com/chengzicv/chengzicv-career-skills
 
 ## 隐私数据会保存到哪里？
 
-这些 Skill 不包含真实候选人数据，也不会自行把材料保存到本地。普通聊天只使用当前对话里能看到的内容；如果接入其他产品，数据怎么保存由对应产品决定。
+这些 Skill 不包含真实候选人数据，也不会把材料写进 Skill 源码、示例或公开仓库。普通聊天只使用当前对话里能看到的内容；建档时可以随时导出一份可复制快照，但不能在没有 Runtime 或用户明确保存的情况下承诺跨会话记忆。如果接入其他产品，数据怎么保存由对应产品决定。
 
 求职材料通常包含姓名、电话、邮箱、教育经历和工作记录。使用前请确认所用平台的数据政策，不要把未脱敏的候选人材料提交到不受信任的服务，也不要把真实面试记录直接提交到公开 issue、公开日志或示例文件中。
 
@@ -141,6 +148,7 @@ https://github.com/chengzicv/chengzicv-career-skills
 ```text
 .
 ├── chengzicv/
+├── chengzicv-profile/
 ├── chengzicv-career/
 ├── chengzicv-resume/
 ├── chengzicv-interview-practice/
