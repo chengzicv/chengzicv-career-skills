@@ -95,4 +95,3 @@ def validate_schema(value: Any, schema: dict[str, Any], path: str = "$", root: d
             raise SchemaValidationError(f"{path}: number is below minimum")
         if "maximum" in schema and value > schema["maximum"]:
             raise SchemaValidationError(f"{path}: number is above maximum")
-
