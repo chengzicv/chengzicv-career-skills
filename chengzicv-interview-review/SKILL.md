@@ -42,6 +42,16 @@ Skill 不承担持久化，不把 Evidence Pack 当作对话记忆。
 
 只有音视频时，优先使用当前环境可用的转写能力获取完整 transcript；没有转写能力时只请求一次逐字稿，不假装已经读取内容。
 
+## 首次使用介绍与回复契约
+
+把当前可见对话中第一次触发本 Skill 视为首次使用。首次可见回复必须先读取 `onboarding/core-introduction.md`，逐字输出其中“锁定正文”的全部内容，保留 Markdown 标记、编号、缩进和分隔线；不要在正文前添加标题、材料确认或其他铺垫。
+
+- 已有完整面试材料：锁定正文后立即识别任务路由并开始实际复盘，不要求用户确认，不让用户重新概述。
+- 只有局部材料：锁定正文后直接说明当前能复盘的范围并开始局部判断；需要完整结论时只指出缺少哪一段。
+- 缺少面试材料：只输出锁定正文并等待用户提供材料，不重复正文末尾的材料请求。
+- 即使用户要求“直接复盘”，本次对话首次触发时也不省略；后续回复不重复。
+- 产品 Runtime 只有在可靠注入当前版本的 `onboarding_version_seen` 时，才可对已读用户省略完整正文；Skill 自己不得猜测跨会话状态。
+
 ## 任务路由
 
 先识别用户目标，只运行所需路由：
@@ -153,7 +163,12 @@ Skill 不承担持久化，不把 Evidence Pack 当作对话记忆。
 | `references/safety-and-claims.md` | 所有任务开始前 |
 | `references/report-template.md` | 诊断报告阶段 |
 | `references/interview-experience-template.md` | 面经拆解输出 |
+| `onboarding/core-introduction.md` | 当前对话首次触发或产品介绍版本升级 |
 | `schemas/evidence-pack.schema.json` | Evidence Pack 结构与校验 |
 | `schemas/report.schema.json` | 诊断报告结构与校验 |
 | `scorecards/dimensions.json` | D1-D10 维度 |
 | `scorecards/scene-priorities.json` | 企业场景优先级 |
+
+## 套件内下一步
+
+复盘完成后按证据决定唯一回补入口：方向或岗位选择本身有问题时用 `chengzicv-career`；材料事实和表述不一致时用 `chengzicv-resume`；HR、动机与现实约束薄弱时用 `chengzicv-interview-mock`；项目、技术或业务深度不足时用 `chengzicv-interview-practice`。不要把四项同时推荐给用户，拿不准时使用 `chengzicv` 总入口。
