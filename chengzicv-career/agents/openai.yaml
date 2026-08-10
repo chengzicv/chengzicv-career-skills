@@ -1,0 +1,6 @@
+interface:
+  display_name: "ChengziCV Career Planner"
+  short_description: "把模糊职业焦虑拆成可验证方向，并陪你完成第一轮现实验证"
+  default_prompt: "使用 $chengzicv-career 帮我把当前职业困惑拆成可验证方向，并给出下一步现实验证。"
+policy:
+  allow_implicit_invocation: false

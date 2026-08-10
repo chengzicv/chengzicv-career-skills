@@ -48,17 +48,19 @@ Skill 不承担持久化，不把 Evidence Pack 当作对话记忆。
 
 ## 开始前
 
-1. 读取 `references/safety-and-claims.md`。
-2. 读取 `strategy.json`、`scorecards/dimensions.json`、`scorecards/scene-priorities.json`。
-3. 检查简历：
-   - 产品模式缺失或解析失败：返回 `NEED_RESUME`，不开始。
-   - 普通聊天缺失：请求用户提供简历和目标方向。
-4. JD、公司和企业类型缺少时按现有材料合理推断，并明确置信度。
-5. 根据 `onboarding_version_seen` 决定介绍：
-   - 首次或版本升级：完整输出 `onboarding/core-introduction.md` 的公共文案；
-   - 已看过：用一句话确认材料、岗位和题数后开始；
-   - 用户说“直接开始/跳过介绍”：直接进入第一题；
+1. 处理首次介绍：
+   - 当前可见对话第一次触发本 Skill 时，读取 `onboarding/core-introduction.md`，逐字输出其中“锁定正文”的全部内容，保留 Markdown 结构；正文必须是首次回复最先出现的用户可见内容。
+   - 即使用户说“直接开始”或“跳过介绍”，本次对话首次触发时也不省略；后续回复不重复。
+   - 已有简历：锁定正文后立即按问题卡要求提出第一题，不要求确认、不重复材料请求。
+   - 缺少简历：只输出锁定正文并等待用户提供简历；正文末尾已经包含唯一材料请求，不再追加第二遍。
+   - 产品 Runtime 只有在可靠注入当前版本的 `onboarding_version_seen` 时，才可对已读用户省略完整正文；Skill 自己不得猜测跨会话状态。
    - 完整方法论只在用户主动查看时读取 `onboarding/full-methodology.md`。
+2. 检查简历：
+   - 产品模式缺失或解析失败：返回 `NEED_RESUME`，不开始。
+   - 普通聊天缺失：等待锁定正文末尾的材料请求，不再追加一次，不开始面试。
+3. 简历可用、准备开始面试时读取 `references/safety-and-claims.md`。
+4. 读取 `strategy.json`、`scorecards/dimensions.json`、`scorecards/scene-priorities.json`。
+5. JD、公司和企业类型缺少时按现有材料合理推断，并明确置信度。
 
 ## 阶段一：五题面试
 
@@ -156,3 +158,7 @@ Skill 不承担持久化，不把 Evidence Pack 当作对话记忆。
 | `prompts/diagnostician.md` | 生成诊断报告 |
 | `references/safety-and-claims.md` | 开始前 |
 | `references/report-template.md` | 报告阶段 |
+
+## 套件内下一步
+
+初筛报告显示主要风险在项目、技术或业务深度时，推荐 `chengzicv-interview-practice`；风险来自简历证据或材料表述时，推荐 `chengzicv-resume`；真实面试结束后有记录可复盘时，推荐 `chengzicv-interview-review`。一次只推荐最相关的一项，拿不准时使用 `chengzicv` 总入口。

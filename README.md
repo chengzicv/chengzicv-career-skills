@@ -1,6 +1,6 @@
 # ChengziCV Career Skills
 
-> 4 个面向中文求职场景的 Agent Skills：改简历、练专项面试、做初筛模拟、复盘真实面试。
+> 1 个求职导航入口与 5 个面向中文求职场景的 Agent Skills：职业方向、简历与作品集、专项面试、初筛模拟、真实面试复盘。
 
 每个 Skill 都可以单独使用。把手头的简历、JD、项目材料或面试记录交给对应入口，就能直接开始。
 
@@ -34,10 +34,12 @@ graph LR
 
 ## 这套 Skills 能帮你完成什么？
 
-四个入口各做一件事：
+总入口负责判断先做什么，五个执行入口各做一件事：
 
 | 你的任务 | 使用的 Skill | 你会得到 |
 | --- | --- | --- |
+| 不知道该从哪一步开始，或希望按完整链路推进 | `chengzicv` | 根据材料和期限选择当前入口，并直接开始 |
+| 处理职业方向、岗位取舍、转行与现实入口 | `chengzicv-career` | 当前决定、少量方向假设和第一轮现实验证 |
 | 整理或改写简历与配套材料 | `chengzicv-resume` | 一版能投的简历；经历证据不够时，再一题题补齐 |
 | 针对项目、岗位知识或业务 Case 连续深挖 | `chengzicv-interview-practice` | 连续追问；问清后再反馈、讲解和复测 |
 | 完成一场五题左右的企业初筛模拟 | `chengzicv-interview-mock` | 一场短模拟、企业视角复盘和针对性复练 |
@@ -60,6 +62,8 @@ graph LR
     Start -->|"面试录音 / 逐字稿"| Review["真实面试复盘"]:::skill
 ```
 
+- 求职总入口：`$chengzicv`
+- 职业规划：`$chengzicv-career`
 - 简历优化：`$chengzicv-resume`
 - 专项面试：`$chengzicv-interview-practice`
 - 初筛模拟：`$chengzicv-interview-mock`
@@ -72,10 +76,10 @@ graph LR
 把下面这段话发给你正在使用的 AI Agent：
 
 ```text
-帮我把这个仓库里的 4 个 Skills 安装到当前客户端：
+帮我把这个仓库里的 6 个 Skills 安装到当前客户端：
 https://github.com/chengzicv/chengzicv-career-skills
 
-请全局安装。能用 skills CLI 就直接用；装好后检查 4 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
+请全局安装。能用 skills CLI 就直接用；装好后检查 6 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
 ```
 
 安装完成后重启客户端，再用 `$chengzicv-...` 调用。
@@ -85,6 +89,10 @@ https://github.com/chengzicv/chengzicv-career-skills
 不需要背复杂指令，交材料并说清当前目标即可：
 
 ```text
+用 $chengzicv 判断我现在最该先解决哪一个求职问题，并直接带我开始。
+
+用 $chengzicv-career 帮我把当前职业困惑拆成可验证方向，并给出下一步现实验证。
+
 用 $chengzicv-resume 看这份简历和 JD。先给我一版能投的，再告诉我哪段经历最值得补证据。
 
 用 $chengzicv-interview-practice 根据我的简历直接开始专项面试。先考后教，一次只问一个问题。
@@ -132,6 +140,8 @@ https://github.com/chengzicv/chengzicv-career-skills
 
 ```text
 .
+├── chengzicv/
+├── chengzicv-career/
 ├── chengzicv-resume/
 ├── chengzicv-interview-practice/
 ├── chengzicv-interview-mock/

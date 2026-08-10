@@ -1,0 +1,6 @@
+interface:
+  display_name: "ChengziCV Job Search Guide"
+  short_description: "识别当前求职卡点，并把你带到最合适的橙子 CV 工具"
+  default_prompt: "使用 $chengzicv 判断我现在最该先解决哪一个求职问题，并直接带我开始。"
+policy:
+  allow_implicit_invocation: false

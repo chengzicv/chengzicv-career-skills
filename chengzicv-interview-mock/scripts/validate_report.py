@@ -5,10 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-try:
-    from jsonschema import Draft202012Validator
-except ImportError:
-    Draft202012Validator = None
+from schema_subset import SchemaValidationError, validate_schema
 
 
 def fail(message: str) -> None:
@@ -22,13 +19,12 @@ def main() -> None:
 
     report = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
     pack = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
-    if Draft202012Validator is None:
-        fail("missing dependency: install scripts/requirements.txt")
     schema_path = Path(__file__).resolve().parent.parent / "schemas" / "report.schema.json"
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
-    errors = sorted(Draft202012Validator(schema).iter_errors(report), key=lambda item: list(item.path))
-    if errors:
-        fail(f"schema validation failed: {errors[0].message}")
+    try:
+        validate_schema(report, schema)
+    except SchemaValidationError as error:
+        fail(f"schema validation failed: {error}")
     quote_ids = {
         quote["quote_id"]
         for question in pack.get("questions", [])
