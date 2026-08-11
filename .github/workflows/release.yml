@@ -1,0 +1,33 @@
+name: Release Skills bundle
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Verify tag and version
+        shell: bash
+        run: |
+          test "v$(tr -d '\n' < VERSION)" = "${GITHUB_REF_NAME}"
+
+      - name: Build release package
+        run: python3 tools/build_release.py
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "${GITHUB_REF_NAME}"
+          dist/skills/chengzicv-career-skills.zip
+          --title "ChengziCV Career Skills ${GITHUB_REF_NAME}"
+          --generate-notes

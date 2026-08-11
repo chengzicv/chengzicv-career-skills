@@ -1,0 +1,6 @@
+interface:
+  display_name: "ChengziCV Update"
+  short_description: "更新官方 ChengziCV 求职 Skills，并保留其他 Skills"
+  default_prompt: "使用 $chengzicv-update 更新官方 ChengziCV 求职 Skills，并保留其他 Skills 和用户材料。"
+policy:
+  allow_implicit_invocation: false

@@ -92,63 +92,37 @@ graph LR
 
 推荐主线是“零材料建档（可选）→ 职业方向（方向不清时）→ 简历与作品集 → 初筛或专项训练 → 真实面试复盘 → 按反馈回补”。不用按固定顺序走，眼下需要什么就从哪个入口开始。
 
-## 怎么安装？
+## 安装
 
-### 方法一：使用 [npx skills](https://github.com/vercel-labs/skills)（推荐）
+### 推荐：Codex、Claude Code、WorkBuddy、CodeBuddy 与其他支持 Skills 的 Agent
 
-适合 Codex、Claude Code、CodeBuddy、Cursor 等支持 Agent Skills 的客户端。需要先安装 Node.js 18 或更高版本；不需要提前全局安装 `skills` CLI。
-
-下面这条命令会识别仓库里的 7 个 Skills，并让你选择安装到哪个客户端：
+在终端执行，或者把下面这条命令发给能够操作终端的 Agent：
 
 ```bash
-npx skills add chengzicv/chengzicv-career-skills --skill '*' -g
+npx -y skills add chengzicv/chengzicv-career-skills -g --all
 ```
 
-<details>
-<summary>直接安装到指定客户端</summary>
-
-```bash
-# Codex
-npx skills add chengzicv/chengzicv-career-skills --skill '*' -g -a codex -y
-
-# Claude Code
-npx skills add chengzicv/chengzicv-career-skills --skill '*' -g -a claude-code -y
-
-# CodeBuddy
-npx skills add chengzicv/chengzicv-career-skills --skill '*' -g -a codebuddy -y
-```
-
-</details>
-
-安装后可用下面的命令检查全局 Skills：
-
-```bash
-npx skills list -g
-```
-
-> 国内网络说明：`npx` 会从 npm 获取安装工具，再从 GitHub 拉取本仓库。配置 npm 国内镜像只能加速前一步，不能解决 GitHub 访问问题。当前可下载 ZIP 后导入 WorkBuddy；如果需要稳定的纯国内下载链路，还应增加 Gitee 镜像或将 7 个 Skills 提交到腾讯 Skill 市场。
-
-### 方法二：导入腾讯 WorkBuddy
-
-1. [下载仓库 ZIP](https://github.com/chengzicv/chengzicv-career-skills/archive/refs/heads/main.zip) 并解压。
-2. 打开 WorkBuddy 的 Skills 管理页面，点击“导入 Skill”。
-3. 将仓库中以 `chengzicv` 开头、内部包含 `SKILL.md` 的 7 个目录依次导入。
-4. 导入后检查 7 个 Skills 是否都能在客户端中看到。
-
-WorkBuddy 与 CodeBuddy 使用兼容的 `SKILL.md` 结构。[腾讯官方文档](https://cloud.tencent.com.cn/document/product/1831/134516)也支持从网络获取并导入 Skill；公开发布到腾讯 Skill 市场则是另一套提交流程，不等于本地导入。
-
-### 方法三：直接交给 AI Agent 安装
-
-不想使用命令行时，把下面这段话发给你正在使用的 AI Agent：
+这会安装 7 个求职 Skills 和 1 个更新入口。安装完成后重启客户端，直接说：
 
 ```text
-帮我把这个仓库里的 7 个 Skills 安装到当前客户端：
-https://github.com/chengzicv/chengzicv-career-skills
-
-请全局安装。能用 skills CLI 就直接用；装好后检查 7 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
+用 ChengziCV 帮我判断现在最该先处理哪个求职问题。
 ```
 
-安装完成后重启客户端，再用 `$chengzicv-...` 调用。如果客户端支持自动匹配，也可以直接描述当前求职问题，不必记住所有 Skill 名称。
+### 不想使用命令行
+
+[下载最新版 ChengziCV Skills 安装包 →](https://github.com/chengzicv/chengzicv-career-skills/releases/latest/download/chengzicv-career-skills.zip)
+
+解压后，按照包内说明将各个 ZIP 导入 WorkBuddy 或其他支持本地导入的客户端。外层安装包里已经把每个 Skill 单独打包，不需要再判断哪些文件夹该导入。
+
+## 更新
+
+已安装时，直接对能够操作终端的 Agent 说：
+
+```text
+更新 ChengziCV Skills
+```
+
+`chengzicv-update` 会重新同步官方仓库，不修改其他来源的 Skills，也不处理你的简历、档案或面试材料。当前客户端不能执行终端命令时，重新下载最新版安装包并导入即可。
 
 ## 安装后怎么开始？
 
@@ -215,6 +189,8 @@ https://github.com/chengzicv/chengzicv-career-skills
 ├── chengzicv-interview-practice/
 ├── chengzicv-interview-mock/
 ├── chengzicv-interview-review/
+├── chengzicv-update/          # 官方 Skills 更新入口
+├── tools/                     # Release 安装包构建工具
 └── README.md
 ```
 
