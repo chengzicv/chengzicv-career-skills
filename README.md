@@ -54,31 +54,31 @@ graph LR
 
 - **不知道该从哪一步开始**
 
-  使用 `$chengzicv`。它会根据你现有的材料、求职期限和当前卡点，选择最合适的入口，并直接带你开始。
+  使用 `/chengzicv`。它会根据你现有的材料、求职期限和当前卡点，选择最合适的入口，并直接带你开始。
 
 - **还没有简历，或者手头材料比较零散**
 
-  使用 `$chengzicv-profile`。它可以从个人背景、大作业、PPT、奖状、证书和项目材料开始，帮你建立一份可以暂停、补充和继续使用的求职档案。
+  使用 `/chengzicv-profile`。它可以从个人背景、大作业、PPT、奖状、证书和项目材料开始，帮你建立一份可以暂停、补充和继续使用的求职档案。
 
 - **不知道该选什么岗位，正在考虑转行或职业方向**
 
-  使用 `$chengzicv-career`。它会结合你的经历、目标和现实限制，整理少量可验证的方向，并给出第一轮行动建议。
+  使用 `/chengzicv-career`。它会结合你的经历、目标和现实限制，整理少量可验证的方向，并给出第一轮行动建议。
 
 - **需要撰写、修改或针对 JD 优化简历**
 
-  使用 `$chengzicv-resume`。它会先基于已有事实产出一版能投的简历，再通过逐步提问补充经历证据；也可以继续整理项目材料和作品集。
+  使用 `/chengzicv-resume`。它会先基于已有事实产出一版能投的简历，再通过逐步提问补充经历证据；也可以继续整理项目材料和作品集。
 
 - **想围绕项目、岗位知识或业务 Case 进行专项训练**
 
-  使用 `$chengzicv-interview-practice`。它会根据简历和 JD 连续追问，先让你作答，再进行反馈、讲解和复测。
+  使用 `/chengzicv-interview-practice`。它会根据简历和 JD 连续追问，先让你作答，再进行反馈、讲解和复测。
 
 - **想进行一场 HR 面或综合初筛模拟**
 
-  使用 `$chengzicv-interview-mock`。它会完成一场五题左右的短模拟，并从企业视角给出复盘和针对性练习建议。
+  使用 `/chengzicv-interview-mock`。它会完成一场五题左右的短模拟，并从企业视角给出复盘和针对性练习建议。
 
 - **刚刚参加完真实面试，想知道哪里出了问题**
 
-  使用 `$chengzicv-interview-review`。它可以根据录音、逐字稿、聊天记录或个人回忆，逐题还原面试过程，诊断表现，并整理下一次可以怎么回答。
+  使用 `/chengzicv-interview-review`。它可以根据录音、逐字稿、聊天记录或个人回忆，逐题还原面试过程，诊断表现，并整理下一次可以怎么回答。
 
 ## 我现在该选哪个入口？
 
@@ -100,13 +100,13 @@ graph LR
     Profile -->|"目标明确"| Resume
 ```
 
-- 求职总入口：`$chengzicv`
-- 零材料求职建档：`$chengzicv-profile`
-- 职业规划：`$chengzicv-career`
-- 简历优化：`$chengzicv-resume`
-- 专项面试：`$chengzicv-interview-practice`
-- 初筛模拟：`$chengzicv-interview-mock`
-- 真实面试复盘：`$chengzicv-interview-review`
+- 求职总入口：`/chengzicv`
+- 零材料求职建档：`/chengzicv-profile`
+- 职业规划：`/chengzicv-career`
+- 简历优化：`/chengzicv-resume`
+- 专项面试：`/chengzicv-interview-practice`
+- 初筛模拟：`/chengzicv-interview-mock`
+- 真实面试复盘：`/chengzicv-interview-review`
 
 推荐主线是“零材料建档（可选）→ 职业方向（方向不清时）→ 简历与作品集 → 初筛或专项训练 → 真实面试复盘 → 按反馈回补”。不用按固定顺序走，眼下需要什么就从哪个入口开始。
 
@@ -147,19 +147,19 @@ npx -y skills add chengzicv/chengzicv-career-skills -g --all
 不需要背复杂指令，交材料并说清当前目标即可：
 
 ```text
-用 $chengzicv 判断我现在最该先解决哪一个求职问题，并直接带我开始。
+用 /chengzicv 判断我现在最该先解决哪一个求职问题，并直接带我开始。
 
-用 $chengzicv-profile 从零建立我的求职档案。可以先读取我上传的大作业、PPT、奖状和证书；我说暂停时，给我一份当前档案快照。
+用 /chengzicv-profile 从零建立我的求职档案。可以先读取我上传的大作业、PPT、奖状和证书；我说暂停时，给我一份当前档案快照。
 
-用 $chengzicv-career 帮我把当前职业困惑拆成可验证方向，并给出下一步现实验证。
+用 /chengzicv-career 帮我把当前职业困惑拆成可验证方向，并给出下一步现实验证。
 
-用 $chengzicv-resume 看这份简历和 JD。先给我一版能投的，再告诉我哪段经历最值得补证据。
+用 /chengzicv-resume 看这份简历和 JD。先给我一版能投的，再告诉我哪段经历最值得补证据。
 
-用 $chengzicv-interview-practice 根据我的简历直接开始专项面试。先考后教，一次只问一个问题。
+用 /chengzicv-interview-practice 根据我的简历直接开始专项面试。先考后教，一次只问一个问题。
 
-用 $chengzicv-interview-mock 根据我的简历开始一场企业初筛模拟。
+用 /chengzicv-interview-mock 根据我的简历开始一场企业初筛模拟。
 
-用 $chengzicv-interview-review 复盘这份面试逐字稿。先告诉我表现，再把问题和回答逐题整理出来。
+用 /chengzicv-interview-review 复盘这份面试逐字稿。先告诉我表现，再把问题和回答逐题整理出来。
 ```
 
 ## 推荐什么客户端和模型？
