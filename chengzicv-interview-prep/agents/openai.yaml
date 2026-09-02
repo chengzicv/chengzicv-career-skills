@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChengziCV Interview Prep"
+  short_description: "围绕目标公司与岗位完成调研，并生成面试官展示稿和候选人冲刺稿"
+  default_prompt: "使用 $chengzicv-interview-prep 根据我的简历、JD 和目标公司，生成面试官展示稿与我的面试冲刺稿。"

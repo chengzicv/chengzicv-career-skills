@@ -16,7 +16,7 @@
 
 # ChengziCV Career Skills
 
-> 1 个求职导航入口与 6 个面向中文求职场景的 Agent Skills：零材料求职建档、职业方向、简历与作品集、专项面试、初筛模拟、真实面试复盘。
+> 1 个求职导航入口、9 个面向中文求职场景的 Agent Skills，以及 1 个更新入口。覆盖零材料建档、职业规划、简历修改、招聘平台沟通、面试前调研、模拟面试、真实面试复盘和岗位案例参考。
 
 每个 Skill 都可以单独使用。没有简历时可以先从背景、大作业、PPT、奖状和证书开始建档；已经有简历、JD、项目材料或面试记录时，交给对应入口就能直接开始。
 
@@ -50,35 +50,23 @@ graph LR
 
 ## 这套 Skills 能帮你完成什么？
 
-总入口负责判断先做什么，六个执行入口各处理一类求职任务。
+不知道该选哪个时，直接使用 `/chengzicv`。其他 Skill 也可以根据你现在遇到的问题单独调用：
 
-- **不知道该从哪一步开始**
+| Skill | 可以帮你做什么 |
+| --- | --- |
+| `/chengzicv` | 不知道该用哪个？把你现在的材料和问题发过来，AI 会帮你判断下一步该做什么，并直接带你开始。 |
+| `/chengzicv-profile` | 还没有开始写简历？先用它整理教育、实习、项目和零散材料，建立一份后面可以直接拿来改简历的求职档案。 |
+| `/chengzicv-career` | 不知道自己适合什么工作、该选哪个方向时，用它做职业规划，帮你理清求职方向、现实条件和下一步行动。 |
+| `/chengzicv-resume` | 上传已有简历和期望岗位的 JD 截图，AI 会先给你一份更贴近岗位筛选标准的参考简历，再追问你的过往经历，最后产出一份真正属于你的岗位版终稿。 |
+| `/chengzicv-job-greeting` | 上传简历和目标岗位 JD 截图，帮你写更容易获得回复的 BOSS 直聘打招呼话术，并告诉你已读不回怎么跟进、HR 回复后怎么推进，以及实用的 BOSS 直聘使用技巧。 |
+| `/chengzicv-interview-prep` | 面试前用它快速补齐行业认知、岗位认知和公司认知，并产出一份上千字、图文并茂、方便阅读和复习的调研报告。 |
+| `/chengzicv-interview-mock` | 模拟 HR 面和基础业务面，分析你最容易被追问、卡住或者淘汰的薄弱点，并针对性练习。 |
+| `/chengzicv-interview-practice` | 深度模拟面试，持续追问并挖掘你的项目经历，适合竞争激烈的中大厂岗位或者技术岗位面试准备。 |
+| `/chengzicv-interview-review` | 面试时记得录音。把录音转成文字后上传，AI 会逐题复盘，分析面试官每次追问背后的考察意图，并指出你具体哪句话答得不好、应该怎么改。 |
+| `/chengzicv-case-factory` | 想知道某个岗位能进大厂的简历通常要达到什么标准，可以用它生成案例简历和岗位科普；主要参考项目及实习经历的深度，如果是学历硬门槛被卡，内容优化也没有办法解决。 |
+| `/chengzicv-update` | 检查 ChengziCV Skills 是否有新版本，检测到更新后自动完成更新和同步。 |
 
-  使用 `/chengzicv`。它会根据你现有的材料、求职期限和当前卡点，选择最合适的入口，并直接带你开始。
-
-- **还没有简历，或者手头材料比较零散**
-
-  使用 `/chengzicv-profile`。它可以从个人背景、大作业、PPT、奖状、证书和项目材料开始，帮你建立一份可以暂停、补充和继续使用的求职档案。
-
-- **不知道该选什么岗位，正在考虑转行或职业方向**
-
-  使用 `/chengzicv-career`。它会结合你的经历、目标和现实限制，整理少量可验证的方向，并给出第一轮行动建议。
-
-- **需要撰写、修改或针对 JD 优化简历**
-
-  使用 `/chengzicv-resume`。它会先基于已有事实产出一版能投的简历，再通过逐步提问补充经历证据；也可以继续整理项目材料和作品集。
-
-- **想围绕项目、岗位知识或业务 Case 进行专项训练**
-
-  使用 `/chengzicv-interview-practice`。它会根据简历和 JD 连续追问，先让你作答，再进行反馈、讲解和复测。
-
-- **想进行一场 HR 面或综合初筛模拟**
-
-  使用 `/chengzicv-interview-mock`。它会完成一场五题左右的短模拟，并从企业视角给出复盘和针对性练习建议。
-
-- **刚刚参加完真实面试，想知道哪里出了问题**
-
-  使用 `/chengzicv-interview-review`。它可以根据录音、逐字稿、聊天记录或个人回忆，逐题还原面试过程，诊断表现，并整理下一次可以怎么回答。
+内部另有 `chengzicv-light-business-intake`，用于面向 To B 项目收集招聘需求，暂时不进入 C 端公开仓库和安装包。
 
 ## 我现在该选哪个入口？
 
@@ -93,8 +81,11 @@ graph LR
     Start["你手里有什么？"]:::material -->|"什么都没有 / 零散背景材料"| Profile["零材料求职建档"]:::skill
     Start -->|"简历 / JD / 项目材料"| Goal{"现在最想解决什么？"}:::decision
     Goal -->|"先把材料改到能投"| Resume["简历优化"]:::skill
+    Goal -->|"写招呼、回复或跟进"| Greeting["招聘平台沟通"]:::skill
+    Goal -->|"调研公司并准备两份文档"| Prep["面试前调研与冲刺"]:::skill
     Goal -->|"围绕项目或岗位能力深挖"| Practice["专项面试"]:::skill
     Goal -->|"模拟 HR / 综合初筛"| Mock["初筛模拟"]:::skill
+    Goal -->|"先看岗位标准和案例"| Case["岗位案例参考"]:::skill
     Start -->|"面试录音 / 逐字稿"| Review["真实面试复盘"]:::skill
     Profile -->|"方向未定"| Career["职业规划"]:::skill
     Profile -->|"目标明确"| Resume
@@ -104,43 +95,35 @@ graph LR
 - 零材料求职建档：`/chengzicv-profile`
 - 职业规划：`/chengzicv-career`
 - 简历优化：`/chengzicv-resume`
+- 招聘平台打招呼与跟进：`/chengzicv-job-greeting`
+- 面试前调研与冲刺：`/chengzicv-interview-prep`
 - 专项面试：`/chengzicv-interview-practice`
 - 初筛模拟：`/chengzicv-interview-mock`
 - 真实面试复盘：`/chengzicv-interview-review`
+- 岗位案例与虚拟简历参考：`/chengzicv-case-factory`
 
-推荐主线是“零材料建档（可选）→ 职业方向（方向不清时）→ 简历与作品集 → 初筛或专项训练 → 真实面试复盘 → 按反馈回补”。不用按固定顺序走，眼下需要什么就从哪个入口开始。
+推荐主线是“零材料建档（可选）→ 职业方向（方向不清时）→ 简历与作品集 → 招聘平台沟通 → 面试前调研与冲刺 → 初筛或专项训练 → 真实面试复盘 → 按反馈回补”。不用按固定顺序走，眼下需要什么就从哪个入口开始。
 
-## 安装
+## 怎么安装？
 
-### 推荐：Codex、Claude Code、WorkBuddy、CodeBuddy 与其他支持 Skills 的 Agent
+把下面这段话发给你正在使用的 AI Agent：
 
-在终端执行，或者把下面这条命令发给能够操作终端的 Agent：
+```text
+帮我把这个仓库里的 11 个 Skills 安装到当前客户端：
+https://github.com/chengzicv/chengzicv-career-skills
+
+请全局安装。能用 skills CLI 就直接用；装好后检查 11 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
+```
+
+安装完成后重启客户端，再用 `/chengzicv-...` 调用。
+
+如果你愿意自己执行命令，可以直接使用：
 
 ```bash
 npx -y skills add chengzicv/chengzicv-career-skills -g --all
 ```
 
-这会安装 7 个求职 Skills 和 1 个更新入口。安装完成后重启客户端，直接说：
-
-```text
-用 ChengziCV 帮我判断现在最该先处理哪个求职问题。
-```
-
-### 不想使用命令行
-
-[下载最新版 ChengziCV Skills 安装包 →](https://github.com/chengzicv/chengzicv-career-skills/releases/latest/download/chengzicv-career-skills.zip)
-
-解压后，按照包内说明将各个 ZIP 导入 WorkBuddy 或其他支持本地导入的客户端。外层安装包里已经把每个 Skill 单独打包，不需要再判断哪些文件夹该导入。
-
-## 更新
-
-已安装时，直接对能够操作终端的 Agent 说：
-
-```text
-更新 ChengziCV Skills
-```
-
-`chengzicv-update` 会重新同步官方仓库，不修改其他来源的 Skills，也不处理你的简历、档案或面试材料。当前客户端不能执行终端命令时，重新下载最新版安装包并导入即可。
+不想使用命令行时，可以[下载最新版 ChengziCV Skills 安装包](https://github.com/chengzicv/chengzicv-career-skills/releases/latest/download/chengzicv-career-skills.zip)。解压后，按用途导入里面的独立 Skill ZIP 即可。
 
 ## 安装后怎么开始？
 
@@ -153,13 +136,19 @@ npx -y skills add chengzicv/chengzicv-career-skills -g --all
 
 用 /chengzicv-career 帮我把当前职业困惑拆成可验证方向，并给出下一步现实验证。
 
-用 /chengzicv-resume 看这份简历和 JD。先给我一版能投的，再告诉我哪段经历最值得补证据。
+用 /chengzicv-resume 看这份简历和 JD。按完整岗位版流程先给我一版能投的，再给修改依据、参考示例，并判断我现在该整理真实作品集、做岗位工作样本还是先补作品。
+
+用 /chengzicv-job-greeting 根据我的简历、目标 JD 和当前沟通状态，直接给我可以发送的开场、回复或跟进话术。
+
+用 /chengzicv-interview-prep 根据我的简历、JD 和目标公司，生成一份面试官展示稿和一份我自己复习的面试冲刺稿。
 
 用 /chengzicv-interview-practice 根据我的简历直接开始专项面试。先考后教，一次只问一个问题。
 
 用 /chengzicv-interview-mock 根据我的简历开始一场企业初筛模拟。
 
 用 /chengzicv-interview-review 复盘这份面试逐字稿。先告诉我表现，再把问题和回答逐题整理出来。
+
+用 /chengzicv-case-factory 给我看目标岗位的案例简历和岗位入门，帮助我判断经历应该做到什么深度。
 ```
 
 ## 推荐什么客户端和模型？
@@ -168,9 +157,13 @@ npx -y skills add chengzicv/chengzicv-career-skills -g --all
 
 1. **Claude Code**：选当前最新的 Claude Opus 或 Sonnet，打开 Thinking，强度选 `High` 或 `Max`。
 2. **Codex**：选当前最新的 GPT 模型，推理强度选 `High` 或 `Max`。
-3. **国内客户端**：优先使用 [WorkBuddy](https://www.workbuddy.cn/)，模型选择 DeepSeek（DS）、Qwen（通义千问）或 GLM（智谱）当前可用的最新旗舰版本，并打开 Thinking、深度思考或最高思考强度。Kimi K3 放在其次；按我们的实际测试，Kimi 偶尔会补出材料里没有的事实，用完记得多核对一下关键事实。
+3. **国内客户端**：不想使用命令行的话，可以选择下面三个桌面客户端：
 
-目前不推荐豆包、元宝等模型或普通聊天入口。它们如果不能完整安装 Skill、读取仓库里的配套文件，就算模型名字一样，也可能只执行了最外面那几句话。
+   - [WorkBuddy 官方下载](https://copilot.tencent.com/work/)
+   - [豆包桌面版官方下载](https://www.doubao.com/download/desktop)
+   - [Qwen 桌面版官方下载](https://qwen.ai/download)
+
+使用时尽量打开深度思考或较高思考强度。不同客户端对 Skills、文件和配套 References 的支持可能不同；如果不能完整读取 Skill 文件夹，实际效果可能会打折，用完后记得核对经历、数字和个人贡献。
 
 ## 它会不会替我编经历？
 
@@ -204,11 +197,14 @@ npx -y skills add chengzicv/chengzicv-career-skills -g --all
 ├── chengzicv-profile/
 ├── chengzicv-career/
 ├── chengzicv-resume/
+├── chengzicv-job-greeting/
+├── chengzicv-interview-prep/
 ├── chengzicv-interview-practice/
 ├── chengzicv-interview-mock/
 ├── chengzicv-interview-review/
-├── chengzicv-update/          # 官方 Skills 更新入口
-├── tools/                     # Release 安装包构建工具
+├── chengzicv-case-factory/
+├── chengzicv-update/
+├── tools/
 └── README.md
 ```
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChengziCV Job Greeting"
+  short_description: "生成招聘平台招呼、回复推进、岗位追问与跟进话术"
+  default_prompt: "使用 $chengzicv-job-greeting 根据我的简历、目标 JD 和当前沟通状态，生成预览信号优先的招呼语及后续推进话术。"

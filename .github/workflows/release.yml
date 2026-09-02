@@ -20,8 +20,10 @@ jobs:
         run: |
           test "v$(tr -d '\n' < VERSION)" = "${GITHUB_REF_NAME}"
 
-      - name: Build release package
-        run: python3 tools/build_release.py
+      - name: Build and verify release packages
+        run: |
+          python3 tools/build_release.py
+          python3 tools/verify_release.py
 
       - name: Create GitHub Release
         env:
@@ -29,10 +31,13 @@ jobs:
         run: |
           gh release create "${GITHUB_REF_NAME}" \
             "dist/skills/chengzicv-career-skills.zip#✅ 推荐下载：ChengziCV Skills 小白安装包（全平台 ZIP）" \
+            "dist/skills/chengzicv-career-skills.zip.sha256#SHA-256 校验文件" \
             --title "ChengziCV Career Skills ${GITHUB_REF_NAME}" \
             --notes '## 下载说明
 
           **普通用户只需要下载上面的“推荐下载”安装包。** Windows、macOS、Linux、Android 和 iOS 都可以下载并解压 ZIP。
+
+          当前安装包包含 1 个求职导航入口、9 个求职执行 Skill 和 1 个更新入口。`chengzicv-light-business-intake` 是内部 To B 工具，不在公开包中。
 
           `Source code (zip)` 和 `Source code (tar.gz)` 是 GitHub 自动生成的开发者源码快照，不是 WorkBuddy 安装包，请勿用于导入 Skill。' \
             --generate-notes
