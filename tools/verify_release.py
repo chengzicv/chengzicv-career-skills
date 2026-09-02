@@ -24,6 +24,7 @@ from build_release import (
 
 FORBIDDEN_PARTS = {".DS_Store", "__pycache__", "candidate-data", "local-data", "outputs"}
 MARKDOWN_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
+SKILLHUB_ALLOWED_SUFFIXES = {".md", ".yaml", ".yml", ".json", ".py", ".txt", ".svg", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".csv", ".toml"}
 
 
 def fail(message: str) -> None:
@@ -96,7 +97,7 @@ def verify_skillhub_bundle(version: str) -> None:
     with zipfile.ZipFile(asset) as archive:
         names = archive.namelist()
         validate_names(names, "SkillHub bundle")
-        required = {"SKILL.md", "agents/openai.yaml", "LICENSE"}
+        required = {"SKILL.md", "agents/openai.yaml"}
         required.update(
             f"skills/{skill_name}/SKILL.md"
             for _, skill_name in PUBLIC_SKILLS
@@ -105,6 +106,11 @@ def verify_skillhub_bundle(version: str) -> None:
         missing = sorted(required - set(names))
         if missing:
             fail(f"SkillHub bundle is missing: {missing}")
+        unsupported = sorted(
+            name for name in names if PurePosixPath(name).suffix.lower() not in SKILLHUB_ALLOWED_SUFFIXES
+        )
+        if unsupported:
+            fail(f"SkillHub bundle contains unsupported file types: {unsupported}")
 
         root_text = archive.read("SKILL.md").decode("utf-8")
         expected_meta = {

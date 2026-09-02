@@ -183,9 +183,6 @@ def build_skillhub_bundle(version: str) -> Path:
                 relative = path.relative_to(skill_dir).as_posix()
                 add_bytes(archive, f"skills/{skill_name}/{relative}", path.read_bytes())
 
-        license_file = PACKAGE_ROOT / "LICENSE"
-        if license_file.is_file():
-            add_bytes(archive, "LICENSE", license_file.read_bytes())
     return asset
 
 

@@ -22,7 +22,7 @@ ChengziCV 各 Skill 的真实源文件位于本机统一 Skills 仓库中，与 
 - 确定性校验所需的 `scripts/`、`schemas/`、`runtime/`、`scorecards/` 与 `prompts/`；
 - 实际产物需要复制的 `assets/`。
 
-总入口的 `references/journey-contract.md` 属于运行契约，随 `chengzicv` 分发。不要把 `.DS_Store`、缓存、真实候选人材料、临时输出、历史测试报告或本地密钥放进安装包。
+总入口的 `references/journey-contract.md` 属于运行契约，随 `chengzicv` 分发。不要把 `.DS_Store`、缓存、真实候选人材料、临时输出、历史测试报告或本地密钥放进安装包。SkillHub 不接受无扩展名的 `LICENSE`，许可证通过根 `SKILL.md` 的 `license: MIT` 声明，完整文件保留在 GitHub 仓库。
 
 ## 两种发布包
 
