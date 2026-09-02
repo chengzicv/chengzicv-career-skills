@@ -1,6 +1,8 @@
-![ChengziCV Career Skills：不只改简历，陪你把找工作这件事做对](assets/chengzicv-career-skills-hero.svg)
-
 <div align="center">
+
+<a href="https://chengzicv.com">
+  <img src="assets/chengzicv-logo.png" alt="橙子简历" width="320">
+</a>
 
 [![访问官网](https://img.shields.io/badge/%E5%AE%98%E7%BD%91-chengzicv.com-F47B20?style=flat-square&logo=googlechrome&logoColor=white)](https://chengzicv.com)
 [![Career Skills](https://img.shields.io/badge/ChengziCV-Career%20Skills-F47B20?style=flat-square&logo=github&logoColor=white)](https://github.com/chengzicv/chengzicv-career-skills)
