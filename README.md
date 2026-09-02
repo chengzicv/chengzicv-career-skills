@@ -1,7 +1,11 @@
 <div align="center">
 
 <a href="https://chengzicv.com">
-  <img src="assets/chengzicv-logo.png" alt="橙子简历" width="320">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/chengzicv-logo-dark.webp">
+    <source media="(prefers-color-scheme: light)" srcset="assets/chengzicv-logo-light.webp">
+    <img src="assets/chengzicv-logo-light.webp" alt="橙子简历" width="280">
+  </picture>
 </a>
 
 [![访问官网](https://img.shields.io/badge/%E5%AE%98%E7%BD%91-chengzicv.com-F47B20?style=flat-square&logo=googlechrome&logoColor=white)](https://chengzicv.com)
