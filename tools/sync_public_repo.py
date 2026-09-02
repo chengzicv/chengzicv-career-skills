@@ -19,7 +19,7 @@ PUBLIC_ROOT_FILES = (
     "README.md",
     "VERSION",
 )
-PUBLIC_ROOT_DIRS = (".github", "evals", "tools")
+PUBLIC_ROOT_DIRS = (".github", "assets", "evals", "tools")
 
 
 def replace_copy(source: Path, target: Path) -> None:
