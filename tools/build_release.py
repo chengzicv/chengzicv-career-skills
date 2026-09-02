@@ -92,13 +92,6 @@ def validate_skill(skill_name: str) -> Path:
     return skill_dir
 
 
-def build_skill_zip(skill_name: str, target: Path) -> None:
-    skill_dir = validate_skill(skill_name)
-    with zipfile.ZipFile(target, "w") as archive:
-        for path in iter_runtime_files(skill_dir):
-            add_bytes(archive, path.relative_to(skill_dir).as_posix(), path.read_bytes())
-
-
 def github_bundle_readme(version: str) -> str:
     return f"""# ChengziCV Career Skills v{version}
 
@@ -106,11 +99,11 @@ def github_bundle_readme(version: str) -> str:
 
 ## WorkBuddy 等客户端导入方法
 
-1. 解压当前安装包。
-2. 打开客户端的 Skills 管理页面，选择导入或安装本地 Skill。
-3. 按需要导入分类目录中的 ZIP；每个 ZIP 都是一个可独立导入的 Skill。
-4. 不知道从哪里开始时，至少导入 `01-必装入口/chengzicv.zip`，然后直接说：“用 ChengziCV 帮我判断现在最该先处理哪个求职问题。”
-5. 希望以后直接说“更新 ChengziCV Skills”时，同时导入 `chengzicv-update.zip`。客户端不能执行终端命令时，仍需重新下载新版安装包。
+1. 只解压一次当前安装包，不需要再逐个解压 Skill。
+2. 打开解压后的 `chengzicv-career-skills` 文件夹，里面的 11 个子文件夹各是一个完整 Skill。
+3. 让 AI Agent 安装整个文件夹，或按客户端要求把这些子文件夹复制到 Skills 目录。
+4. 不知道从哪里开始时，至少安装 `chengzicv`，然后直接说：“用 ChengziCV 帮我判断现在最该先处理哪个求职问题。”
+5. 希望以后直接说“更新 ChengziCV Skills”时，同时安装 `chengzicv-update`。客户端不能执行终端命令时，仍需重新下载新版安装包。
 
 项目主页：https://github.com/chengzicv/chengzicv-career-skills
 官网：https://chengzicv.com
@@ -145,20 +138,15 @@ def render_skillhub_root(version: str) -> bytes:
 
 
 def build_github_bundle(version: str) -> Path:
-    staging = GITHUB_OUTPUT / "bundle"
-    staging.mkdir(parents=True)
-    (staging / "README.md").write_text(github_bundle_readme(version), encoding="utf-8")
-
-    for group, skill_name in PUBLIC_SKILLS:
-        group_dir = staging / group
-        group_dir.mkdir(exist_ok=True)
-        build_skill_zip(skill_name, group_dir / f"{skill_name}.zip")
-
     asset = GITHUB_OUTPUT / GITHUB_ASSET_NAME
     with zipfile.ZipFile(asset, "w") as archive:
-        for path in sorted(staging.rglob("*")):
-            if path.is_file():
-                add_bytes(archive, path.relative_to(staging).as_posix(), path.read_bytes())
+        root = "chengzicv-career-skills"
+        add_bytes(archive, f"{root}/README.md", github_bundle_readme(version).encode("utf-8"))
+        for _, skill_name in PUBLIC_SKILLS:
+            skill_dir = validate_skill(skill_name)
+            for path in iter_runtime_files(skill_dir):
+                relative = path.relative_to(skill_dir).as_posix()
+                add_bytes(archive, f"{root}/{skill_name}/{relative}", path.read_bytes())
 
     digest = hashlib.sha256(asset.read_bytes()).hexdigest()
     checksum = asset.with_suffix(asset.suffix + ".sha256")

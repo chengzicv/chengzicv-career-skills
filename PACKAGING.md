@@ -28,7 +28,7 @@ ChengziCV 各 Skill 的真实源文件位于本机统一 Skills 仓库中，与 
 
 运行 `python3 tools/build_release.py` 会从同一份源码生成两种确定性 ZIP：
 
-1. `dist/skills/chengzicv-career-skills.zip`：GitHub Release 与 WorkBuddy 等手工导入客户端使用。外层按用途分类，每个 Skill 是一个可独立导入的 ZIP。
+1. `dist/skills/chengzicv-career-skills.zip`：GitHub Release 与 WorkBuddy 等手工安装场景使用。只保留一个外层 ZIP；解压后是 `chengzicv-career-skills/` 总目录和 11 个完整 Skill 文件夹，不允许再嵌套 ZIP。
 2. `dist/skillhub/chengzicv-career-skills-<version>.zip`：SkillHub 使用。根目录是带平台元数据的 `SKILL.md`，其余公开成员位于 `skills/` 下。
 
 运行 `python3 tools/verify_release.py` 检查版本、公开成员、内部工具隔离、ZIP 结构和危险文件。发布前必须同时通过构建与验证。

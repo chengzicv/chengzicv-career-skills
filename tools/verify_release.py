@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import io
 import posixpath
 import re
 import sys
@@ -17,7 +16,9 @@ from build_release import (
     INTERNAL_SKILLS,
     PACKAGE_ROOT,
     PUBLIC_SKILLS,
+    SKILLS_ROOT,
     SKILLHUB_OUTPUT,
+    iter_runtime_files,
     read_version,
 )
 
@@ -71,23 +72,33 @@ def verify_github_bundle() -> None:
     with zipfile.ZipFile(asset) as outer:
         names = outer.namelist()
         validate_names(names, "GitHub bundle")
-        expected = {"README.md"}
-        expected.update(f"{group}/{name}.zip" for group, name in PUBLIC_SKILLS)
+        root = "chengzicv-career-skills"
+        expected = {f"{root}/README.md"}
+        for _, skill_name in PUBLIC_SKILLS:
+            skill_dir = SKILLS_ROOT / skill_name
+            expected.update(
+                f"{root}/{skill_name}/{path.relative_to(skill_dir).as_posix()}"
+                for path in iter_runtime_files(skill_dir)
+            )
         if set(names) != expected:
             fail(f"GitHub bundle entries differ: expected={sorted(expected)} actual={sorted(names)}")
 
-        for group, skill_name in PUBLIC_SKILLS:
-            member = f"{group}/{skill_name}.zip"
-            with zipfile.ZipFile(io.BytesIO(outer.read(member))) as nested:
-                nested_names = nested.namelist()
-                validate_names(nested_names, member)
-                if "SKILL.md" not in nested_names:
-                    fail(f"{member} has no SKILL.md")
-                if "agents/openai.yaml" not in nested_names:
-                    fail(f"{member} has no agents/openai.yaml")
-                skill_text = nested.read("SKILL.md").decode("utf-8")
-                if frontmatter_value(skill_text, "name") != skill_name:
-                    fail(f"{member} frontmatter name mismatch")
+        nested_archives = [name for name in names if name.lower().endswith(".zip")]
+        if nested_archives:
+            fail(f"GitHub bundle contains nested ZIP files: {nested_archives}")
+
+        for _, skill_name in PUBLIC_SKILLS:
+            skill_file = f"{root}/{skill_name}/SKILL.md"
+            agent_file = f"{root}/{skill_name}/agents/openai.yaml"
+            if skill_file not in names:
+                fail(f"GitHub bundle is missing {skill_file}")
+            if agent_file not in names:
+                fail(f"GitHub bundle is missing {agent_file}")
+            skill_text = outer.read(skill_file).decode("utf-8")
+            if frontmatter_value(skill_text, "name") != skill_name:
+                fail(f"{skill_file} frontmatter name mismatch")
+
+        verify_relative_markdown_links(outer)
 
 
 def verify_skillhub_bundle(version: str) -> None:

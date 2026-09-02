@@ -123,7 +123,7 @@ https://github.com/chengzicv/chengzicv-career-skills
 npx -y skills add chengzicv/chengzicv-career-skills -g --all
 ```
 
-不想使用命令行时，可以[下载最新版 ChengziCV Skills 安装包](https://github.com/chengzicv/chengzicv-career-skills/releases/latest/download/chengzicv-career-skills.zip)。解压后，按用途导入里面的独立 Skill ZIP 即可。
+不想使用命令行时，可以[下载最新版 ChengziCV Skills 安装包](https://github.com/chengzicv/chengzicv-career-skills/releases/latest/download/chengzicv-career-skills.zip)。整个安装包只需解压一次，里面是 11 个可以直接安装或复制的 Skill 文件夹，不会再套一层 ZIP。
 
 ## 安装后怎么开始？
 
