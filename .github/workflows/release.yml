@@ -22,6 +22,7 @@ jobs:
 
       - name: Build and verify release packages
         run: |
+          python3 -m unittest discover -s tools -p 'test_*.py'
           python3 tools/build_release.py
           python3 tools/verify_release.py
 

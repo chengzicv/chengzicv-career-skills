@@ -31,6 +31,17 @@ ChengziCV 各 Skill 的真实源文件位于本机统一 Skills 仓库中，与 
 1. `dist/skills/chengzicv-career-skills.zip`：GitHub Release 与 WorkBuddy 等手工安装场景使用。只保留一个外层 ZIP；解压后是 `chengzicv-career-skills/` 总目录和 11 个完整 Skill 文件夹，不允许再嵌套 ZIP。
 2. `dist/skillhub/chengzicv-career-skills-<version>.zip`：SkillHub 使用。根目录是带平台元数据的 `SKILL.md`，其余公开成员位于 `skills/` 下。
 
+### SkillHub 概述与执行入口
+
+SkillHub 优先展示根目录的 `SKILL.md`，不会因补充 `README.md` 而切换概述。因此打包时分别生成：
+
+- `SKILL.md`：保留总入口的触发元数据；从本仓库 `README.md` 提取项目介绍、Logo、11 个入口用途和开场示例，生成精简的标准 Markdown 概述。详细方法、客户端说明和隐私边界链接回 GitHub，不维护第二份介绍正文。
+- `WORKFLOW.md`：完整保留总入口原有正文，只把兄弟 Skill 路径转换为包内的 `skills/` 路径。与入口放在同级，保持 onboarding 与 references 的相对路径有效。概述明确要求 AI 处理任务前先完整读取执行流程。
+
+Logo 使用对应版本 Git tag 下的绝对图片地址。`assets/chengzicv-logo-skillhub.svg` 只为 README 原图添加 280px 宽的显示容器，原始 WebP 字节保持不变；修改 README Logo 后运行 `python3 tools/build_release.py --prepare-assets` 并把生成的 SVG 纳入同一次提交，常规构建会拒绝过期资产。概述不输出 HTML `picture` 或 Mermaid 代码。GitHub README 和各子 Skill 的方法不受这一展示适配影响。
+
+发布前执行 `python3 -m unittest discover -s tools -p 'test_*.py'`，再构建并运行 `verify_release.py`。验证涵盖 11 个公开入口、执行规则完整保留、全部运行文件内容、包内相对链接以及平台元数据。缺失 README 必需章节或公开入口时构建必须失败，避免静默遗漏。
+
 运行 `python3 tools/verify_release.py` 检查版本、公开成员、内部工具隔离、ZIP 结构和危险文件。发布前必须同时通过构建与验证。
 
 ## 导出到公开 GitHub 仓库

@@ -20,6 +20,7 @@ from build_release import (
     SKILLHUB_OUTPUT,
     iter_runtime_files,
     read_version,
+    render_skillhub_workflow,
 )
 
 
@@ -108,7 +109,7 @@ def verify_skillhub_bundle(version: str) -> None:
     with zipfile.ZipFile(asset) as archive:
         names = archive.namelist()
         validate_names(names, "SkillHub bundle")
-        required = {"SKILL.md", "agents/openai.yaml"}
+        required = {"SKILL.md", "WORKFLOW.md", "agents/openai.yaml"}
         required.update(
             f"skills/{skill_name}/SKILL.md"
             for _, skill_name in PUBLIC_SKILLS
@@ -136,6 +137,24 @@ def verify_skillhub_bundle(version: str) -> None:
                 fail(f"SkillHub root {key} mismatch: {actual!r} != {expected!r}")
         if "../chengzicv-" in root_text:
             fail("SkillHub root still contains unpackaged sibling paths")
+        if "[执行流程](WORKFLOW.md)" not in root_text:
+            fail("SkillHub overview does not link to its execution workflow")
+        if archive.read("WORKFLOW.md") != render_skillhub_workflow():
+            fail("SkillHub workflow differs from the canonical routing instructions")
+        if re.search(r"<(?:div|picture|img|source)\b|```mermaid", root_text):
+            fail("SkillHub overview contains unsupported README markup")
+
+        # Verify every runtime file, not just each child's entrypoint.
+        # This catches missing onboarding/references and accidental content changes.
+        for _, skill_name in PUBLIC_SKILLS:
+            skill_dir = SKILLS_ROOT / skill_name
+            for path in iter_runtime_files(skill_dir):
+                relative = path.relative_to(skill_dir).as_posix()
+                if skill_name == "chengzicv" and relative == "SKILL.md":
+                    continue
+                packaged = relative if skill_name == "chengzicv" else f"skills/{skill_name}/{relative}"
+                if packaged not in names or archive.read(packaged) != path.read_bytes():
+                    fail(f"SkillHub runtime file is missing or changed: {packaged}")
 
         actual_children = {
             parts[1]

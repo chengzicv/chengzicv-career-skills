@@ -3,12 +3,16 @@
 
 from __future__ import annotations
 
+import argparse
+import base64
 import hashlib
+from html.parser import HTMLParser
 import re
 import shutil
 import sys
 import zipfile
 from pathlib import Path
+from urllib.parse import quote, urlsplit
 
 
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
@@ -21,6 +25,9 @@ OUTPUT = PACKAGE_ROOT / "dist"
 GITHUB_OUTPUT = OUTPUT / "skills"
 SKILLHUB_OUTPUT = OUTPUT / "skillhub"
 GITHUB_ASSET_NAME = "chengzicv-career-skills.zip"
+GITHUB_URL = "https://github.com/chengzicv/chengzicv-career-skills"
+SKILLHUB_URL = "https://skillhub.cn/skills/user_1f99808e/chengzicv-career-skills"
+SKILLHUB_LOGO = "assets/chengzicv-logo-skillhub.svg"
 RUNTIME_ENTRIES = (
     "SKILL.md",
     "agents",
@@ -110,16 +117,125 @@ def github_bundle_readme(version: str) -> str:
 """
 
 
-def render_skillhub_root(version: str) -> bytes:
+def skillhub_source() -> tuple[str, str]:
     source = validate_skill("chengzicv") / "SKILL.md"
     text = source.read_text(encoding="utf-8")
     match = re.match(r"\A---\n(.*?)\n---\n", text, re.DOTALL)
     if not match:
         raise ValueError("chengzicv/SKILL.md has no valid frontmatter")
+    return match.group(1), text[match.end():].replace("../chengzicv-", "skills/chengzicv-")
+
+
+def readme_section(readme: str, heading: str) -> str:
+    match = re.search(rf"^## {re.escape(heading)}\s*\n(.*?)(?=^## |\Z)", readme, re.MULTILINE | re.DOTALL)
+    if not match:
+        raise ValueError(f"README is missing required section: {heading}")
+    return match.group(1).strip()
+
+
+class ReadmeLogo(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.source = ""
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        attributes = dict(attrs)
+        if tag == "img" and attributes.get("alt") == "橙子简历":
+            self.source = attributes.get("src") or ""
+
+
+def readme_logo_path(readme: str) -> Path:
+    logo = ReadmeLogo()
+    logo.feed(readme)
+    logo_path = Path(logo.source)
+    if (
+        not logo.source or urlsplit(logo.source).scheme or logo_path.is_absolute()
+        or ".." in logo_path.parts or not logo_path.parts or logo_path.parts[0] != "assets"
+        or not (PACKAGE_ROOT / logo_path).is_file()
+    ):
+        raise ValueError("README logo must point to an existing repository asset")
+    if logo_path.suffix.lower() != ".webp":
+        raise ValueError("README logo must be a WebP asset")
+    return logo_path
+
+
+def render_skillhub_logo() -> str:
+    """Keep the original artwork intact; size its SVG viewport for Markdown renderers."""
+    readme = (PACKAGE_ROOT / "README.md").read_text(encoding="utf-8")
+    source = PACKAGE_ROOT / readme_logo_path(readme)
+    encoded = base64.b64encode(source.read_bytes()).decode("ascii")
+    return (
+        '<svg xmlns="http://www.w3.org/2000/svg" width="280" height="88" viewBox="0 0 280 88">\n'
+        '<!-- Generated from the README logo; original WebP bytes are unchanged. -->\n'
+        f'<image width="280" height="88" preserveAspectRatio="xMidYMid meet" href="data:image/webp;base64,{encoded}"/>\n'
+        '</svg>\n'
+    )
+
+
+def render_skillhub_overview(version: str) -> str:
+    """Derive the compact, plain-Markdown storefront from the canonical README."""
+    readme = (PACKAGE_ROOT / "README.md").read_text(encoding="utf-8")
+    intro = re.search(r"^# (.+?)\n(.*?)(?=^## |\Z)", readme, re.MULTILINE | re.DOTALL)
+    if not intro:
+        raise ValueError("README has no project introduction")
+    readme_logo_path(readme)
+    logo_url = f"https://raw.githubusercontent.com/chengzicv/chengzicv-career-skills/v{version}/{quote(SKILLHUB_LOGO)}"
+
+    capabilities = readme_section(readme, "这套 Skills 能帮你完成什么？")
+    table = "\n".join(line for line in capabilities.splitlines() if line.startswith("|"))
+    actual_skills = re.findall(r"^\| `/([a-z0-9-]+)` \|", table, re.MULTILINE)
+    expected_skills = {name for _, name in PUBLIC_SKILLS}
+    if len(actual_skills) != len(expected_skills) or set(actual_skills) != expected_skills:
+        raise ValueError("README capability table does not match the public Skill list")
+
+    examples = readme_section(readme, "安装后怎么开始？")
+    code = re.search(r"```text\n(.*?)\n```", examples, re.DOTALL)
+    if not code or not code.group(1).strip():
+        raise ValueError("README has no getting-started prompt")
+    starting_prompt = code.group(1).strip().split("\n\n", 1)[0]
+
+    return f"""# {intro.group(1).strip()}
+
+[![橙子简历]({logo_url})](https://chengzicv.com)
+
+{intro.group(2).strip()}
+
+## 安装与开始
+
+[SkillHub 国内加速安装]({SKILLHUB_URL}) · [GitHub 源码与说明]({GITHUB_URL}) · [下载 ZIP 安装包]({GITHUB_URL}/releases/latest/download/{GITHUB_ASSET_NAME})
+
+通过本页安装入口获取整套 Skills，安装完成后重启客户端，再发送：
+
+```text
+{starting_prompt}
+```
+
+## 这套 Skills 能帮你完成什么？
+
+{table}
+
+## 更多说明
+
+交材料并说清当前目标即可，不需要按固定顺序使用。求职材料请先脱敏，AI 输出的经历、数字与个人贡献仍需人工核对。
+
+[免费优化简历](https://chengzicv.com) · [完整使用说明与隐私边界]({GITHUB_URL}#readme) · [MIT License]({GITHUB_URL}/blob/main/LICENSE)
+
+## AI 执行入口
+
+处理求职请求前，先完整读取并遵循 [执行流程](WORKFLOW.md)，再按其中规则选择子 Skill 并继续任务。本页是使用介绍，不替代执行流程及其配套规则。
+"""
+
+
+def render_skillhub_workflow() -> bytes:
+    return skillhub_source()[1].encode("utf-8")
+
+
+def render_skillhub_root(version: str) -> bytes:
+    source_frontmatter, _ = skillhub_source()
 
     platform_keys = {"slug", "version", "displayName", "summary", "license", "homepage"}
     frontmatter = []
-    for line in match.group(1).splitlines():
+    for line in source_frontmatter.splitlines():
         key = line.split(":", 1)[0].strip()
         if key not in platform_keys:
             frontmatter.append(line)
@@ -133,8 +249,7 @@ def render_skillhub_root(version: str) -> bytes:
             "homepage: https://github.com/chengzicv/chengzicv-career-skills",
         )
     )
-    body = text[match.end():].replace("../chengzicv-", "skills/chengzicv-")
-    return ("---\n" + "\n".join(frontmatter) + "\n---\n" + body).encode("utf-8")
+    return ("---\n" + "\n".join(frontmatter) + "\n---\n\n" + render_skillhub_overview(version)).encode("utf-8")
 
 
 def build_github_bundle(version: str) -> Path:
@@ -159,6 +274,7 @@ def build_skillhub_bundle(version: str) -> Path:
     root_dir = validate_skill("chengzicv")
     with zipfile.ZipFile(asset, "w") as archive:
         add_bytes(archive, "SKILL.md", render_skillhub_root(version))
+        add_bytes(archive, "WORKFLOW.md", render_skillhub_workflow())
         for path in iter_runtime_files(root_dir):
             if path.name != "SKILL.md":
                 add_bytes(archive, path.relative_to(root_dir).as_posix(), path.read_bytes())
@@ -175,6 +291,15 @@ def build_skillhub_bundle(version: str) -> Path:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--prepare-assets", action="store_true", help="regenerate the sized SVG wrapper without building ZIPs")
+    args = parser.parse_args()
+    if args.prepare_assets:
+        (PACKAGE_ROOT / SKILLHUB_LOGO).write_text(render_skillhub_logo(), encoding="utf-8")
+        print(f"Prepared {SKILLHUB_LOGO}; include it in the release commit")
+        return 0
+    if (PACKAGE_ROOT / SKILLHUB_LOGO).read_text(encoding="utf-8") != render_skillhub_logo():
+        raise ValueError("SkillHub logo is stale; run tools/build_release.py --prepare-assets and include it in the commit")
     version = read_version()
     if OUTPUT.exists():
         shutil.rmtree(OUTPUT)
