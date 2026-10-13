@@ -36,9 +36,9 @@ jobs:
             --title "ChengziCV Career Skills ${GITHUB_REF_NAME}" \
             --notes '## 下载说明
 
-          **普通用户只需要下载上面的“推荐下载”安装包。** Windows、macOS、Linux、Android 和 iOS 都可以使用；整个安装包只需解压一次，里面直接是 11 个 Skill 文件夹，不会再套一层 ZIP。
+          **普通用户只需要下载上面的“推荐下载”安装包。** Windows、macOS、Linux、Android 和 iOS 都可以使用；整个安装包只需解压一次，里面直接是 12 个 Skill 文件夹，不会再套一层 ZIP。
 
-          当前安装包包含 1 个求职导航入口、9 个求职执行 Skill 和 1 个更新入口。`chengzicv-light-business-intake` 是内部 To B 工具，不在公开包中。
+          当前安装包包含 1 个求职导航入口、10 个求职执行 Skill 和 1 个更新入口。`chengzicv-light-business-intake` 是内部 To B 工具，不在公开包中。
 
           `Source code (zip)` 和 `Source code (tar.gz)` 是 GitHub 自动生成的开发者源码快照，不是 WorkBuddy 安装包，请勿用于导入 Skill。' \
             --generate-notes
