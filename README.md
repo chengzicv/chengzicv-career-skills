@@ -20,7 +20,7 @@
 
 # ChengziCV Career Skills
 
-> 1 个求职导航入口、9 个面向中文求职场景的 Agent Skills，以及 1 个更新入口。覆盖零材料建档、职业规划、简历修改、招聘平台沟通、面试前调研、模拟面试、真实面试复盘和岗位案例参考。
+> 1 个求职导航入口、10 个面向中文求职场景的 Agent Skills，以及 1 个更新入口。覆盖零材料建档、职业规划、简历修改、招聘平台沟通、面试前调研、面试台词本、模拟面试、真实面试复盘和岗位案例参考。
 
 每个 Skill 都可以单独使用。没有简历时可以先从背景、大作业、PPT、奖状和证书开始建档；已经有简历、JD、项目材料或面试记录时，交给对应入口就能直接开始。
 
@@ -64,6 +64,7 @@ graph LR
 | `/chengzicv-resume` | 上传已有简历和期望岗位的 JD 截图，AI 会先给你一份更贴近岗位筛选标准的参考简历，再追问你的过往经历，最后产出一份真正属于你的岗位版终稿。 |
 | `/chengzicv-job-greeting` | 上传简历和目标岗位 JD 截图，帮你写更容易获得回复的 BOSS 直聘打招呼话术，并告诉你已读不回怎么跟进、HR 回复后怎么推进，以及实用的 BOSS 直聘使用技巧。 |
 | `/chengzicv-interview-prep` | 面试前用它快速补齐行业认知、岗位认知和公司认知，并产出一份上千字、图文并茂、方便阅读和复习的调研报告。 |
+| `/chengzicv-interview-script` | 把真实简历变成自然的自我介绍、面试官提问后分段展开的项目回答、追问备答，以及开场、反问和收尾话术。 |
 | `/chengzicv-interview-mock` | 模拟 HR 面和基础业务面，分析你最容易被追问、卡住或者淘汰的薄弱点，并针对性练习。 |
 | `/chengzicv-interview-practice` | 深度模拟面试，持续追问并挖掘你的项目经历，适合竞争激烈的中大厂岗位或者技术岗位面试准备。 |
 | `/chengzicv-interview-review` | 面试时记得录音。把录音转成文字后上传，AI 会逐题复盘，分析面试官每次追问背后的考察意图，并指出你具体哪句话答得不好、应该怎么改。 |
@@ -87,6 +88,7 @@ graph LR
     Goal -->|"先把材料改到能投"| Resume["简历优化"]:::skill
     Goal -->|"写招呼、回复或跟进"| Greeting["招聘平台沟通"]:::skill
     Goal -->|"调研公司并准备两份文档"| Prep["面试前调研与冲刺"]:::skill
+    Goal -->|"把经历讲自然、准备口语台词"| Script["面试台词本"]:::skill
     Goal -->|"围绕项目或岗位能力深挖"| Practice["专项面试"]:::skill
     Goal -->|"模拟 HR / 综合初筛"| Mock["初筛模拟"]:::skill
     Goal -->|"先看岗位标准和案例"| Case["岗位案例参考"]:::skill
@@ -101,22 +103,23 @@ graph LR
 - 简历优化：`/chengzicv-resume`
 - 招聘平台打招呼与跟进：`/chengzicv-job-greeting`
 - 面试前调研与冲刺：`/chengzicv-interview-prep`
+- 面试台词本：`/chengzicv-interview-script`
 - 专项面试：`/chengzicv-interview-practice`
 - 初筛模拟：`/chengzicv-interview-mock`
 - 真实面试复盘：`/chengzicv-interview-review`
 - 岗位案例与虚拟简历参考：`/chengzicv-case-factory`
 
-推荐主线是“零材料建档（可选）→ 职业方向（方向不清时）→ 简历与作品集 → 招聘平台沟通 → 面试前调研与冲刺 → 初筛或专项训练 → 真实面试复盘 → 按反馈回补”。不用按固定顺序走，眼下需要什么就从哪个入口开始。
+推荐主线是“零材料建档（可选）→ 职业方向（方向不清时）→ 简历与作品集 → 招聘平台沟通 → 面试前调研与冲刺 / 面试台词本 → 初筛或专项训练 → 真实面试复盘 → 按反馈回补”。不用按固定顺序走，眼下需要什么就从哪个入口开始。
 
 ## 怎么安装？
 
 把下面这段话发给你正在使用的 AI Agent：
 
 ```text
-帮我把这个仓库里的 11 个 Skills 安装到当前客户端：
+帮我把这个仓库里的 12 个 Skills 安装到当前客户端：
 https://github.com/chengzicv/chengzicv-career-skills
 
-请全局安装。能用 skills CLI 就直接用；装好后检查 11 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
+请全局安装。能用 skills CLI 就直接用；装好后检查 12 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
 ```
 
 安装完成后重启客户端，再用 `/chengzicv-...` 调用。
@@ -127,7 +130,7 @@ https://github.com/chengzicv/chengzicv-career-skills
 npx -y skills add chengzicv/chengzicv-career-skills -g --all
 ```
 
-不想使用命令行时，可以[下载最新版 ChengziCV Skills 安装包](https://github.com/chengzicv/chengzicv-career-skills/releases/latest/download/chengzicv-career-skills.zip)。整个安装包只需解压一次，里面是 11 个可以直接安装或复制的 Skill 文件夹，不会再套一层 ZIP。
+不想使用命令行时，可以[下载最新版 ChengziCV Skills 安装包](https://github.com/chengzicv/chengzicv-career-skills/releases/latest/download/chengzicv-career-skills.zip)。整个安装包只需解压一次，当前源码构建的包内有 12 个可以直接安装或复制的 Skill 文件夹，不会再套一层 ZIP。
 
 ## 安装后怎么开始？
 
@@ -145,6 +148,8 @@ npx -y skills add chengzicv/chengzicv-career-skills -g --all
 用 /chengzicv-job-greeting 根据我的简历、目标 JD 和当前沟通状态，直接给我可以发送的开场、回复或跟进话术。
 
 用 /chengzicv-interview-prep 根据我的简历、JD 和目标公司，生成一份面试官展示稿和一份我自己复习的面试冲刺稿。
+
+用 /chengzicv-interview-script 根据我的简历和目标岗位，生成自然的自我介绍、分段项目回答和面试衔接话术。
 
 用 /chengzicv-interview-practice 根据我的简历直接开始专项面试。先考后教，一次只问一个问题。
 
@@ -203,6 +208,7 @@ npx -y skills add chengzicv/chengzicv-career-skills -g --all
 ├── chengzicv-resume/
 ├── chengzicv-job-greeting/
 ├── chengzicv-interview-prep/
+├── chengzicv-interview-script/
 ├── chengzicv-interview-practice/
 ├── chengzicv-interview-mock/
 ├── chengzicv-interview-review/
@@ -213,6 +219,10 @@ npx -y skills add chengzicv/chengzicv-career-skills -g --all
 ```
 
 每个目录中的 `SKILL.md` 定义触发条件和核心工作流；`references/` 保存按需加载的方法与模板；`scripts/`、`schemas/` 和 `runtime/` 只在对应 Skill 需要确定性校验或产品集成时使用。
+
+## 更新日志
+
+这套 Skills 一直在按真实使用反馈迭代，每次改了什么、对你有什么用，完整记录在 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 许可证
 

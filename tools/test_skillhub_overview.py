@@ -11,6 +11,40 @@ from unittest.mock import patch
 
 import build_release as build
 import verify_release as verify
+import sync_public_repo as export
+
+
+class SourceExportTests(unittest.TestCase):
+    def test_latest_source_wins_over_historical_public_directory(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            for name in ("chengzicv-resume", "chengzicv-resume-latest"):
+                directory = root / name
+                directory.mkdir()
+                (directory / "SKILL.md").write_text(f"---\nname: {name}\n---\n")
+            with patch.object(build, "SKILLS_ROOT", root):
+                self.assertEqual(build.validate_skill("chengzicv-resume"), root / "chengzicv-resume-latest")
+
+    def test_exported_repository_with_stable_names_is_supported(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            directory = root / "chengzicv-resume"
+            directory.mkdir()
+            (directory / "SKILL.md").write_text("---\nname: chengzicv-resume\n---\n")
+            with patch.object(build, "SKILLS_ROOT", root):
+                self.assertEqual(build.validate_skill("chengzicv-resume"), directory)
+
+    def test_public_export_uses_latest_and_excludes_candidate_workspace(self):
+        with tempfile.TemporaryDirectory() as temp:
+            target = Path(temp)
+            (target / ".git").mkdir()
+            export.sync(target)
+            expected = build.public_runtime_bytes(build.validate_skill("chengzicv-resume") / "SKILL.md")
+            self.assertEqual((target / "chengzicv-resume/SKILL.md").read_bytes(), expected)
+            workspace = target / "chengzicv/workspace"
+            self.assertEqual([path.name for path in workspace.iterdir()], ["README.md"])
+            self.assertFalse((target / "chengzicv-resume-latest").exists())
+            self.assertFalse((target / "chengzicv-light-business-intake").exists())
 
 
 class OverviewTests(unittest.TestCase):
@@ -68,7 +102,10 @@ class OverviewTests(unittest.TestCase):
     def test_full_workflow_and_discovery_metadata_are_preserved(self):
         source = (build.SKILLS_ROOT / "chengzicv/SKILL.md").read_text(encoding="utf-8")
         match = re.match(r"\A---\n(.*?)\n---\n", source, re.DOTALL)
-        expected = source[match.end():].replace("../chengzicv-", "skills/chengzicv-")
+        expected = source[match.end():]
+        for public_name, source_name in build.SOURCE_SKILLS.items():
+            expected = expected.replace(source_name, public_name)
+        expected = expected.replace("../chengzicv-", "skills/chengzicv-")
         self.assertEqual(build.render_skillhub_workflow().decode("utf-8"), expected)
         root = build.render_skillhub_root("1.2.2").decode("utf-8")
         for key in ("name", "description"):

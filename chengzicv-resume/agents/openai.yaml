@@ -1,4 +1,4 @@
 interface:
-  display_name: "ChengziCV Resume Mentor"
-  short_description: "用真实事实和已核验证据产出可信岗位版简历"
-  default_prompt: "使用 $chengzicv-resume 优化我的真实简历；若我缺少经历，先判断可执行实践和证据状态，未核验内容不要写成投递经历。"
+  display_name: "ChengziCV Resume Mentor Latest"
+  short_description: "默认用口语化直述体写两版简历，保留专业细节与成果，配套面试防穿帮小抄"
+  default_prompt: "使用 $chengzicv-resume 优化我的简历，默认用口语化直述体交付大厂攻坚冲高版、稳健通关求真版和面试防穿帮小抄 3 份纯 Markdown。"

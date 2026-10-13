@@ -8,12 +8,17 @@ import shutil
 import sys
 from pathlib import Path
 
-from build_release import INTERNAL_SKILLS, PACKAGE_ROOT, PUBLIC_SKILLS, SKILLS_ROOT
+from build_release import (
+    INTERNAL_SKILLS, PACKAGE_ROOT, PUBLIC_SKILLS, SKILLS_ROOT,
+    validate_skill, public_runtime_bytes, iter_runtime_files,
+)
 
 
 PUBLIC_ROOT_FILES = (
     ".gitignore",
+    "CHANGELOG.md",
     "DEPENDENCIES.md",
+    "HISTORY.md",
     "LICENSE",
     "PACKAGING.md",
     "README.md",
@@ -41,8 +46,7 @@ def replace_copy(source: Path, target: Path) -> None:
 
 def validate_source() -> None:
     for _, skill_name in PUBLIC_SKILLS:
-        if not (SKILLS_ROOT / skill_name / "SKILL.md").is_file():
-            raise ValueError(f"missing source Skill: {skill_name}")
+        validate_skill(skill_name)
     for name in PUBLIC_ROOT_FILES:
         if not (PACKAGE_ROOT / name).is_file():
             raise ValueError(f"missing package file: {name}")
@@ -64,7 +68,14 @@ def sync(target: Path) -> None:
             shutil.rmtree(existing)
 
     for skill_name in sorted(public_names):
-        replace_copy(SKILLS_ROOT / skill_name, target / skill_name)
+        destination = target / skill_name
+        if destination.exists():
+            shutil.rmtree(destination)
+        source = validate_skill(skill_name)
+        for path in iter_runtime_files(source):
+            exported = destination / path.relative_to(source)
+            exported.parent.mkdir(parents=True, exist_ok=True)
+            exported.write_bytes(public_runtime_bytes(path))
     for name in PUBLIC_ROOT_FILES:
         replace_copy(PACKAGE_ROOT / name, target / name)
     for name in PUBLIC_ROOT_DIRS:

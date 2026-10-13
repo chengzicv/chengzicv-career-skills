@@ -12,6 +12,7 @@
 | `chengzicv-resume` | 可交接到职业与面试入口 | 飞书自动发布可用官方 `lark-cli` | 先交付本地 Markdown 与素材目录，提供网页导入路径 |
 | `chengzicv-job-greeting` | 承接简历和 JD，生成招聘平台开场、推进与跟进话术 | 无；正式邮件求职信不属于本 Skill | 没有单个 JD 时按已锁定岗位方向给基础版，并明确不是单岗定制稿 |
 | `chengzicv-interview-prep` | 可承接简历并交接到初筛、专项或复盘 | 时效性研究需要联网；云文档发布可选用对应平台工具 | 仍可交付本地双文档、来源、Mermaid 与 SVG；不把未发布稿说成在线文档 |
+| `chengzicv-interview-script` | 可承接真实简历、经历或已有冲刺稿，交接到模拟或专项训练 | 纯口语改写不需要外部工具；时效性技术知识按需核验 | 继续交付场景台词，缺事实用诚实短答和待确认项处理 |
 | `chengzicv-interview-mock` | 可交接到专项、简历或复盘 | Python 仅在运行确定性校验脚本时需要 | 校验器只使用 Python 标准库，无第三方包 |
 | `chengzicv-interview-practice` | 可交接到简历、初筛或复盘 | 网页搜索和代码工具均为可选 | 继续训练并明确降低时效性判断置信度 |
 | `chengzicv-interview-review` | 按复盘证据回补其他入口 | 音视频转写能力视宿主环境而定 | 只请求一次逐字稿，不假装已读取音视频 |

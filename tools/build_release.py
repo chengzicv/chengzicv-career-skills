@@ -40,6 +40,7 @@ RUNTIME_ENTRIES = (
     "prompts",
     "assets",
     "strategy.json",
+    "workspace/README.md",
 )
 PUBLIC_SKILLS = (
     ("01-必装入口", "chengzicv"),
@@ -49,11 +50,16 @@ PUBLIC_SKILLS = (
     ("04-简历与投递", "chengzicv-resume"),
     ("04-简历与投递", "chengzicv-job-greeting"),
     ("05-面试前准备", "chengzicv-interview-prep"),
+    ("05-面试前准备", "chengzicv-interview-script"),
     ("06-面试训练与复盘", "chengzicv-interview-practice"),
     ("06-面试训练与复盘", "chengzicv-interview-mock"),
     ("06-面试训练与复盘", "chengzicv-interview-review"),
     ("07-岗位案例", "chengzicv-case-factory"),
 )
+SOURCE_SKILLS = {
+    "chengzicv-resume": "chengzicv-resume-latest",
+    "chengzicv-case-factory": "chengzicv-case-factory-latest",
+}
 INTERNAL_SKILLS = ("chengzicv-light-business-intake",)
 ZIP_TIME = (2026, 1, 1, 0, 0, 0)
 
@@ -88,26 +94,41 @@ def read_version() -> str:
 
 
 def validate_skill(skill_name: str) -> Path:
-    skill_dir = SKILLS_ROOT / skill_name
+    source_name = SOURCE_SKILLS.get(skill_name, skill_name)
+    skill_dir = SKILLS_ROOT / source_name
+    # Exported public repositories already use the stable public names.
+    if not skill_dir.is_dir():
+        skill_dir = SKILLS_ROOT / skill_name
     skill_file = skill_dir / "SKILL.md"
     if not skill_file.is_file():
         raise ValueError(f"missing {skill_name}/SKILL.md")
     text = skill_file.read_text(encoding="utf-8")
     match = re.search(r"^name:\s*([^\n]+)$", text, re.MULTILINE)
-    if not match or match.group(1).strip() != skill_name:
+    if not match or match.group(1).strip() != skill_dir.name:
         raise ValueError(f"frontmatter name does not match directory: {skill_name}")
     return skill_dir
+
+
+def public_runtime_bytes(path: Path) -> bytes:
+    """Translate local latest identifiers to the stable public invocation names."""
+    data = path.read_bytes()
+    if path.suffix.lower() not in {".md", ".yaml", ".yml", ".json", ".py", ".txt", ".toml"}:
+        return data
+    text = data.decode("utf-8")
+    for public_name, source_name in SOURCE_SKILLS.items():
+        text = text.replace(source_name, public_name)
+    return text.encode("utf-8")
 
 
 def github_bundle_readme(version: str) -> str:
     return f"""# ChengziCV Career Skills v{version}
 
-这是给不使用命令行的用户准备的安装包，包含 1 个求职导航入口、9 个求职执行 Skill 和 1 个更新入口。
+这是给不使用命令行的用户准备的安装包，包含 1 个求职导航入口、{len(PUBLIC_SKILLS) - 2} 个求职执行 Skill 和 1 个更新入口。
 
 ## WorkBuddy 等客户端导入方法
 
 1. 只解压一次当前安装包，不需要再逐个解压 Skill。
-2. 打开解压后的 `chengzicv-career-skills` 文件夹，里面的 11 个子文件夹各是一个完整 Skill。
+2. 打开解压后的 `chengzicv-career-skills` 文件夹，里面的 {len(PUBLIC_SKILLS)} 个子文件夹各是一个完整 Skill。
 3. 让 AI Agent 安装整个文件夹，或按客户端要求把这些子文件夹复制到 Skills 目录。
 4. 不知道从哪里开始时，至少安装 `chengzicv`，然后直接说：“用 ChengziCV 帮我判断现在最该先处理哪个求职问题。”
 5. 希望以后直接说“更新 ChengziCV Skills”时，同时安装 `chengzicv-update`。客户端不能执行终端命令时，仍需重新下载新版安装包。
@@ -119,7 +140,7 @@ def github_bundle_readme(version: str) -> str:
 
 def skillhub_source() -> tuple[str, str]:
     source = validate_skill("chengzicv") / "SKILL.md"
-    text = source.read_text(encoding="utf-8")
+    text = public_runtime_bytes(source).decode("utf-8")
     match = re.match(r"\A---\n(.*?)\n---\n", text, re.DOTALL)
     if not match:
         raise ValueError("chengzicv/SKILL.md has no valid frontmatter")
@@ -261,7 +282,7 @@ def build_github_bundle(version: str) -> Path:
             skill_dir = validate_skill(skill_name)
             for path in iter_runtime_files(skill_dir):
                 relative = path.relative_to(skill_dir).as_posix()
-                add_bytes(archive, f"{root}/{skill_name}/{relative}", path.read_bytes())
+                add_bytes(archive, f"{root}/{skill_name}/{relative}", public_runtime_bytes(path))
 
     digest = hashlib.sha256(asset.read_bytes()).hexdigest()
     checksum = asset.with_suffix(asset.suffix + ".sha256")
@@ -277,7 +298,7 @@ def build_skillhub_bundle(version: str) -> Path:
         add_bytes(archive, "WORKFLOW.md", render_skillhub_workflow())
         for path in iter_runtime_files(root_dir):
             if path.name != "SKILL.md":
-                add_bytes(archive, path.relative_to(root_dir).as_posix(), path.read_bytes())
+                add_bytes(archive, path.relative_to(root_dir).as_posix(), public_runtime_bytes(path))
 
         for _, skill_name in PUBLIC_SKILLS:
             if skill_name == "chengzicv":
@@ -285,7 +306,7 @@ def build_skillhub_bundle(version: str) -> Path:
             skill_dir = validate_skill(skill_name)
             for path in iter_runtime_files(skill_dir):
                 relative = path.relative_to(skill_dir).as_posix()
-                add_bytes(archive, f"skills/{skill_name}/{relative}", path.read_bytes())
+                add_bytes(archive, f"skills/{skill_name}/{relative}", public_runtime_bytes(path))
 
     return asset
 

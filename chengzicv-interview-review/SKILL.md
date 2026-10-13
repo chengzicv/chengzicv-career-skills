@@ -5,6 +5,8 @@ description: 将面试录音或逐字稿转成证据诊断和面经复盘；在�
 
 # ChengziCV Interview Review
 
+> **套件启动**：开始任何工作前，先读取并执行 `../chengzicv/references/suite-bootstrap.md`（共享工作区、档案恢复、产物落盘、事实边界）。
+
 ## 核心定位
 
 完整承接 `chengzicv-interview-mock` 的两类复盘任务：

@@ -15,3 +15,10 @@ candidate-data/
 local-data/
 outputs/
 dist/
+
+# Candidate workspace in the exported public repository
+/chengzicv/workspace/*
+!/chengzicv/workspace/README.md
+
+# ChengziCV 桌面不可用时的本地工作区
+/chengzicv/chengzicv-workspace/

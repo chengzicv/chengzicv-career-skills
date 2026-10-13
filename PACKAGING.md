@@ -4,10 +4,12 @@
 
 ChengziCV 各 Skill 的真实源文件位于本机统一 Skills 仓库中，与 `chengzicv-career-skills/` 同级。公开 GitHub 仓库是发布镜像，不作为另一份长期手工维护的源文件。
 
-当前公开包包含 11 个组件：
+本机简历与案例工厂分别从 `chengzicv-resume-latest`、`chengzicv-case-factory-latest` 取源文件。导出与打包时统一转换为公开调用名 `chengzicv-resume`、`chengzicv-case-factory`，同步转换入口 name、默认调用名和正文相对路径；公开仓库自身仍可直接构建。历史版本只保留在 Git 中，恢复方法见 [历史版本恢复](HISTORY.md)。
+
+当前公开包包含 12 个组件：
 
 - 总入口：`chengzicv`；
-- 求职执行：`chengzicv-profile`、`chengzicv-career`、`chengzicv-resume`、`chengzicv-job-greeting`、`chengzicv-interview-prep`、`chengzicv-interview-mock`、`chengzicv-interview-practice`、`chengzicv-interview-review`、`chengzicv-case-factory`；
+- 求职执行：`chengzicv-profile`、`chengzicv-career`、`chengzicv-resume`、`chengzicv-job-greeting`、`chengzicv-interview-prep`、`chengzicv-interview-script`、`chengzicv-interview-mock`、`chengzicv-interview-practice`、`chengzicv-interview-review`、`chengzicv-case-factory`；
 - 更新入口：`chengzicv-update`。
 
 `chengzicv-light-business-intake` 是内部 To B 工具，不进入 C 端公开仓库、GitHub Release 或 SkillHub 包。
@@ -20,7 +22,8 @@ ChengziCV 各 Skill 的真实源文件位于本机统一 Skills 仓库中，与 
 - 首次使用的 `onboarding/`；
 - 按条件读取的 `references/`；
 - 确定性校验所需的 `scripts/`、`schemas/`、`runtime/`、`scorecards/` 与 `prompts/`；
-- 实际产物需要复制的 `assets/`。
+- 实际产物需要复制的 `assets/`；
+- 总入口的 `workspace/README.md`，不分发工作区中的档案、上传材料、产出和当前用户指针。
 
 总入口的 `references/journey-contract.md` 属于运行契约，随 `chengzicv` 分发。不要把 `.DS_Store`、缓存、真实候选人材料、临时输出、历史测试报告或本地密钥放进安装包。SkillHub 不接受无扩展名的 `LICENSE`，许可证通过根 `SKILL.md` 的 `license: MIT` 声明，完整文件保留在 GitHub 仓库。
 
@@ -28,19 +31,19 @@ ChengziCV 各 Skill 的真实源文件位于本机统一 Skills 仓库中，与 
 
 运行 `python3 tools/build_release.py` 会从同一份源码生成两种确定性 ZIP：
 
-1. `dist/skills/chengzicv-career-skills.zip`：GitHub Release 与 WorkBuddy 等手工安装场景使用。只保留一个外层 ZIP；解压后是 `chengzicv-career-skills/` 总目录和 11 个完整 Skill 文件夹，不允许再嵌套 ZIP。
+1. `dist/skills/chengzicv-career-skills.zip`：GitHub Release 与 WorkBuddy 等手工安装场景使用。只保留一个外层 ZIP；解压后是 `chengzicv-career-skills/` 总目录和 12 个完整 Skill 文件夹，不允许再嵌套 ZIP。
 2. `dist/skillhub/chengzicv-career-skills-<version>.zip`：SkillHub 使用。根目录是带平台元数据的 `SKILL.md`，其余公开成员位于 `skills/` 下。
 
 ### SkillHub 概述与执行入口
 
 SkillHub 优先展示根目录的 `SKILL.md`，不会因补充 `README.md` 而切换概述。因此打包时分别生成：
 
-- `SKILL.md`：保留总入口的触发元数据；从本仓库 `README.md` 提取项目介绍、Logo、11 个入口用途和开场示例，生成精简的标准 Markdown 概述。详细方法、客户端说明和隐私边界链接回 GitHub，不维护第二份介绍正文。
+- `SKILL.md`：保留总入口的触发元数据；从本仓库 `README.md` 提取项目介绍、Logo、12 个入口用途和开场示例，生成精简的标准 Markdown 概述。详细方法、客户端说明和隐私边界链接回 GitHub，不维护第二份介绍正文。
 - `WORKFLOW.md`：完整保留总入口原有正文，只把兄弟 Skill 路径转换为包内的 `skills/` 路径。与入口放在同级，保持 onboarding 与 references 的相对路径有效。概述明确要求 AI 处理任务前先完整读取执行流程。
 
 Logo 使用对应版本 Git tag 下的绝对图片地址。`assets/chengzicv-logo-skillhub.svg` 只为 README 原图添加 280px 宽的显示容器，原始 WebP 字节保持不变；修改 README Logo 后运行 `python3 tools/build_release.py --prepare-assets` 并把生成的 SVG 纳入同一次提交，常规构建会拒绝过期资产。概述不输出 HTML `picture` 或 Mermaid 代码。GitHub README 和各子 Skill 的方法不受这一展示适配影响。
 
-发布前执行 `python3 -m unittest discover -s tools -p 'test_*.py'`，再构建并运行 `verify_release.py`。验证涵盖 11 个公开入口、执行规则完整保留、全部运行文件内容、包内相对链接以及平台元数据。缺失 README 必需章节或公开入口时构建必须失败，避免静默遗漏。
+发布前执行 `python3 -m unittest discover -s tools -p 'test_*.py'`，再构建并运行 `verify_release.py`。验证涵盖 12 个公开入口、执行规则完整保留、全部运行文件内容、包内相对链接以及平台元数据。缺失 README 必需章节或公开入口时构建必须失败，避免静默遗漏。
 
 运行 `python3 tools/verify_release.py` 检查版本、公开成员、内部工具隔离、ZIP 结构和危险文件。发布前必须同时通过构建与验证。
 

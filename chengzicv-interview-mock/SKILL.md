@@ -5,6 +5,8 @@ description: 通过五题模拟面试生成企业初筛诊断；在用户需要 
 
 # ChengziCV Mock Interview
 
+> **套件启动**：开始任何工作前，先读取并执行 `../chengzicv/references/suite-bootstrap.md`（共享工作区、档案恢复、产物落盘、事实边界）。
+
 ## 核心定位
 
 通过五题短面试采集证据，并对本场模拟面试生成可追溯的企业视角诊断。

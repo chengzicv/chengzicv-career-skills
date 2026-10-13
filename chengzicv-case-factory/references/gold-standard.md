@@ -2,7 +2,7 @@
 
 ## 必读：2026-08-31用户确认的供应链专员 v2
 
-写作前完整读取：
+供应链及相关非技术案例写作前完整读取；技术案例优先 technical-evidence.md，不强制读取以下两篇：
 
 - [虚拟简历全文](examples/supply-chain-specialist-resume.md)
 - [岗位入门全文](examples/supply-chain-specialist-job-guide.md)

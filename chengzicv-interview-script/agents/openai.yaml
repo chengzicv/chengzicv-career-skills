@@ -1,0 +1,4 @@
+interface:
+  display_name: "ChengziCV Interview Script"
+  short_description: "把真实经历变成小白可练的完整面试台词，正文在前、讲解在末尾"
+  default_prompt: "使用 $chengzicv-interview-script 根据我的简历和目标岗位，直接生成小白可以练习的完整面试台词本。正文不用引用块，简短讲解和事实待确认项放在末尾。"

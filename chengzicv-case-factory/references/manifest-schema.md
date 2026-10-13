@@ -7,7 +7,7 @@
 ```text
 批次/
   _内部/manifest.json
-  供应链专员/01-虚拟简历.md
+  供应链专员/01-岗位标杆虚拟简历.md
   供应链专员/03-岗位入门.md
 ```
 
@@ -71,7 +71,7 @@
   "additional_deliverables": {
     "virtual_resume": {
       "status": "complete",
-      "path": "../供应链专员/01-虚拟简历.md"
+      "path": "../供应链专员/01-岗位标杆虚拟简历.md"
     }
   }
 }

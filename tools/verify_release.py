@@ -16,9 +16,10 @@ from build_release import (
     INTERNAL_SKILLS,
     PACKAGE_ROOT,
     PUBLIC_SKILLS,
-    SKILLS_ROOT,
     SKILLHUB_OUTPUT,
     iter_runtime_files,
+    validate_skill,
+    public_runtime_bytes,
     read_version,
     render_skillhub_workflow,
 )
@@ -76,7 +77,7 @@ def verify_github_bundle() -> None:
         root = "chengzicv-career-skills"
         expected = {f"{root}/README.md"}
         for _, skill_name in PUBLIC_SKILLS:
-            skill_dir = SKILLS_ROOT / skill_name
+            skill_dir = validate_skill(skill_name)
             expected.update(
                 f"{root}/{skill_name}/{path.relative_to(skill_dir).as_posix()}"
                 for path in iter_runtime_files(skill_dir)
@@ -147,13 +148,13 @@ def verify_skillhub_bundle(version: str) -> None:
         # Verify every runtime file, not just each child's entrypoint.
         # This catches missing onboarding/references and accidental content changes.
         for _, skill_name in PUBLIC_SKILLS:
-            skill_dir = SKILLS_ROOT / skill_name
+            skill_dir = validate_skill(skill_name)
             for path in iter_runtime_files(skill_dir):
                 relative = path.relative_to(skill_dir).as_posix()
                 if skill_name == "chengzicv" and relative == "SKILL.md":
                     continue
                 packaged = relative if skill_name == "chengzicv" else f"skills/{skill_name}/{relative}"
-                if packaged not in names or archive.read(packaged) != path.read_bytes():
+                if packaged not in names or archive.read(packaged) != public_runtime_bytes(path):
                     fail(f"SkillHub runtime file is missing or changed: {packaged}")
 
         actual_children = {
