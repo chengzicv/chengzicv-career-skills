@@ -12,7 +12,7 @@
 [![Career Skills](https://img.shields.io/badge/ChengziCV-Career%20Skills-F47B20?style=flat-square&logo=github&logoColor=white)](https://github.com/chengzicv/chengzicv-career-skills)
 [![License](https://img.shields.io/github/license/chengzicv/chengzicv-career-skills?style=flat-square&label=License)](https://github.com/chengzicv/chengzicv-career-skills/blob/main/LICENSE)
 
-[免费优化简历（无广告、无水印）→](https://chengzicv.com) · [查看开源修改方法论 →](https://github.com/chengzicv/chengzicv-career-skills)
+[免费优化简历（无广告、无水印）→](https://chengzicv.com)
 
 <sub>20+ 次迭代 · 500+ 份简历修改 · 100+ Offer</sub>
 
@@ -20,209 +20,146 @@
 
 # ChengziCV Career Skills
 
-> 1 个求职导航入口、10 个面向中文求职场景的 Agent Skills，以及 1 个更新入口。覆盖零材料建档、职业规划、简历修改、招聘平台沟通、面试前调研、面试台词本、模拟面试、真实面试复盘和岗位案例参考。
+> 求职，是有标准答案的。这是一份从 500+ 份真实简历的修改里总结出来的方法论，用的是猎头、HR 的实战筛选标准，覆盖从校招到年薪百万级的岗位。HR 为什么把你 pass 掉、投了几十家为什么没人回、面试为什么老卡在同一处——从方向判断到面试复盘，全链路实操都能直接抄。
 
-每个 Skill 都可以单独使用。没有简历时可以先从背景、大作业、PPT、奖状和证书开始建档；已经有简历、JD、项目材料或面试记录时，交给对应入口就能直接开始。
+## 对于第一次接触该skill的朋友来说，整个核心流程就六步
 
-## 为什么做这套 Skills？
+1. 先让你知道：什么样的简历（项目经历水平）能过普通公司和中大厂的筛选。
+2. 把你的材料传上来——已有的简历、PPT、作品素材都行。我基于这些内容给你改出初版简历，附一份 ATS 核对报告，写清关键词命中了什么、缺什么、该补什么。
+3. 我出一份能达到筛选标准的简历案例，你对照着补经历，补完出第 2 版，再配一份面试防穿帮小抄。
+4. 帮你把 Boss 直聘的打招呼话术和在线简历写顺，然后你要做的就是开始投递。
+5. 拿到面试邀请，把岗位 JD 发上来，我辅导你做面试准备：快速补齐这家公司、这个岗位、这个行业的基础认知，有必要的话顺手准备一个最小作品集，再开始模拟面试；面完把录音或逐字稿给我，我们逐题复盘。
+6. 这条路上任何迷茫、执行不下去、心态出问题，随时可以做职业规划，不用等走到哪一步。
 
-很多求职工具拿到简历就开始润色。句子是好看了，但里面哪些是你真做过的、数字怎么算的、面试官继续追问时怎么解释，往往没人管。
+零散时间随时来，发一句「继续」，我接着上次的进度走。
 
-这套 Skills 的做法慢一点，也实在一点：没有简历时先把零散背景和材料整理成可继续补充的求职档案；有材料时先看真实做过什么，再看目标岗位会关心什么。简历能先改就先改，缺信息时一次只问一件事；面试先让你自己答，答完再追问、讲解和复测；复盘时尽量回到你的原话，不凭感觉下结论。
+## Skills 里具体有什么东西？
 
-不知道可以说不知道，记不清可以跳过。它不会把参考案例里的数字塞进你的简历，也不会因为某项能力没问到，就直接说你不行。
+每个都能单独用，也可以串起来用。
 
-## 它是怎么做的？
-
-说白了，就是下面几步：
-
-```mermaid
-graph LR
-    classDef input fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
-    classDef process fill:#fff9c4,stroke:#f9a825,stroke-width:2px,color:#000;
-    classDef output fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
-
-    Material["拿出背景、材料、JD 或面试记录"]:::input --> Fact["①：分清做过什么、哪里没说清"]:::process
-    Fact --> Target["②：找到最值得改或追问的地方"]:::process
-    Target --> Action["③：一次只处理一件事"]:::process
-    Action --> Result["④：改写、讲解或复盘"]:::output
-    Result --> Retest["⑤：换个问法再试一次"]:::output
-    Retest -.->|"有了新信息"| Fact
-```
-
-不是套一遍固定话术就结束。哪里没说清，就继续问哪里；学过的内容，再换个问法看看是不是真的会了。
-
-## 这套 Skills 能帮你完成什么？
-
-不知道该选哪个时，直接使用 `/chengzicv`。其他 Skill 也可以根据你现在遇到的问题单独调用：
-
-| Skill | 可以帮你做什么 |
+| Skill | 能帮你做什么 |
 | --- | --- |
-| `/chengzicv` | 不知道该用哪个？把你现在的材料和问题发过来，AI 会帮你判断下一步该做什么，并直接带你开始。 |
-| `/chengzicv-profile` | 还没有开始写简历？先用它整理教育、实习、项目和零散材料，建立一份后面可以直接拿来改简历的求职档案。 |
-| `/chengzicv-career` | 不知道自己适合什么工作、该选哪个方向时，用它做职业规划，帮你理清求职方向、现实条件和下一步行动。 |
-| `/chengzicv-resume` | 上传已有简历和期望岗位的 JD 截图，AI 会先给你一份更贴近岗位筛选标准的参考简历，再追问你的过往经历，最后产出一份真正属于你的岗位版终稿。 |
-| `/chengzicv-job-greeting` | 上传简历和目标岗位 JD 截图，帮你写更容易获得回复的 BOSS 直聘打招呼话术，并告诉你已读不回怎么跟进、HR 回复后怎么推进，以及实用的 BOSS 直聘使用技巧。 |
-| `/chengzicv-interview-prep` | 面试前用它快速补齐行业认知、岗位认知和公司认知，并产出一份上千字、图文并茂、方便阅读和复习的调研报告。 |
-| `/chengzicv-interview-script` | 把真实简历变成自然的自我介绍、面试官提问后分段展开的项目回答、追问备答，以及开场、反问和收尾话术。 |
-| `/chengzicv-interview-mock` | 模拟 HR 面和基础业务面，分析你最容易被追问、卡住或者淘汰的薄弱点，并针对性练习。 |
-| `/chengzicv-interview-practice` | 深度模拟面试，持续追问并挖掘你的项目经历，适合竞争激烈的中大厂岗位或者技术岗位面试准备。 |
-| `/chengzicv-interview-review` | 面试时记得录音。把录音转成文字后上传，AI 会逐题复盘，分析面试官每次追问背后的考察意图，并指出你具体哪句话答得不好、应该怎么改。 |
-| `/chengzicv-case-factory` | 想知道某个岗位能进大厂的简历通常要达到什么标准，可以用它生成案例简历和岗位科普；主要参考项目及实习经历的深度，如果是学历硬门槛被卡，内容优化也没有办法解决。 |
-| `/chengzicv-update` | 检查 ChengziCV Skills 是否有新版本，检测到更新后自动完成更新和同步。 |
+| `/chengzicv` | 不知道该用哪个？把材料和目标发过来，我判断下一步该做什么，然后直接带你做。 |
+| `/chengzicv-profile` | 还没开始写简历，我先把你的教育、实习、项目和零散材料整理成一份求职档案，后面改简历直接用。 |
+| `/chengzicv-career` | 不知道适合什么工作，我帮你把困惑拆成能验证的方向，以及今天就能做的那一步。 |
+| `/chengzicv-resume` | 给我简历和目标 JD，我先出一版贴近筛选标准的稿子，再追问你的经历，最后产出你自己的岗位版终稿。 |
+| `/chengzicv-job-greeting` | 写 Boss 直聘的开场、回复和跟进话术。已读不回怎么办，我也一起告诉你。 |
+| `/chengzicv-interview-prep` | 面试前把公司、业务和行业补齐，产出两份稿子：一份给面试官看，一份你自己私底下复习。 |
+| `/chengzicv-interview-script` | 把简历变成能开口讲的话：自我介绍、项目分段回答、反问和收尾。 |
+| `/chengzicv-interview-mock` | 模拟 HR 面和基础业务面，找出你最容易被追问、卡住或者淘汰的地方。 |
+| `/chengzicv-interview-practice` | 围绕项目和岗位能力连续深挖，适合竞争激烈的中大厂岗位和技术岗。 |
+| `/chengzicv-interview-review` | 面试时记得录音。把录音转成文字给我，我逐题复盘面试官每次追问的意图，并指出你哪句话答得不好、该怎么改。 |
+| `/chengzicv-case-factory` | 想先看标准：某类岗位能进大厂的简历长什么样、项目经历要做到什么深度。学历是硬门槛被卡住的那种，内容优化救不了。 |
+| `/chengzicv-update` | 检查有没有新版本，有就更新并同步。 |
 
-内部另有 `chengzicv-light-business-intake`，用于面向 To B 项目收集招聘需求，暂时不进入 C 端公开仓库和安装包。
+## 怎么安装
 
-## 我现在该选哪个入口？
-
-这张图只解决一个问题：你现在该从哪个 Skill 开始。
-
-```mermaid
-graph LR
-    classDef material fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#000;
-    classDef decision fill:#fff,stroke:#757575,stroke-width:2px,color:#000;
-    classDef skill fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#000;
-
-    Start["你手里有什么？"]:::material -->|"什么都没有 / 零散背景材料"| Profile["零材料求职建档"]:::skill
-    Start -->|"简历 / JD / 项目材料"| Goal{"现在最想解决什么？"}:::decision
-    Goal -->|"先把材料改到能投"| Resume["简历优化"]:::skill
-    Goal -->|"写招呼、回复或跟进"| Greeting["招聘平台沟通"]:::skill
-    Goal -->|"调研公司并准备两份文档"| Prep["面试前调研与冲刺"]:::skill
-    Goal -->|"把经历讲自然、准备口语台词"| Script["面试台词本"]:::skill
-    Goal -->|"围绕项目或岗位能力深挖"| Practice["专项面试"]:::skill
-    Goal -->|"模拟 HR / 综合初筛"| Mock["初筛模拟"]:::skill
-    Goal -->|"先看岗位标准和案例"| Case["岗位案例参考"]:::skill
-    Start -->|"面试录音 / 逐字稿"| Review["真实面试复盘"]:::skill
-    Profile -->|"方向未定"| Career["职业规划"]:::skill
-    Profile -->|"目标明确"| Resume
-```
-
-- 求职总入口：`/chengzicv`
-- 零材料求职建档：`/chengzicv-profile`
-- 职业规划：`/chengzicv-career`
-- 简历优化：`/chengzicv-resume`
-- 招聘平台打招呼与跟进：`/chengzicv-job-greeting`
-- 面试前调研与冲刺：`/chengzicv-interview-prep`
-- 面试台词本：`/chengzicv-interview-script`
-- 专项面试：`/chengzicv-interview-practice`
-- 初筛模拟：`/chengzicv-interview-mock`
-- 真实面试复盘：`/chengzicv-interview-review`
-- 岗位案例与虚拟简历参考：`/chengzicv-case-factory`
-
-推荐主线是“零材料建档（可选）→ 职业方向（方向不清时）→ 简历与作品集 → 招聘平台沟通 → 面试前调研与冲刺 / 面试台词本 → 初筛或专项训练 → 真实面试复盘 → 按反馈回补”。不用按固定顺序走，眼下需要什么就从哪个入口开始。
-
-## 怎么安装？
-
-把下面这段话发给你正在使用的 AI Agent：
+在豆包、WorkBuddy、DeepSeek Harness 这类客户端里，直接让 AI 帮你装。把下面这段整块复制发过去：
 
 ```text
-帮我把这个仓库里的 12 个 Skills 安装到当前客户端：
+帮我把这个仓库里的 12 个 Skills 全局安装到当前客户端：
 https://github.com/chengzicv/chengzicv-career-skills
 
-请全局安装。能用 skills CLI 就直接用；装好后检查 12 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
-```
+如果 GitHub 打不开，就从下面这个国内地址装，装的是同一套东西：
+https://skillhub.cn/skills/user_1f99808e/chengzicv-career-skills
 
-安装完成后重启客户端，再用 `/chengzicv-...` 调用。
-
-如果你愿意自己执行命令，可以直接使用：
-
-```bash
+能用命令行就直接执行：
 npx -y skills add chengzicv/chengzicv-career-skills -g --all
+
+装好后检查 12 个 Skill 是否都能调用，并把调用名称告诉我。如果你不能替我执行，就给我一条适合当前客户端、可以直接复制运行的命令。
 ```
 
-不想使用命令行时，可以[下载最新版 ChengziCV Skills 安装包](https://github.com/chengzicv/chengzicv-career-skills/releases/latest/download/chengzicv-career-skills.zip)。整个安装包只需解压一次，当前源码构建的包内有 12 个可以直接安装或复制的 Skill 文件夹，不会再套一层 ZIP。
+装完新开一个对话，再发指令。
 
 ## 安装后怎么开始？
 
-不需要背复杂指令，交材料并说清当前目标即可：
-
 ```text
-用 /chengzicv 判断我现在最该先解决哪一个求职问题，并直接带我开始。
-
-用 /chengzicv-profile 从零建立我的求职档案。可以先读取我上传的大作业、PPT、奖状和证书；我说暂停时，给我一份当前档案快照。
-
-用 /chengzicv-career 帮我把当前职业困惑拆成可验证方向，并给出下一步现实验证。
-
-用 /chengzicv-resume 看这份简历和 JD。按完整岗位版流程先给我一版能投的，再给修改依据、参考示例，并判断我现在该整理真实作品集、做岗位工作样本还是先补作品。
-
-用 /chengzicv-job-greeting 根据我的简历、目标 JD 和当前沟通状态，直接给我可以发送的开场、回复或跟进话术。
-
-用 /chengzicv-interview-prep 根据我的简历、JD 和目标公司，生成一份面试官展示稿和一份我自己复习的面试冲刺稿。
-
-用 /chengzicv-interview-script 根据我的简历和目标岗位，生成自然的自我介绍、分段项目回答和面试衔接话术。
-
-用 /chengzicv-interview-practice 根据我的简历直接开始专项面试。先考后教，一次只问一个问题。
-
-用 /chengzicv-interview-mock 根据我的简历开始一场企业初筛模拟。
-
-用 /chengzicv-interview-review 复盘这份面试逐字稿。先告诉我表现，再把问题和回答逐题整理出来。
-
-用 /chengzicv-case-factory 给我看目标岗位的案例简历和岗位入门，帮助我判断经历应该做到什么深度。
+/chengzicv 
 ```
 
-## 推荐什么客户端和模型？
+## 用什么客户端和模型
 
-这套 Skills 比较吃模型。只推荐三种用法：
+客户端推荐这四个：[WorkBuddy](https://copilot.tencent.com/work/)、[DeepSeek Harness 桌面版](https://www.deepseek.com/harness/)、[豆包桌面版](https://www.doubao.com/download/desktop)、[Qwen 桌面版](https://qwen.ai/download)。
 
-1. **Claude Code**：选当前最新的 Claude Opus 或 Sonnet，打开 Thinking，强度选 `High` 或 `Max`。
-2. **Codex**：选当前最新的 GPT 模型，推理强度选 `High` 或 `Max`。
-3. **国内客户端**：不想使用命令行的话，可以选择下面三个桌面客户端：
+模型效果从高到低大致是 Claude > Kimi = DeepSeek > Gemini > ChatGPT，再往后是其他。按均价测下来，性价比最好的是 DeepSeek。
 
-   - [WorkBuddy 官方下载](https://copilot.tencent.com/work/)
-   - [豆包桌面版官方下载](https://www.doubao.com/download/desktop)
-   - [Qwen 桌面版官方下载](https://qwen.ai/download)
+不管用哪个，都建议把深度思考打开到最大，如果不开，AI 可能读不全完整的 Skill 文件夹，实际效果会打折扣，用完记得核对写的东西，尤其是经历、数字和个人贡献。
 
-使用时尽量打开深度思考或较高思考强度。不同客户端对 Skills、文件和配套 References 的支持可能不同；如果不能完整读取 Skill 文件夹，实际效果可能会打折，用完后记得核对经历、数字和个人贡献。
+## 你的材料会放在哪
 
-## 它会不会替我编经历？
+第一次要保存东西时，我会在桌面建一个 `chengzicv-workspace` 文件夹；桌面写不了，就放在 chengzicv Skill 文件夹里的 `chengzicv-workspace`。
 
-不会。经历、数字、结果和个人贡献，只能来自你提供的材料或现场回答。
+你丢进来的每一份材料，我都会复制一份存进去，原件不动。里面分四块：
 
-- 简历里的待确认信息和教学案例，不会被当成真实经历。
-- 面试诊断尽量回到你的原话，不凭表达印象下结论。
-- 没问到的能力不会被直接判低分。
-- 通用参考答案不会被倒写成你的项目做法。
+- `profiles/`：你的求职档案，记当前进度、已经确认过的事实、还缺什么、下一步做什么
+- `uploads/`：你上传材料的副本，保留原文件名
+- `output/`：所有产物，各版简历、面试小抄、调研稿、面经都在这里
+- `archive/`：大改之前的快照，想退回去有据可查
 
-## 隐私数据会保存到哪里？
+想换个地方，随时说一声「帮我把求职文件放到桌面」，我搬过去并记住位置；你也可以直接指定别的文件夹。
 
-这些 Skill 不包含真实候选人数据，也不会把材料写进 Skill 源码、示例或公开仓库。普通聊天只使用当前对话里能看到的内容；建档时可以随时导出一份可复制快照，但不能在没有 Runtime 或用户明确保存的情况下承诺跨会话记忆。如果接入其他产品，数据怎么保存由对应产品决定。
-
-求职材料通常包含姓名、电话、邮箱、教育经历和工作记录。使用前请确认所用平台的数据政策，不要把未脱敏的候选人材料提交到不受信任的服务，也不要把真实面试记录直接提交到公开 issue、公开日志或示例文件中。
-
-## 使用边界
-
-- 这是候选人训练与材料整理工具，不代表任何企业的内部录用标准。
-- 不输出录用概率，也不承诺使用后一定通过面试。
-- 不依据性别、年龄、籍贯、婚育、健康、民族、宗教或政治倾向作负面判断。
-- 初筛模拟不替代算法、编码、系统设计或岗位专家 Case。
-- 涉及时效性规则、法律、财税、平台政策或其他高风险专业判断时，应先核验可靠来源。
-- AI 生成内容仍需人工核对，尤其是数字、个人贡献、技术实现和可外发材料。
-
-## 项目结构
-
-```text
-.
-├── chengzicv/
-├── chengzicv-profile/
-├── chengzicv-career/
-├── chengzicv-resume/
-├── chengzicv-job-greeting/
-├── chengzicv-interview-prep/
-├── chengzicv-interview-script/
-├── chengzicv-interview-practice/
-├── chengzicv-interview-mock/
-├── chengzicv-interview-review/
-├── chengzicv-case-factory/
-├── chengzicv-update/
-├── tools/
-└── README.md
-```
-
-每个目录中的 `SKILL.md` 定义触发条件和核心工作流；`references/` 保存按需加载的方法与模板；`scripts/`、`schemas/` 和 `runtime/` 只在对应 Skill 需要确定性校验或产品集成时使用。
+这些 Skill 里不含任何真实候选人数据，你的材料也不会被写进源码、示例或公开仓库。求职材料通常带着姓名、电话和邮箱，用之前先确认所用平台的数据政策，别把没脱敏的材料交给不受信任的服务，也别把真实面试记录贴到公开的 issue 里。改出来的东西仍然是 AI 产出，发出去之前请你自己核对一遍。
 
 ## 更新日志
 
-这套 Skills 一直在按真实使用反馈迭代，每次改了什么、对你有什么用，完整记录在 [CHANGELOG.md](CHANGELOG.md)。
+下面按技能迭代顺序编号，第 N 版就是第 N 次迭代；同一次迭代里的小修补不占新编号。第 0 版是
+
+**第 14 版**（2026-10-14）
+
+- 简历的「个人优势」改成按事实分层：职业背景、能力、产出、荣誉各一层，有明确 JD 时再加一段「当前缺口」。篇幅 150～400 字，材料支持几层就写几层。
+- 材料里没写的年限、公司名、奖项年份和金额，一律列出来问你，正文留白，不替你编。
+- 修掉一处显示问题：规则说明里的数字区间（比如 `3~5`）被 Markdown 当成删除线，划掉了整段文字。
+
+**第 13 版**（2026-10-13）
+
+- 简历头部固定出现「个人优势」模块，按猎头推荐报告的写法组织，并主动写明还没会的部分。
+- 交付前先检查产物是不是按最新规则生成的，不是就重做并说明。
+
+**第 12 版**（2026-10-12）
+
+- 简历正文改用口语化直述体：像一个人把事情说清楚，而不是堆标签。
+
+**第 11 版**（2026-10-12）
+
+- 一次大重构：规则收敛成九个模块，拆出求真版和冲高版双轨，加入 JD 对照与 ATS 核对、证据边界、经历句子和版面规则。
+
+**第 8—10 版**（2026-09-24）
+
+- 没有新增模块，主要是措辞和规则细节的收紧。
+
+**第 7 版**（2026-09-24）
+
+- 开始积累示例库，把写法和反例放进 examples 目录。
+
+**第 6 版**（2026-09-24）
+
+- 加信号写法：一个动作要能读出对象、做法和可核对的结果。
+
+**第 5 版**（2026-09-24）
+
+- 加技术证据写法，技术岗的经历不再只写"参与了什么"。
+
+**第 4 版**（2026-09-24）
+
+- 加项目写法规则，项目经历开始有固定骨架。
+
+**第 3 版**（2026-09-16）
+
+- 加入输出版本分级，按普通公司和中大厂给不同强度的稿子。
+
+**第 2 版**（2026-09-16）
+
+- 加深度校准：判断一段经历该写到多深，避免把小事写大、把大事写平。
+
+**第 1 版**（2026-08-10）
+
+- 最初的简历润色版本，一整套基础规则：事实台账、JD 分析、案例库、交付审查和作品集规则。
+
+**第 0 版**（2025 年前后，具体时间记不清了）
+
+- 这版没有文件，就是人工改简历时顺手攒下来的经验：谁卡在哪、哪句话面试官爱追问、什么写法真能过筛。改一次记一笔。前后不下二三十次调优，攒够了才拆成第 1 版那套规则。
+
+技术侧的逐条记录都在 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 许可证
 

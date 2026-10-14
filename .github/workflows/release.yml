@@ -30,13 +30,25 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          ITERATION=$(grep -m1 -oE '\*\*第 [0-9]+ 版\*\*' README.md | grep -oE '[0-9]+')
+          test -n "${ITERATION}" || { echo "README 更新日志缺少「第 N 版」条目"; exit 1; }
           gh release create "${GITHUB_REF_NAME}" \
             "dist/skills/chengzicv-career-skills.zip#✅ 推荐下载：ChengziCV Skills 小白安装包（全平台 ZIP）" \
             "dist/skills/chengzicv-career-skills.zip.sha256#SHA-256 校验文件" \
-            --title "ChengziCV Career Skills ${GITHUB_REF_NAME}" \
+            --title "ChengziCV Career Skills 第 ${ITERATION} 版" \
             --notes '## 下载说明
 
           **普通用户只需要下载上面的“推荐下载”安装包。** Windows、macOS、Linux、Android 和 iOS 都可以使用；整个安装包只需解压一次，里面直接是 12 个 Skill 文件夹，不会再套一层 ZIP。
+
+          ### WorkBuddy 等客户端怎么导入
+
+          1. 只解压一次当前安装包，不需要再逐个解压 Skill。
+          2. 打开解压后的 `chengzicv-career-skills` 文件夹，里面的 12 个子文件夹各是一个完整 Skill。
+          3. 让 AI Agent 安装整个文件夹，或按客户端要求把这些子文件夹复制到 Skills 目录。
+          4. 不知道从哪里开始时，至少安装 `chengzicv`，然后直接说：“用 ChengziCV 帮我判断现在最该先处理哪个求职问题。”
+          5. 希望以后直接说“更新 ChengziCV Skills”时，同时安装 `chengzicv-update`。客户端不能执行终端命令时，仍需重新下载新版安装包。
+
+          本页标题里的“第 N 版”就是迭代序号，和标签的 `v1.N.x` 是同一件事，看 README 的更新日志即可。
 
           当前安装包包含 1 个求职导航入口、10 个求职执行 Skill 和 1 个更新入口。`chengzicv-light-business-intake` 是内部 To B 工具，不在公开包中。
 

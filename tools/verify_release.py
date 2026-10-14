@@ -75,7 +75,7 @@ def verify_github_bundle() -> None:
         names = outer.namelist()
         validate_names(names, "GitHub bundle")
         root = "chengzicv-career-skills"
-        expected = {f"{root}/README.md"}
+        expected: set[str] = set()
         for _, skill_name in PUBLIC_SKILLS:
             skill_dir = validate_skill(skill_name)
             expected.update(

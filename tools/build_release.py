@@ -61,6 +61,8 @@ SOURCE_SKILLS = {
     "chengzicv-case-factory": "chengzicv-case-factory-latest",
 }
 INTERNAL_SKILLS = ("chengzicv-light-business-intake",)
+README_CAPABILITY_HEADING = "Skills 里具体有什么东西？"
+README_START_HEADING = "安装后怎么开始？"
 ZIP_TIME = (2026, 1, 1, 0, 0, 0)
 
 
@@ -120,22 +122,6 @@ def public_runtime_bytes(path: Path) -> bytes:
     return text.encode("utf-8")
 
 
-def github_bundle_readme(version: str) -> str:
-    return f"""# ChengziCV Career Skills v{version}
-
-这是给不使用命令行的用户准备的安装包，包含 1 个求职导航入口、{len(PUBLIC_SKILLS) - 2} 个求职执行 Skill 和 1 个更新入口。
-
-## WorkBuddy 等客户端导入方法
-
-1. 只解压一次当前安装包，不需要再逐个解压 Skill。
-2. 打开解压后的 `chengzicv-career-skills` 文件夹，里面的 {len(PUBLIC_SKILLS)} 个子文件夹各是一个完整 Skill。
-3. 让 AI Agent 安装整个文件夹，或按客户端要求把这些子文件夹复制到 Skills 目录。
-4. 不知道从哪里开始时，至少安装 `chengzicv`，然后直接说：“用 ChengziCV 帮我判断现在最该先处理哪个求职问题。”
-5. 希望以后直接说“更新 ChengziCV Skills”时，同时安装 `chengzicv-update`。客户端不能执行终端命令时，仍需重新下载新版安装包。
-
-项目主页：https://github.com/chengzicv/chengzicv-career-skills
-官网：https://chengzicv.com
-"""
 
 
 def skillhub_source() -> tuple[str, str]:
@@ -193,53 +179,53 @@ def render_skillhub_logo() -> str:
     )
 
 
+def github_absolute_links(text: str) -> str:
+    """把仓库内的相对链接换成 GitHub 绝对地址。
+
+    SkillHub 包内只有运行文件，没有 CHANGELOG.md / LICENSE，相对链接在那边是断的。
+    """
+
+    def replace(match: re.Match[str]) -> str:
+        label, target = match.group(1), match.group(2).strip()
+        if urlsplit(target).scheme or target.startswith(("#", "/")):
+            return match.group(0)
+        return f"[{label}]({GITHUB_URL}/blob/main/{target})"
+
+    return re.sub(r"\[([^\]]*)\]\(([^)]+)\)", replace, text)
+
+
 def render_skillhub_overview(version: str) -> str:
-    """Derive the compact, plain-Markdown storefront from the canonical README."""
+    """把 README 正文整份搬到 SkillHub，只做平台必需的适配。
+
+    适配只有三处：hero 区（含 HTML）换成带版本号的 logo、仓库内相对链接改成 GitHub 绝对地址、
+    结尾保留平台要求的 AI 执行入口。其余文字与仓库 README 逐字一致。
+    """
     readme = (PACKAGE_ROOT / "README.md").read_text(encoding="utf-8")
-    intro = re.search(r"^# (.+?)\n(.*?)(?=^## |\Z)", readme, re.MULTILINE | re.DOTALL)
-    if not intro:
+    heading = re.search(r"^# (.+)$", readme, re.MULTILINE)
+    if not heading:
         raise ValueError("README has no project introduction")
     readme_logo_path(readme)
     logo_url = f"https://raw.githubusercontent.com/chengzicv/chengzicv-career-skills/v{version}/{quote(SKILLHUB_LOGO)}"
 
-    capabilities = readme_section(readme, "这套 Skills 能帮你完成什么？")
+    # 这两处校验与文案搬运无关，但必须继续生效：能力表要列全 12 个公开入口，引导语章节不能丢。
+    capabilities = readme_section(readme, README_CAPABILITY_HEADING)
     table = "\n".join(line for line in capabilities.splitlines() if line.startswith("|"))
     actual_skills = re.findall(r"^\| `/([a-z0-9-]+)` \|", table, re.MULTILINE)
     expected_skills = {name for _, name in PUBLIC_SKILLS}
     if len(actual_skills) != len(expected_skills) or set(actual_skills) != expected_skills:
         raise ValueError("README capability table does not match the public Skill list")
-
-    examples = readme_section(readme, "安装后怎么开始？")
-    code = re.search(r"```text\n(.*?)\n```", examples, re.DOTALL)
-    if not code or not code.group(1).strip():
+    examples = readme_section(readme, README_START_HEADING)
+    if not re.search(r"```text\n(.*?)\n```", examples, re.DOTALL):
         raise ValueError("README has no getting-started prompt")
-    starting_prompt = code.group(1).strip().split("\n\n", 1)[0]
 
-    return f"""# {intro.group(1).strip()}
+    body = github_absolute_links(readme[heading.end():].strip())
+    return f"""# {heading.group(1).strip()}
 
 [![橙子简历]({logo_url})](https://chengzicv.com)
 
-{intro.group(2).strip()}
+[SkillHub 国内加速安装]({SKILLHUB_URL}) · [GitHub 源码与说明]({GITHUB_URL})
 
-## 安装与开始
-
-[SkillHub 国内加速安装]({SKILLHUB_URL}) · [GitHub 源码与说明]({GITHUB_URL}) · [下载 ZIP 安装包]({GITHUB_URL}/releases/latest/download/{GITHUB_ASSET_NAME})
-
-通过本页安装入口获取整套 Skills，安装完成后重启客户端，再发送：
-
-```text
-{starting_prompt}
-```
-
-## 这套 Skills 能帮你完成什么？
-
-{table}
-
-## 更多说明
-
-交材料并说清当前目标即可，不需要按固定顺序使用。求职材料请先脱敏，AI 输出的经历、数字与个人贡献仍需人工核对。
-
-[免费优化简历](https://chengzicv.com) · [完整使用说明与隐私边界]({GITHUB_URL}#readme) · [MIT License]({GITHUB_URL}/blob/main/LICENSE)
+{body}
 
 ## AI 执行入口
 
@@ -277,7 +263,6 @@ def build_github_bundle(version: str) -> Path:
     asset = GITHUB_OUTPUT / GITHUB_ASSET_NAME
     with zipfile.ZipFile(asset, "w") as archive:
         root = "chengzicv-career-skills"
-        add_bytes(archive, f"{root}/README.md", github_bundle_readme(version).encode("utf-8"))
         for _, skill_name in PUBLIC_SKILLS:
             skill_dir = validate_skill(skill_name)
             for path in iter_runtime_files(skill_dir):

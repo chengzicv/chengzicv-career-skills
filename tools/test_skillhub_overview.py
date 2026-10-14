@@ -60,9 +60,14 @@ class OverviewTests(unittest.TestCase):
 
     def test_overview_tracks_readme_instead_of_a_second_copy(self):
         readme = (build.PACKAGE_ROOT / "README.md").read_text(encoding="utf-8")
-        changed = readme.replace("每个 Skill 都可以单独使用。", "这里是一条更新后的项目介绍。", 1)
+        # 探针用结构性元素（H1 标题），不用营销文案：文案会随精简而改，标题不会。
+        title = re.search(r"^# (.+)$", readme, re.MULTILINE).group(1)
+        probe = "这里是一条更新后的项目介绍。"
+        changed = readme.replace(f"# {title}", f"# {probe}", 1)
+        # 没有这道保护，探针失配会静默 no-op，只留下一个看不懂的断言失败。
+        self.assertNotEqual(changed, readme, "探针未命中 README，测试本身已失效")
         with patch.object(Path, "read_text", return_value=changed):
-            self.assertIn("这里是一条更新后的项目介绍。", build.render_skillhub_overview("1.2.2"))
+            self.assertIn(probe, build.render_skillhub_overview("1.2.2"))
 
     def test_sized_logo_keeps_the_original_artwork(self):
         import base64
