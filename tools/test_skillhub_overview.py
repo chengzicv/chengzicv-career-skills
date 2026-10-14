@@ -50,7 +50,7 @@ class SourceExportTests(unittest.TestCase):
 class OverviewTests(unittest.TestCase):
     def test_overview_has_all_public_skills_and_compatible_versioned_logo(self):
         overview = build.render_skillhub_overview("1.2.2")
-        names = re.findall(r"^\| `/([a-z0-9-]+)` \|", overview, re.MULTILINE)
+        names = re.findall(r"^\|\s*`/([a-z0-9-]+)`\s*\|", overview, re.MULTILINE)
         self.assertCountEqual(names, [name for _, name in build.PUBLIC_SKILLS])
         self.assertIn("/v1.2.2/assets/chengzicv-logo-skillhub.svg", overview)
         self.assertNotRegex(overview, r"<(?:div|picture|img|source)\b|```mermaid")
@@ -90,7 +90,9 @@ class OverviewTests(unittest.TestCase):
 
     def test_missing_or_duplicate_public_entry_fails(self):
         readme = (build.PACKAGE_ROOT / "README.md").read_text(encoding="utf-8")
-        changed = readme.replace("| `/chengzicv-update` |", "| `/chengzicv` |")
+        # 探针只改调用名，不吃列对齐空格：编辑器/格式化插件会自动把表格补齐。
+        changed = readme.replace("`/chengzicv-update`", "`/chengzicv`", 1)
+        self.assertNotEqual(changed, readme, "探针未命中 README，测试本身已失效")
         with patch.object(Path, "read_text", return_value=changed):
             with self.assertRaisesRegex(ValueError, "public Skill list"):
                 build.render_skillhub_overview("1.2.2")

@@ -210,7 +210,7 @@ def render_skillhub_overview(version: str) -> str:
     # 这两处校验与文案搬运无关，但必须继续生效：能力表要列全 12 个公开入口，引导语章节不能丢。
     capabilities = readme_section(readme, README_CAPABILITY_HEADING)
     table = "\n".join(line for line in capabilities.splitlines() if line.startswith("|"))
-    actual_skills = re.findall(r"^\| `/([a-z0-9-]+)` \|", table, re.MULTILINE)
+    actual_skills = re.findall(r"^\|\s*`/([a-z0-9-]+)`\s*\|", table, re.MULTILINE)
     expected_skills = {name for _, name in PUBLIC_SKILLS}
     if len(actual_skills) != len(expected_skills) or set(actual_skills) != expected_skills:
         raise ValueError("README capability table does not match the public Skill list")
