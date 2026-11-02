@@ -49,7 +49,10 @@ class CaseManifestContractTest(unittest.TestCase):
         self.cli("set-stage", self.manifest, "CASE-001", "job_guide", "complete")
 
     def prepare_resume(self):
-        shutil.copyfile(EXAMPLES / "supply-chain-specialist-resume.md", self.root / "role" / "01.md")
+        (self.root / "role" / "01.md").write_text(
+            "# 小橙\n\n## 个人优势\n\n- **职业背景：** 测试用虚拟案例。\n\n## 教育背景\n\n测试用简历正文。\n",
+            encoding="utf-8",
+        )
         data = self.read()
         data["cases"][0]["additional_deliverables"]["virtual_resume"] = {"status": "complete", "path": "../role/01.md"}
         self.write(data)

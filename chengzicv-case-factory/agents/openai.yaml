@@ -1,4 +1,4 @@
 interface:
   display_name: "ChengziCV Case Factory Latest"
-  short_description: "按目标职级生成虚拟案例，保留业务范围、实现机制与交付证据"
-  default_prompt: "使用 $chengzicv-case-factory 为目标岗位生成岗位标杆虚拟简历与岗位入门两份 Markdown。可基于我现有项目主题，也可完全按真实JD设计；重点经历按项目背景、我的职责、成果呈现，技术案例保留功能范围、实现关系与适用的演进和验证，不逐项套模板；人物、组织和数据保持虚拟且可计算。"
+  short_description: "按目标职级生成虚拟案例；简历写法沿用 resume-latest，岗位入门解释工作与入门"
+  default_prompt: "使用 $chengzicv-case-factory 为目标岗位生成岗位标杆虚拟简历与岗位入门两份 Markdown。可基于我现有项目主题，也可完全按真实JD设计；虚拟简历按 chengzicv-resume 的直述体、个人优势块、背景行和篇幅标准写，人物、组织和数据保持虚拟且可计算；岗位入门用具体任务讲清工作内容、判断、协作和入门要求。"

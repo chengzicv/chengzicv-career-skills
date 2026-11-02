@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>方向决策卡 · {{NAME}}</title>
+<style>
+:root{--bg-primary:#ffffff;--bg-secondary:#f7f6f2;--bg-tertiary:#faf9f5;--bg-success:#eaf3de;--bg-warning:#faeeda;--bg-danger:#fcebeb;--text-primary:#2c2c2a;--text-secondary:#5f5e5a;--text-tertiary:#888780;--text-success:#3b6d11;--text-warning:#854f0b;--text-danger:#a32d2d;--border-tertiary:rgba(44,44,42,.15);--border-secondary:rgba(44,44,42,.28);--coral-50:#FAECE7;--coral-100:#F5C4B3;--coral-200:#F0997B;--coral-600:#993C1D;--coral-800:#712B13;--gray-100:#D3D1C7;--font-sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg-tertiary);color:var(--text-primary);font-family:var(--font-sans);font-size:15px;line-height:1.85;-webkit-font-smoothing:antialiased}
+.page{max-width:960px;margin:0 auto;padding:56px 60px 72px;background:var(--bg-primary);border-left:.5px solid var(--border-tertiary);border-right:.5px solid var(--border-tertiary)}
+.kicker{margin:0 0 10px;font-size:13px;font-weight:500;color:var(--coral-600);letter-spacing:.08em}
+h1{margin:0;font-size:28px;font-weight:500;line-height:1.4;letter-spacing:-.01em}
+.meta{margin:12px 0 0;font-size:13px;color:var(--text-tertiary);line-height:1.7}
+.rule{height:.5px;background:var(--border-tertiary);margin:32px 0}
+h2{margin:52px 0 18px;font-size:18px;font-weight:500;line-height:1.4}
+h2 .idx{font-size:13px;color:var(--coral-600);font-weight:500;margin-right:10px;letter-spacing:.04em}
+h3{margin:26px 0 10px;font-size:15px;font-weight:500}
+p{margin:0 0 14px}
+.lead{background:var(--coral-50);border:.5px solid var(--coral-100);border-radius:12px;padding:22px 26px;font-size:16px;line-height:1.9;margin:0}
+.lead strong{font-weight:500;color:var(--coral-800)}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0 0}
+.card{background:var(--bg-secondary);border-radius:12px;padding:20px 22px}
+.card .label{font-size:13px;color:var(--text-secondary);margin:0 0 8px}
+.card .value{font-size:32px;font-weight:500;line-height:1.2;margin:0;letter-spacing:-.01em}
+.card .unit{font-size:14px;font-weight:400;color:var(--text-tertiary)}
+.card .foot{font-size:13px;color:var(--text-tertiary);margin:8px 0 0;line-height:1.6}
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0 0}
+.fact{background:var(--bg-secondary);border-radius:12px;padding:18px 22px}
+.fact .label{font-size:13px;color:var(--text-secondary);margin:0 0 6px}
+.fact .value{font-size:28px;font-weight:500;margin:0;line-height:1.25}
+.fact .unit{font-size:14px;font-weight:400;color:var(--text-tertiary)}
+table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px;line-height:1.7}
+th{text-align:left;font-weight:500;font-size:13px;color:var(--text-secondary);padding:0 16px 10px 0;border-bottom:.5px solid var(--border-secondary)}
+td{padding:15px 16px 15px 0;border-bottom:.5px solid var(--border-tertiary);vertical-align:top}
+td.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--text-tertiary)}
+.said{color:var(--text-secondary)}
+.react{color:var(--text-tertiary);font-size:13px}
+.chip{display:inline-block;padding:2px 9px;border-radius:5px;font-size:13px;line-height:20px;white-space:nowrap}
+.chip.ok{background:var(--bg-success);color:var(--text-success)}
+.chip.todo{background:var(--coral-50);color:var(--coral-800)}
+.chip.warn{background:var(--bg-warning);color:var(--text-warning)}
+.chip.risk{background:var(--bg-danger);color:var(--text-danger)}
+.block{border:.5px solid var(--border-tertiary);border-radius:12px;padding:22px 24px;margin-bottom:16px}
+.block .head{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.block .tag{font-size:13px;font-weight:500;color:var(--coral-800);background:var(--coral-50);border-radius:5px;padding:2px 10px}
+.block .title{font-size:15px;font-weight:500;line-height:1.6}
+.block ul{margin:0;padding-left:22px}
+.block li{margin-bottom:8px}
+.block li:last-child{margin-bottom:0}
+.quote{color:var(--text-secondary);border-left:2px solid var(--coral-200);padding-left:14px;margin:12px 0 0;font-size:14px;line-height:1.8}
+.gram{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:14px 0;border-bottom:.5px solid var(--border-tertiary)}
+.gram .k{font-size:13px;color:var(--text-tertiary);padding-top:3px}
+.gram .v{font-size:15px}
+.verdict{display:flex;gap:20px;align-items:flex-start;background:var(--coral-50);border:.5px solid var(--coral-100);border-radius:12px;padding:24px 26px}
+.verdict .badge{flex:0 0 auto;font-size:14px;font-weight:500;color:var(--coral-800);background:#fff;border:.5px solid var(--coral-200);border-radius:6px;padding:5px 14px;margin-top:2px}
+.verdict .why{font-size:16px;line-height:1.9;margin:0}
+.verdict .why strong{font-weight:500;color:var(--coral-800)}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 0}
+.twocol .col{border:.5px solid var(--border-tertiary);border-radius:12px;padding:18px 20px}
+.twocol .col h3{margin:0 0 10px}
+.twocol ul{margin:0;padding-left:20px}
+.twocol li{margin-bottom:6px}
+.twocol li:last-child{margin-bottom:0}
+.dims{margin-top:6px}
+.dim{display:grid;grid-template-columns:150px 140px 1fr;gap:20px;align-items:start;padding:18px 0;border-bottom:.5px solid var(--border-tertiary)}
+.dim .name{font-size:15px;font-weight:500;line-height:1.5}
+.dim .level{font-size:13px;color:var(--text-tertiary);margin-top:3px}
+.bars{display:flex;gap:5px;padding-top:6px}
+.bars i{display:block;width:24px;height:8px;border-radius:2px;background:var(--gray-100)}
+.bars i.on{background:var(--coral-600)}
+.dim .anchor{font-size:14px;color:var(--text-secondary);line-height:1.8}
+.dim .anchor b{font-weight:500;color:var(--text-primary)}
+.q{border:.5px solid var(--border-tertiary);border-radius:12px;padding:22px 24px;margin-bottom:16px}
+.q .qhead{display:flex;gap:12px;align-items:baseline;margin-bottom:14px}
+.q .no{flex:0 0 auto;font-size:13px;font-weight:500;color:var(--coral-600);letter-spacing:.04em}
+.q .stem{font-size:15px;font-weight:500;line-height:1.6}
+.q .row{display:grid;grid-template-columns:84px 1fr;gap:14px;margin-bottom:12px}
+.q .k{font-size:13px;color:var(--text-tertiary);padding-top:2px}
+.q .v{font-size:15px}
+.q .v.say-line{line-height:2}
+.better{background:var(--bg-secondary);border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.85;margin-top:4px}
+.better .tag{font-size:13px;font-weight:500;color:var(--coral-800);margin-right:8px}
+.task{display:grid;grid-template-columns:80px 1fr;gap:16px;padding:18px 0;border-bottom:.5px solid var(--border-tertiary)}
+.task .t{font-size:13px;color:var(--text-tertiary);padding-top:2px}
+.task .d{font-size:15px}
+.task .d b{font-weight:500}
+.cause{display:grid;grid-template-columns:130px 1fr;gap:22px;padding:20px 0;border-bottom:.5px solid var(--border-tertiary)}
+.cause .name{font-size:15px;font-weight:500;line-height:1.5}
+.cause .name span{display:block;font-weight:400;font-size:13px;color:var(--text-tertiary);margin-top:3px}
+.cause .body{font-size:15px}
+.cause .body ul{margin:0;padding-left:22px}
+.cause .body li{margin-bottom:6px}
+.cause .body li:last-child{margin-bottom:0}
+.exp{border-left:2px solid var(--coral-200);padding-left:18px;margin-bottom:22px}
+.exp .h{font-size:15px;font-weight:500;margin:0 0 6px;line-height:1.6}
+.exp .b{font-size:14px;color:var(--text-secondary);margin:0;line-height:1.8}
+.exp .tag{font-size:12px;color:var(--coral-800);background:var(--coral-50);border-radius:4px;padding:1px 8px;margin-left:8px;font-weight:500;white-space:nowrap}
+.chain{background:var(--bg-secondary);border-radius:12px;padding:14px 18px;font-size:14px;color:var(--text-secondary);margin:0;letter-spacing:.02em}
+.say{background:var(--bg-secondary);border-radius:12px;padding:16px 18px;font-size:15px;line-height:1.9;white-space:pre-wrap;margin:0}
+.note{font-size:13px;color:var(--text-tertiary);line-height:1.8}
+footer{margin-top:52px;padding-top:22px;border-top:.5px solid var(--border-tertiary)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (max-width:1024px){.page{max-width:none;padding:44px 48px 60px}table{font-size:14px}}
+@media (max-width:900px){table,tbody,tr,td{display:block;width:100%}thead{display:none}tr{border-bottom:.5px solid var(--border-tertiary);padding:16px 0}tr:last-child{border-bottom:0}td{border:0;padding:3px 0;display:grid;grid-template-columns:88px 1fr;gap:12px;font-size:14px}td::before{content:attr(data-label);font-size:13px;color:var(--text-tertiary);line-height:1.75}td:first-child{display:block;font-weight:500;padding:0 0 6px}td:first-child::before{display:none}}
+@media (max-width:760px){.page{padding:34px 26px 48px;border:0}h1{font-size:25px}h2{font-size:17px;margin:40px 0 14px}.lead{font-size:15px;padding:18px 20px}.cards,.facts,.twocol{grid-template-columns:1fr;gap:12px}.card,.fact{padding:16px 18px}.card .value,.fact .value{font-size:28px}.dim{grid-template-columns:1fr;gap:8px;padding:16px 0}.bars{padding-top:0}.q .row,.task,.cause,.gram{grid-template-columns:1fr;gap:4px}.q .k{padding-top:0}.cause{padding:16px 0}.exp{padding-left:14px}.verdict{flex-direction:column;gap:12px;padding:18px 20px}}
+@media (max-width:640px){.page{padding:26px 18px 40px}body{font-size:15px;line-height:1.8}h1{font-size:23px}.rule{margin:24px 0}.verdict .why{font-size:15px}.quote,.better,.say{font-size:14px}}
+@media print{body{background:#fff;font-size:10.5pt;-webkit-print-color-adjust:exact}.page{max-width:none;border:0;padding:0}.lead,.verdict{background:#fff}h2{margin-top:26px}.block,.q,.dim,.cause,.task,.exp,.col{break-inside:avoid;page-break-inside:avoid}table{font-size:10pt}}
+</style>
+</head>
+<body>
+<h2 class="sr-only">{{NAME}}的方向决策卡：当前决定、条件假设、验证动作与关键未知。</h2>
+<main class="page">
+  <header>
+    <p class="kicker">方向决策卡</p>
+    <h1>{{NAME}} · {{DECISION_TOPIC}}</h1>
+    <p class="meta">{{GENERATED_AT}} 生成 · {{BASIS_NOTE}}</p>
+  </header>
+  <div class="rule"></div>
+  <p class="lead">{{CURRENT_DECISION}}</p>
+  <h2><span class="idx">01</span>方向假设</h2>
+  {{HYPOTHESIS_CARDS}}
+  <!-- HYPOTHESIS_CARDS 每张（1—3 张，不硬凑三张）：
+  <div class="block">
+    <div class="head"><span class="tag">假设 N</span><span class="title">方向</span></div>
+    <ul><li>成立条件：…</li><li>主要风险：…</li></ul>
+  </div> -->
+  <h2><span class="idx">02</span>验证动作</h2>
+  <div class="task"><div class="t">本轮</div><div class="d">{{NEXT_ACTION}}</div></div>
+  <div class="gram"><div class="k">支持信号</div><div class="v">{{SUPPORT_SIGNALS}}</div></div>
+  <div class="gram"><div class="k">推翻信号</div><div class="v">{{FALSIFY_SIGNALS}}</div></div>
+  <div class="gram"><div class="k">停止条件</div><div class="v">{{STOP_CONDITION}}</div></div>
+  <h2><span class="idx">03</span>关键未知</h2>
+  <div class="block"><ul>{{UNKNOWN_ITEMS}}</ul></div>
+  <!-- UNKNOWN_ITEMS 每项一个 <li>；一项都没有时，把 03 标题连同整块一起删除，不留空章节 -->
+  <footer>
+    <p class="note">{{FOOTER_NOTE}}</p>
+    <p class="note" style="margin-top:10px">chengzicv · 职业规划 · {{GENERATED_AT}}</p>
+  </footer>
+</main>
+</body>
+</html>

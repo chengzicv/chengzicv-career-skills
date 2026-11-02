@@ -282,8 +282,13 @@ def build_skillhub_bundle(version: str) -> Path:
         add_bytes(archive, "SKILL.md", render_skillhub_root(version))
         add_bytes(archive, "WORKFLOW.md", render_skillhub_workflow())
         for path in iter_runtime_files(root_dir):
-            if path.name != "SKILL.md":
-                add_bytes(archive, path.relative_to(root_dir).as_posix(), public_runtime_bytes(path))
+            if path.name == "SKILL.md":
+                continue
+            relative = path.relative_to(root_dir).as_posix()
+            data = public_runtime_bytes(path)
+            add_bytes(archive, relative, data)
+            # 子 Skill 用 ../chengzicv/references/* 引用套件契约，包内补一份同名目录供其解析。
+            add_bytes(archive, f"skills/chengzicv/{relative}", data)
 
         for _, skill_name in PUBLIC_SKILLS:
             if skill_name == "chengzicv":

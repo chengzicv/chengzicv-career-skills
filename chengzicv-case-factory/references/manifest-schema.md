@@ -112,4 +112,4 @@ python3 scripts/case_manifest.py summary /项目/_内部/manifest.json
 - reference_only、resume_eligible=false 表示这些仍是虚拟案例，不能通过 set-evidence 变成个人经历。
 - 平台模式不重复标注案例性质；明确独立外发时用 document 模式，在每个独立文件开头简短说明一次。
 
-脚本不判断 STAR 写得好不好、岗位是否真实、数字是否有业务意义，也不替代来源核对。先按 quality-gates 做内容检查，再记录完成；不自动发布、不自动进入下一岗。
+脚本不判断简历写得好不好、岗位是否真实、数字是否有业务意义，也不替代来源核对。简历写法按 `../../chengzicv-resume/SKILL.md`，虚拟案例与岗位文章内容按 `quality-gates.md` 检查；记录完成即止，不自动发布、不自动进入下一岗。

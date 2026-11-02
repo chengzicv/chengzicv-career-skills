@@ -1,6 +1,7 @@
 ---
 name: chengzicv-profile
 description: 面向没有简历、材料零散或希望持续维护候选人档案的中文学生与求职者；接收个人背景、Word/PDF、PPT、大作业、奖状、证书、项目材料和求职记录，提取并确认基础信息、教育、求职目标、经历、证书与当前进展，输出可暂停、可继续、可交接的求职档案快照和快速填空底稿。用于从零建档、补充或修正档案、查看当前档案、暂停后导出总结；不要用于职业方向决策、直接优化岗位版简历或面试训练与复盘。
+disable-model-invocation: true
 ---
 
 # ChengziCV Candidate Profile

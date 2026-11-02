@@ -27,7 +27,7 @@ from build_release import (
 
 FORBIDDEN_PARTS = {".DS_Store", "__pycache__", "candidate-data", "local-data", "outputs"}
 MARKDOWN_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
-SKILLHUB_ALLOWED_SUFFIXES = {".md", ".yaml", ".yml", ".json", ".py", ".txt", ".svg", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".csv", ".toml"}
+SKILLHUB_ALLOWED_SUFFIXES = {".md", ".yaml", ".yml", ".json", ".py", ".txt", ".svg", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".csv", ".toml", ".html"}
 
 
 def fail(message: str) -> None:
@@ -162,7 +162,9 @@ def verify_skillhub_bundle(version: str) -> None:
             for name in names
             if len(parts := PurePosixPath(name).parts) >= 3 and parts[0] == "skills"
         }
-        expected_children = {name for _, name in PUBLIC_SKILLS if name != "chengzicv"}
+        # skills/chengzicv 是套件契约的镜像目录：子 Skill 用 ../chengzicv/references/* 互相引用，
+        # 根目录那份是 SkillHub 的展示入口（SKILL.md + WORKFLOW.md），路径不同，所以两份都要有。
+        expected_children = {name for _, name in PUBLIC_SKILLS}
         if actual_children != expected_children:
             fail(
                 f"SkillHub children differ: expected={sorted(expected_children)} "

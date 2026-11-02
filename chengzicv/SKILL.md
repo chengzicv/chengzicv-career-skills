@@ -1,6 +1,7 @@
 ---
 name: chengzicv
 description: ChengziCV 求职套件总入口。用户不知道该先从零建档、做职业规划、整理简历与作品集、准备招聘平台沟通、完成面试前公司调研与冲刺、把经历写成口语台词、参加模拟或复盘面试，或想先看岗位案例时使用。根据现有材料、最近期限和当前卡点选择一个 ChengziCV 子 Skill，并在同一对话里直接开始；不替代各子 Skill 的具体方法。
+disable-model-invocation: true
 ---
 
 # ChengziCV Job Search Guide
@@ -19,7 +20,7 @@ description: ChengziCV 求职套件总入口。用户不知道该先从零建档
 
 ## 工作区（跨会话档案）
 
-套件使用统一的用户工作区：首次保存默认放在实际桌面的 `chengzicv-workspace/`；桌面不可用时放在 `chengzicv` 总入口 Skill 实际源目录下的 `chengzicv-workspace/`。已有配置或旧工作区继续使用原位置。先读取并执行 [工作区位置规则](workspace/README.md)，把得到的绝对路径记为 `{工作区}`；所有子 Skill 都使用这个已确定的位置，不各自在自己的安装目录创建工作区。
+套件使用统一的用户工作区。先读取并执行 [工作区位置规则](workspace/README.md)，把得到的绝对路径记为 `{工作区}`；所有子 Skill 都使用这个已确定的位置，不各自在自己的安装目录创建工作区。定位顺序：用户已指定的位置 → 已有配置 → 桌面和 Skill 目录下已放好数据的原位置 → 两处都没有时新建在桌面 → 桌面不可用时才建在 Skill 实际源目录下。每次保存后把实际位置告诉用户。
 
 ```text
 chengzicv-workspace/
@@ -59,7 +60,7 @@ chengzicv-workspace/
 
 1. 没有简历、材料零散，希望先收集背景、建立求职档案、拿快速填空模板，或要求补充/暂停/总结档案：读取并执行 `../chengzicv-profile/SKILL.md`。
 2. 方向、岗位取舍、转行、收入目标或现实入口尚未确定：读取并执行 `../chengzicv-career/SKILL.md`。
-3. 方向或 JD 已经明确，需要简历、项目材料、项目面试准备手册或飞书作品集：读取并执行 `../chengzicv-resume/SKILL.md`。
+3. 方向或 JD 已经明确，需要简历、项目材料、项目面试准备手册或飞书作品集：读取并执行 `../chengzicv-resume/SKILL.md`；默认按[简历成品交付契约](references/resume-delivery-contract.md) 出 A4 HTML 与 Markdown 源稿，不要求用户二次调用。用户点名要 GodSU 风格或现成 PDF、且当前环境装有对应排版技能时，再续跑排版层。
 4. 已有目标岗位或 JD，需要 BOSS 直聘、猎聘、拉勾、脉脉等招聘平台的初次招呼、已读不回跟进或拒绝反馈询问：读取并执行 `../chengzicv-job-greeting/SKILL.md`。
 5. 公司与岗位已经确定，需要面试前公司/业务/行业调研、必答题、竞品或人才地图，并默认形成面试官展示稿与候选人冲刺稿：读取并执行 `../chengzicv-interview-prep/SKILL.md`。
 6. 简历已有，但面试讲不自然，需要自我介绍、项目分段回答、衔接、反问或静态技术备答稿：读取并执行 `../chengzicv-interview-script/SKILL.md`。只需要台词时不先要求公司调研。
@@ -75,8 +76,10 @@ chengzicv-workspace/
 ## 执行约束
 
 - 用户不需要理解或选择内部 Skill；路由完成后直接继续任务。
-- 总入口只路由同一 ChengziCV 套件内的执行 Skill；面向求职者的主链路是建档到复盘，岗位普及内容与批量案例走 `chengzicv-case-factory`。子 Skill 只有在用户要求特定文件或云文档交付时，才按自身契约使用对应发布能力。
+- 总入口只路由同一 ChengziCV 套件内的执行 Skill；面向求职者的主链路是建档到复盘，岗位普及内容与批量案例走 `chengzicv-case-factory`。子 Skill 默认按各自「交付形态」渲染 HTML 并落盘；用户要云文档或额外格式时，再按自身契约使用对应发布能力。
 - 子 Skill 的首次介绍、证据边界、输入要求和交付规则仍然有效。
 - 路由和执行发生冲突时，以用户最近明确锁定的目标、不可逆期限和 `references/journey-contract.md` 的阶段完成门为准。
 - 结束一个阶段时最多推荐一个最相关的下一站，同时说明为什么现在值得去；不要一次抛出完整工具菜单。
+- 阶段完成并交付产物的消息末尾，按 `references/journey-contract.md` 第 6 节输出六步进度提醒（说清已解决、还差什么和对应调用口令）；被跳过的环节在档案登记原因并保持可见。
+- 引导用户补充信息时，按 `references/journey-contract.md` 第 7 节先给过筛虚拟案例、再要料：直接产出完整虚拟简历（无占位符、无免责旁白），钩子问题放在案例之外。
 - 不承诺按顺序走完就一定拿到 Offer。整套链路的价值是减少漏项、让每一步都有材料或反馈可接。

@@ -2,6 +2,31 @@
 
 每次更新改了什么、对你有什么用，写在这里。全套件共用这一份更新日志，技术细节和评审过程保留在 git 历史里。
 
+## 2026-11-02
+
+**交付形态统一改为 HTML 报告**（11 份模板，覆盖 8 个执行 Skill）
+
+- 以前每个 Skill 交付 `.md`，用户要自己复制进 Word 或招聘平台。现在报告类产物默认只有 HTML 一份，渲染自各 Skill 的 `assets/` 占位符模板，交付时直接预览；简历成品例外，保留 Markdown 源稿。
+- 新增模板：模拟面试报告、面试复盘、面经拆解、简历体检、简历 A4、面试防穿帮小抄、面试前调研双文档、台词本、方向决策卡、投递话术、专项训练复盘。
+- 共用一套视觉 token 与四档响应式断点（1024 / 900 / 760 / 640）：0.5px 边框、圆角 12、只用 400/500 字重、单页一个强调色、无渐变与投影；900px 以下表格转卡片堆叠，打印样式去掉底色并避免卡片跨页断开。
+- 套件级规则写进 `references/suite-bootstrap.md` 的「交付形态」：公共占位符口径（姓名、目标岗位、生成日期、事实依据、页脚边界）、命名规则 `YYYY-MM-DD-姓名-岗位-序号-产物名.html`、Markdown 例外清单（中间产物、岗位入门文章、档案快照与需求底稿）。
+- `journey-contract.md` 的阶段完成门改为「HTML 已交付」；`resume-delivery-contract.md` 重写为「默认 A4 HTML + Markdown 源稿，GodSU 风格仅在用户点名时续跑」，消除同一需求可能出两套视觉的分叉。
+- 测试：11 份模板在 390 / 768 / 1200 三档无横向溢出；两轮子任务测试共发现 25 处模板与提示词问题（跨文件引用、删除边界未含标题、缺失样式类、面经路由无模板、简历 HTML 双归属等），已逐条修复并复测。
+- 用真实简历跑通全链路，8 个 Skill 产出 12 份报告，验证跨报告口径一致。
+
+## 2026-10-18
+
+**虚拟简历标准统一：案例工厂不再维护第二套简历写法**（chengzicv-case-factory、chengzicv-resume）
+
+- 以前 `/chengzicv-case-factory` 有一套自己的虚拟简历写法：项目背景、我的职责、成果三段式，逐条加粗小标题，篇幅和标点也另有一套。结果是从案例里看到的版式，和 `/chengzicv-resume` 给你改出来的简历不是同一种结构，对照补经历时容易错位。
+- 现在案例工厂的虚拟简历直接按 `chengzicv-resume` 的现行标准写：`## 个人优势` 分层、每段经历一行 `**背景：**`、单层动作 bullets、有依据的结果句，篇幅、加粗和标点也一致。案例工厂只负责设计虚拟人物、公司、项目、时间和数字。
+- 删掉案例工厂内重复的简历标准与旧范文（旧 benchmark、experience-depth、signal-writing、供应链虚拟简历、资深 Java 范例），归档到本机 `~/.workbuddy/skills/_archive/2026-10-18-case-factory-resume-standards/`，不再参与运行。
+- 把 `technical-evidence.md` 和 `real-offer-benchmarks.md` 移入 `chengzicv-resume` 的 references，简历类标准只保留一个来源。
+- 新增 `virtual-case-design.md` 和 `virtual-experience-design.md`，只定义虚拟案例要设计哪些事实（需求、约束、判断、证据、演进、复盘），不定义简历句式。
+- 修正 Case Factory 的 references 目录引用 resume-latest 时的相对路径：从 `../` 改为 `../../`，避免从 references 目录回退一级后指向不存在的路径。
+- 内外饰虚拟简历按新标准重写：`## 个人优势` 5 层、`**背景：**` 行、单层 bullets、结果句；不再出现「项目背景 / 我的职责 / 成果」三段标签。
+- 验证：虚拟案例 manifest 校验通过，Case Factory 7 项单元测试通过，两个 Skill 的内部 Markdown 链接与内联相对路径均无断链。
+
 ## 2026-10-15
 
 **说明文案统一改版**（README 与 SkillHub）

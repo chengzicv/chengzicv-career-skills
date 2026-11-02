@@ -1,6 +1,7 @@
 ---
 name: chengzicv-update
 description: 更新或重新同步官方 ChengziCV 求职 Skills。仅在用户明确提出“更新 ChengziCV Skills”“升级橙子简历 Skills”“重新安装最新版”等请求时使用；如果用户只是询问版本、更新内容或是否需要更新，只回答问题，不执行安装。
+disable-model-invocation: true
 ---
 
 

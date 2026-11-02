@@ -1,6 +1,7 @@
 ---
 name: chengzicv-interview-mock
 description: 通过五题模拟面试生成企业初筛诊断；在用户需要 HR 面或综合面训练时使用。
+disable-model-invocation: true
 ---
 
 # ChengziCV Mock Interview
@@ -131,6 +132,14 @@ Skill 不承担持久化，不把 Evidence Pack 当作对话记忆。
 - 输出三个 2-3 分钟复练任务。
 
 产品 Runtime 使用 `scripts/validate_report.py` 校验；失败时根据错误重试，持续失败则回退为不带分数的证据摘要。
+
+### 交付形态
+
+诊断校验通过后，按 `assets/mock-report-template.html` 渲染 HTML 报告并交付。对应关系：企业视角结论 → 判定块，`VERDICT` 只用推进 / 待定 / 当前不建议推进；已经讲清楚的部分与最需要补证据的部分 → 判定块下并列两栏；维度诊断 → 刻度行，级别描述取 `scorecards/dimensions.json`，`score: null` 的维度整段不渲染；原话证据卡 → 逐题记录；三个复练任务 → 任务行；边界说明 → 页脚。
+
+不出总分、不出击败百分比；「更好说法」只重组已有事实；题号、追问次数、待确认项如实呈现。
+
+占位符口径：`ROUND_LABEL` 写面试轮次（HR 初筛 / 综合面），不确定写「模拟场」；`BASIS_NOTE` 只列事实来源。
 
 ## 恢复规则
 

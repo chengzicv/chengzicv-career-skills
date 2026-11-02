@@ -12,7 +12,11 @@
 
 各岗在工作对象、需求方、关键判断、资源约束、协作和结果上应有差异。经营项目不是统一“校园开店”模板；专业限制决定能做什么，不因无法制作桌面作品集就排除复杂岗位。
 
-已有确认范文直接沿用其深度，不再次要求用户提供素材或批准同一写作风格。也不把确认一岗理解为批准其余岗位正文。
+已有确认稿只复用岗位研究、事实深度和岗位文章口气；旧简历版式不复用，虚拟简历一律按 `../../chengzicv-resume/SKILL.md` 的当前标准重写。不因确认过一岗就默认批准其余岗位正文。
+
+## 简历标准
+
+虚拟简历不在此文件定义写法。动笔前按 SKILL.md「唯一简历标准」读取 `../../chengzicv-resume/SKILL.md`，以及 `../../chengzicv-resume/references/` 下的 `plainspoken-resume-style.md`、`advantage-block.md`、`evidence-safeguard.md`、`one-page-markdown-rules.md`。本批次只负责岗位选择、事实设定、双稿一致和逐岗审核。
 
 ## 内部进度
 

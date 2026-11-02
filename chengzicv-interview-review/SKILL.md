@@ -1,6 +1,7 @@
 ---
 name: chengzicv-interview-review
 description: 将面试录音或逐字稿转成证据诊断和面经复盘；在用户需要复盘真实面试时使用。
+disable-model-invocation: true
 ---
 
 # ChengziCV Interview Review
@@ -133,6 +134,12 @@ Skill 不承担持久化，不把 Evidence Pack 当作对话记忆。
 6. 知识题、技术题和现场方案题可给通用参考答案，但必须标明“参考方案，不代表原项目实现”。
 7. 录音中断或候选人未回答时仍保留该题，并明确标记。
 8. 单独执行此路由时默认不输出维度分数或推进结论。
+
+### 交付形态
+
+`diagnosis_report` 与 `full_review` 完成后，按 `assets/review-report-template.html` 渲染 HTML 复盘报告并交付。逐题还原四列（问题、你答了什么、面试官反应、诊断）全部来自 transcript 与 Evidence Pack；面试官反应区分有原话与推断，推断必须标注。归因只列实际命中的类别，没命中的整段删除。`full_review` 的面经拆解附加在「面经沉淀」节；单独跑 `interview_experience_deconstruction` 时按 `assets/interview-experience-template.html` 渲染独立的面经 HTML，内容结构仍按 `references/interview-experience-template.md`。公司名可以写进标题（这份报告只给候选人本人看），面试官姓名与内部项目代号只进「不外传」栏，标题和正文不出现。
+
+占位符口径：`LEAD_CONCLUSION` 写本场一句结论；`FACT_CARDS` 只放三张数得出的事（题数、命中类别数、答不上的题数），数不出就整块删除；`ACTION_TASKS` 对应「下一场动作」三条。面经模板里，`MAP_ITEMS` 写 3—6 个考察方向，`CHAIN` 用文字箭头写追问怎么收窄，`SUMMARY_ROWS` 覆盖全部有诊断价值的问答组（数量不固定），`PATTERN_NOTE` 写整场追问规律，`PREP_TASKS` 只选最影响下一场的 3—5 个回答。
 
 ## 恢复规则
 

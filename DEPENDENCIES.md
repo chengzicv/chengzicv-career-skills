@@ -16,7 +16,7 @@
 | `chengzicv-interview-mock` | 可交接到专项、简历或复盘 | Python 仅在运行确定性校验脚本时需要 | 校验器只使用 Python 标准库，无第三方包 |
 | `chengzicv-interview-practice` | 可交接到简历、初筛或复盘 | 网页搜索和代码工具均为可选 | 继续训练并明确降低时效性判断置信度 |
 | `chengzicv-interview-review` | 按复盘证据回补其他入口 | 音视频转写能力视宿主环境而定 | 只请求一次逐字稿，不假装已读取音视频 |
-| `chengzicv-case-factory` | 独立生成虚拟简历和岗位入门案例，可作为职业了解与简历深度参考 | 时效性岗位事实需要联网；Markdown 为默认交付 | 无法联网时只基于用户材料与已有知识生成，并标记待核验事实 |
+| `chengzicv-case-factory` | 独立生成虚拟简历和岗位入门案例；虚拟简历的写法引用 `chengzicv-resume` 的标准，可作为职业了解与简历深度参考 | 时效性岗位事实需要联网；Markdown 为默认交付 | 无法联网时只基于用户材料与已有知识生成，并标记待核验事实 |
 | `chengzicv-update` | 只更新并重新同步官方 ChengziCV Skills | 需要宿主能够执行终端命令 | 无终端能力时提示用户重新下载公开安装包 |
 
 ## 已消除的隐藏依赖
