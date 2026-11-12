@@ -12,7 +12,7 @@ disable-model-invocation: true
 
 在这台机器上，不执行下文的全局 `npx skills add ... -g --all`，不创建 `.agents/skills` 或 Grok 薄适配层，也不按旧脚本清理客户端专属入口。下文这些独立安装步骤仅适用于未接入 JC 管理器的环境。
 
-新增：把候选文件放到统一仓库，检查名称及已有改动，然后执行 `python3 /Users/codemao/.cc-switch/skills/jc-skill-installer/scripts/manage.py activate <仓库相对路径>`。更新：先获取上游到临时目录，比较、保存本地修改与旧内容，仅替换对应的统一源文件，遵循已注册的版本归档规则，最后执行 `python3 /Users/codemao/.cc-switch/skills/jc-skill-installer/scripts/manage.py update <仓库相对路径>`；更新整个套件后可执行 `python3 /Users/codemao/.cc-switch/skills/jc-skill-installer/scripts/manage.py reconcile`。停用：执行 `python3 /Users/codemao/.cc-switch/skills/jc-skill-installer/scripts/manage.py deactivate <skill-name>`。
+新增：把候选文件放到统一仓库，检查名称及已有改动，然后执行 `python3 ~/.cc-switch/skills/jc-skill-installer/scripts/manage.py activate <仓库相对路径>`。更新：先获取上游到临时目录，比较、保存本地修改与旧内容，仅替换对应的统一源文件，遵循已注册的版本归档规则，最后执行 `python3 ~/.cc-switch/skills/jc-skill-installer/scripts/manage.py update <仓库相对路径>`；更新整个套件后可执行 `python3 ~/.cc-switch/skills/jc-skill-installer/scripts/manage.py reconcile`。停用：执行 `python3 ~/.cc-switch/skills/jc-skill-installer/scripts/manage.py deactivate <skill-name>`。
 
 管理器检查成功后才能报告完成；失败时保留源文件与原有用户材料，处理冲突后重跑。
 <!-- jc-skill-installer:route:end -->
