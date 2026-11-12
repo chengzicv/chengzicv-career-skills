@@ -27,7 +27,7 @@ from build_release import (
 
 FORBIDDEN_PARTS = {".DS_Store", "__pycache__", "candidate-data", "local-data", "outputs"}
 MARKDOWN_LINK = re.compile(r"\[[^\]]*\]\(([^)]+)\)")
-SKILLHUB_ALLOWED_SUFFIXES = {".md", ".yaml", ".yml", ".json", ".py", ".txt", ".svg", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".csv", ".toml", ".html"}
+SKILLHUB_ALLOWED_SUFFIXES = {".md", ".yaml", ".yml", ".json", ".py", ".sh", ".txt", ".svg", ".png", ".jpg", ".jpeg", ".webp", ".gif", ".csv", ".toml", ".html"}
 
 
 def fail(message: str) -> None:
@@ -110,7 +110,7 @@ def verify_skillhub_bundle(version: str) -> None:
     with zipfile.ZipFile(asset) as archive:
         names = archive.namelist()
         validate_names(names, "SkillHub bundle")
-        required = {"SKILL.md", "WORKFLOW.md", "agents/openai.yaml"}
+        required = {"SKILL.md", "WORKFLOW.md", "agents/openai.yaml", "skills/chengzicv/version.txt"}
         required.update(
             f"skills/{skill_name}/SKILL.md"
             for _, skill_name in PUBLIC_SKILLS
@@ -142,6 +142,8 @@ def verify_skillhub_bundle(version: str) -> None:
             fail("SkillHub overview does not link to its execution workflow")
         if archive.read("WORKFLOW.md") != render_skillhub_workflow():
             fail("SkillHub workflow differs from the canonical routing instructions")
+        if archive.read("skills/chengzicv/version.txt").decode("utf-8").strip() != version:
+            fail("SkillHub bundle version.txt does not match VERSION")
         if re.search(r"<(?:div|picture|img|source)\b|```mermaid", root_text):
             fail("SkillHub overview contains unsupported README markup")
 

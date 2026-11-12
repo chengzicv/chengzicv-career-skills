@@ -113,6 +113,7 @@ class OverviewTests(unittest.TestCase):
         for public_name, source_name in build.SOURCE_SKILLS.items():
             expected = expected.replace(source_name, public_name)
         expected = expected.replace("../chengzicv-", "skills/chengzicv-")
+        expected = expected.replace("scripts/check-update.sh", "skills/chengzicv/scripts/check-update.sh")
         self.assertEqual(build.render_skillhub_workflow().decode("utf-8"), expected)
         root = build.render_skillhub_root("1.2.2").decode("utf-8")
         for key in ("name", "description"):

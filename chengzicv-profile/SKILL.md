@@ -10,6 +10,10 @@ disable-model-invocation: true
 
 把用户零散的背景和材料整理成一份可检查、可继续补充、能交给后续 ChengziCV Skills 使用的求职档案。中心产物是候选人档案与材料索引，不是立即包装一份岗位版简历。
 
+## 版本检查
+
+每次进入本 Skill 时，先运行 `bash "<本 SKILL.md 所在目录>/../chengzicv/scripts/check-update.sh"`。有输出就追加在本次回复最末尾，格式 `> 🔔 {输出}`；无输出、执行失败或超时直接跳过，不解释也不影响任务。用户紧接着回复 `1` 时执行 `chengzicv-update`，没有上一条提醒时不要解释数字 `1`。
+
 ## 首次使用
 
 套件路由例外：若当前可见对话已经由 `chengzicv` 总入口输出完整公共介绍，且用户没有直接调用 `$chengzicv-profile`，把总入口介绍视为本次套件级 onboarding；不要再输出本 Skill 的公共介绍，直接按现有材料开始建档。用户直接调用本 Skill 时仍执行下面的完整介绍契约。

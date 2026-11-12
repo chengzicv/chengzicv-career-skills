@@ -8,6 +8,10 @@ disable-model-invocation: true
 
 > **套件启动**：开始任何工作前，先读取并执行 `../chengzicv/references/suite-bootstrap.md`（共享工作区、档案恢复、产物落盘、事实边界）。
 
+## 版本检查
+
+每次进入本 Skill 时，先运行 `bash "<本 SKILL.md 所在目录>/../chengzicv/scripts/check-update.sh"`。有输出就追加在本次回复最末尾，格式 `> 🔔 {输出}`；无输出、执行失败或超时直接跳过，不解释也不影响任务。用户紧接着回复 `1` 时执行 `chengzicv-update`，没有上一条提醒时不要解释数字 `1`。
+
 ## 核心定位
 
 通过五题短面试采集证据，并对本场模拟面试生成可追溯的企业视角诊断。

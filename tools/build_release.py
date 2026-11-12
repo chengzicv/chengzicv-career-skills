@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import base64
 import hashlib
+import json
 from html.parser import HTMLParser
 import re
 import shutil
@@ -40,6 +41,7 @@ RUNTIME_ENTRIES = (
     "prompts",
     "assets",
     "strategy.json",
+    "version.txt",
     "workspace/README.md",
 )
 PUBLIC_SKILLS = (
@@ -119,6 +121,9 @@ def public_runtime_bytes(path: Path) -> bytes:
     text = data.decode("utf-8")
     for public_name, source_name in SOURCE_SKILLS.items():
         text = text.replace(source_name, public_name)
+    # Local machine paths must never ship: the managed routing block carries the
+    # maintainer's home directory, which is meaningless to users.
+    text = re.sub(r"/Users/[^/\s`\"'<>]+", "~", text)
     return text.encode("utf-8")
 
 
@@ -130,7 +135,46 @@ def skillhub_source() -> tuple[str, str]:
     match = re.match(r"\A---\n(.*?)\n---\n", text, re.DOTALL)
     if not match:
         raise ValueError("chengzicv/SKILL.md has no valid frontmatter")
-    return match.group(1), text[match.end():].replace("../chengzicv-", "skills/chengzicv-")
+    body = text[match.end():].replace("../chengzicv-", "skills/chengzicv-")
+    # WORKFLOW.md sits at the package root while the scripts live under skills/chengzicv/.
+    body = body.replace("scripts/check-update.sh", "skills/chengzicv/scripts/check-update.sh")
+    return match.group(1), body
+
+
+def validate_update_data(data: object, version: str, runtime_version: str) -> None:
+    """Pure checks for the update manifest; kept separate so tests never touch shipped files."""
+    if not isinstance(data, dict):
+        raise ValueError("UPDATE.json must be a JSON object")
+    if data.get("version") != version:
+        raise ValueError(f"UPDATE.json version {data.get('version')!r} does not match VERSION {version!r}")
+    notice = data.get("notice")
+    if not isinstance(notice, str) or not 1 <= len(notice.strip()) <= 80:
+        raise ValueError("UPDATE.json notice must be 1-80 characters")
+    if any(ch in notice for ch in "\r\n\t"):
+        raise ValueError("UPDATE.json notice cannot contain line breaks or tabs")
+    edition = data.get("edition")
+    if isinstance(edition, bool) or not isinstance(edition, int) or edition <= 0:
+        raise ValueError("UPDATE.json edition must be a positive integer")
+    if not str(data.get("details_url", "")).startswith("https://"):
+        raise ValueError("UPDATE.json details_url must be an https URL")
+    if runtime_version.strip() != version:
+        raise ValueError("chengzicv/version.txt must match VERSION (the in-Skill update check reads it)")
+
+
+def validate_update_manifest(version: str) -> dict:
+    """The public UPDATE.json drives the in-Skill version check; it must match VERSION."""
+    path = PACKAGE_ROOT / "UPDATE.json"
+    if not path.is_file():
+        raise ValueError("missing UPDATE.json")
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"UPDATE.json is not valid JSON: {exc}") from exc
+    runtime_path = SKILLS_ROOT / "chengzicv" / "version.txt"
+    if not runtime_path.is_file():
+        raise ValueError("missing chengzicv/version.txt")
+    validate_update_data(data, version, runtime_path.read_text(encoding="utf-8"))
+    return data
 
 
 def readme_section(readme: str, heading: str) -> str:
@@ -312,6 +356,7 @@ def main() -> int:
     if (PACKAGE_ROOT / SKILLHUB_LOGO).read_text(encoding="utf-8") != render_skillhub_logo():
         raise ValueError("SkillHub logo is stale; run tools/build_release.py --prepare-assets and include it in the commit")
     version = read_version()
+    validate_update_manifest(version)
     if OUTPUT.exists():
         shutil.rmtree(OUTPUT)
     GITHUB_OUTPUT.mkdir(parents=True)

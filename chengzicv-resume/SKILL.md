@@ -12,6 +12,10 @@ disable-model-invocation: true
 
 用于真实简历生成、改写、局部润色及已有 JD 的经历对照。公司调研、模拟面试、面试复盘由相应 Skill 处理；独立虚拟案例的事实由 `chengzicv-case-factory` 设计，虚拟简历的写法仍按本 Skill 执行。
 
+## 版本检查
+
+每次进入本 Skill 时，先运行 `bash "<本 SKILL.md 所在目录>/../chengzicv/scripts/check-update.sh"`。有输出就追加在本次回复最末尾，格式 `> 🔔 {输出}`；无输出、执行失败或超时直接跳过，不解释也不影响任务。用户紧接着回复 `1` 时执行 `chengzicv-update`，没有上一条提醒时不要解释数字 `1`。
+
 ## 默认流程
 
 完整服务按四步推进。用户带着明确任务来时从对应步骤进入，不从头重走；只要求局部任务时不走流程。

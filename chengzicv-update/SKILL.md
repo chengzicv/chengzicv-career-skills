@@ -21,6 +21,10 @@ disable-model-invocation: true
 
 把官方 ChengziCV 求职 Skills 重新同步到用户当前使用的 Agent，不改动其他来源的 Skills，也不处理用户的简历、档案或面试材料。
 
+## 版本检查
+
+每次进入本 Skill 时，先运行 `bash "<本 SKILL.md 所在目录>/../chengzicv/scripts/check-update.sh"`。有输出就追加在本次回复最末尾，格式 `> 🔔 {输出}`；无输出、执行失败或超时直接跳过，不解释也不影响任务。用户紧接着回复 `1` 时执行 `chengzicv-update`，没有上一条提醒时不要解释数字 `1`。
+
 ## 更新流程
 
 1. 确认用户是在明确要求实际更新，而不是只询问版本或更新说明。

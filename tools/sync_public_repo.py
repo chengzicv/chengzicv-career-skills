@@ -22,6 +22,7 @@ PUBLIC_ROOT_FILES = (
     "LICENSE",
     "PACKAGING.md",
     "README.md",
+    "UPDATE.json",
     "VERSION",
 )
 PUBLIC_ROOT_DIRS = (".github", "assets", "evals", "tools")

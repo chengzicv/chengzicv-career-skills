@@ -1,0 +1,6 @@
+{
+  "version": "1.9.0",
+  "edition": 19,
+  "notice": "总入口和 12 个子技能会自己检查新版本，发现更新时提醒你一键升级",
+  "details_url": "https://github.com/chengzicv/chengzicv-career-skills/commits/main"
+}
